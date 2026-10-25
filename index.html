@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Selada - Kelompok 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body class="bg-blue-50 p-6 font-sans text-gray-800">
+
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-3xl font-bold text-blue-700 mb-6 text-center">Dashboard Smart Farming - Kelompok 2</h1>
+        
+        <!-- Kartu Indikator -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white p-4 rounded-lg shadow border-t-4 border-blue-500 text-center">
+                <h3 class="text-gray-500 text-sm">Suhu Udara</h3>
+                <p class="text-2xl font-bold text-blue-600" id="valSuhu">-- °C</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-t-4 border-blue-400 text-center">
+                <h3 class="text-gray-500 text-sm">Kelembaban Udara</h3>
+                <p class="text-2xl font-bold text-blue-500" id="valHum">-- %</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-t-4 border-cyan-500 text-center">
+                <h3 class="text-gray-500 text-sm">Kelembaban Tanah</h3>
+                <p class="text-2xl font-bold text-cyan-600" id="valSoil">-- %</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow border-t-4 border-indigo-500 text-center">
+                <h3 class="text-gray-500 text-sm">Status Pompa</h3>
+                <p class="text-2xl font-bold text-indigo-600" id="valStatus">--</p>
+            </div>
+        </div>
+
+        <!-- Grafik History -->
+        <div class="bg-white p-4 rounded-lg shadow">
+            <h2 class="text-xl font-semibold mb-4 text-blue-800">Grafik History Real-time</h2>
+            <canvas id="historyChart" height="100"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // 1. Konfigurasi Firebase Anda
+        const firebaseConfig = {
+            databaseURL: "https://smart-farming-selada-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        firebase.initializeApp(firebaseConfig);
+        
+        // Kita buat folder khusus 'kelompok2' di database
+        const db = firebase.database().ref('kelompok2');
+
+        // 2. Setup Grafik Chart.js
+        const ctx = document.getElementById('historyChart').getContext('2d');
+        const historyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // Waktu
+                datasets: [
+                    { label: 'Suhu (°C)', borderColor: '#2563eb', data: [], fill: false, tension: 0.3 },
+                    { label: 'Kelembaban Tanah (%)', borderColor: '#06b6d4', data: [], fill: false, tension: 0.3 }
+                ]
+            },
+            options: { animation: { duration: 500 }, scales: { y: { beginAtZero: true } } }
+        });
+
+        // 3. Menarik Data Real-time dari Firebase
+        db.limitToLast(20).on('child_added', (snapshot) => {
+            const data = snapshot.val();
+            
+            // Update Kartu Angka
+            document.getElementById('valSuhu').innerText = data.suhu + " °C";
+            document.getElementById('valHum').innerText = data.kelembapan_udara + " %";
+            document.getElementById('valSoil').innerText = data.kelembapan_tanah + " %";
+            document.getElementById('valStatus').innerText = data.status;
+
+            // Update Grafik (Auto-play)
+            const waktu = new Date().toLocaleTimeString('id-ID');
+            historyChart.data.labels.push(waktu);
+            historyChart.data.datasets[0].data.push(data.suhu);
+            historyChart.data.datasets[1].data.push(data.kelembapan_tanah);
+            
+            // Hapus data lama agar grafik tidak terlalu padat (maksimal 20 titik)
+            if(historyChart.data.labels.length > 20) {
+                historyChart.data.labels.shift();
+                historyChart.data.datasets.forEach(dataset => dataset.data.shift());
+            }
+            historyChart.update();
+        });
+    </script>
+</body>
+</html>
