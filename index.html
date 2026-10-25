@@ -177,14 +177,14 @@
             </div>
         </div>
 
-        <!-- ================= BAGIAN 2: TABEL DATA & EXCEL ================= -->
+        <!-- ================= BAGIAN 2: TABEL DATA PERMANEN & EXCEL ================= -->
         <div class="glass p-6 rounded-3xl shadow-2xl mb-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
                 <div>
                     <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
-                        <span>📋</span> Tabel Riwayat Pengambilan Data
+                        <span>📋</span> Tabel Riwayat Pengambilan Data (Permanen Cloud)
                     </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Catatan berkala kondisi tanaman untuk pelaporan & evaluasi pertanian</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Tersimpan di Cloud Database, bisa dibuka dari perangkat mana pun (Laptop, HP, Tablet)</p>
                 </div>
                 
                 <!-- Tombol Ambil Data & Download Excel -->
@@ -194,9 +194,6 @@
                     </button>
                     <button onclick="downloadExcel()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-lg shadow-emerald-600/30 transition flex items-center gap-2">
                         <span>📥</span> Download Excel (.xlsx)
-                    </button>
-                    <button onclick="hapusSemuaDataTabel()" class="bg-slate-800 hover:bg-red-900/40 text-gray-400 hover:text-red-400 p-2.5 rounded-xl text-xs border border-slate-700 transition" title="Hapus Riwayat">
-                        🗑️
                     </button>
                 </div>
             </div>
@@ -213,6 +210,7 @@
                             <th class="py-3 px-4">Kelembapan Tanah</th>
                             <th class="py-3 px-4">Kondisi Tanah</th>
                             <th class="py-3 px-4">Status Pompa</th>
+                            <th class="py-3 px-4 text-center">Aksi Hapus</th>
                         </tr>
                     </thead>
                     <tbody id="tabelBody" class="divide-y divide-slate-800/60 font-mono text-xs">
@@ -263,7 +261,7 @@
                     </div>
 
                     <div id="aiDiagnosisText" class="text-xs text-gray-300 flex-grow bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 leading-relaxed overflow-y-auto max-h-48">
-                        Klik tombol <b>"📸 Ambil Foto & Analisis AI"</b> untuk memotret tanaman dan mendiagnosis kesehatan daun secara otomatis.
+                        Klik tombol <b>"📸 Ambil Foto & Analisis AI Tanaman"</b> untuk memotret tanaman dan mendiagnosis kesehatan daun secara otomatis.
                     </div>
                 </div>
 
@@ -435,6 +433,7 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database().ref('kelompok2');
+        const dbTabel = firebase.database().ref('tabel_rekap');
 
         // Setup Chart.js
         Chart.defaults.color = '#94a3b8';
@@ -468,7 +467,7 @@
             waktu: ""
         };
 
-        // Menarik Data Real-time dari Firebase
+        // Menarik Data Real-time Sensor dari Firebase
         db.limitToLast(1).on('child_added', (snapshot) => {
             const raw = snapshot.val();
             const soil = parseFloat(raw.kelembapan_tanah) || 0;
@@ -568,8 +567,25 @@
             img.src = `http://${ip}:81/stream`;
         }
 
-        // ================= 4. TABEL RIWAYAT DATA & EXCEL CANTIK =================
-        let riwayatTabel = JSON.parse(localStorage.getItem('selada_tabel_data') || '[]');
+        // ================= 4. TABEL RIWAYAT PERMANEN (CLOUD DATABASE FIREBASE) =================
+        let riwayatTabel = [];
+
+        // Sinkronisasi otomatis real-time dari Firebase agar data persis sama di semua perangkat (HP, Laptop, PC)!
+        dbTabel.on('value', (snapshot) => {
+            riwayatTabel = [];
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(key => {
+                    riwayatTabel.push({
+                        _key: key,
+                        ...data[key]
+                    });
+                });
+                // Urutkan dari data terbaru
+                riwayatTabel.reverse();
+            }
+            renderTabel();
+        });
 
         function renderTabel() {
             const tbody = document.getElementById('tabelBody');
@@ -592,12 +608,18 @@
                     <td class="py-3 px-4 text-cyan-300">${row.kelembapan_udara} %</td>
                     <td class="py-3 px-4 text-emerald-400 font-semibold">${row.kelembapan_tanah} %</td>
                     <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${row.statusTanah === 'Kering' ? 'bg-orange-900/40 text-orange-400 border border-orange-500/30' : (row.statusTanah === 'Normal' ? 'bg-emerald-900/40 text-emerald-400 border border-emerald-500/30' : 'bg-blue-900/40 text-blue-400 border border-blue-500/30')}">${row.statusTanah}</span></td>
-                    <td class="py-3 px-4 font-bold ${row.statusPompa.includes('ON') ? 'text-emerald-400' : 'text-gray-400'}">${row.statusPompa}</td>
+                    <td class="py-3 px-4 font-bold ${row.statusPompa && row.statusPompa.includes('ON') ? 'text-emerald-400' : 'text-gray-400'}">${row.statusPompa}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="hapusBarisTabel('${row._key}')" class="bg-red-500/10 hover:bg-red-600 text-red-400 hover:text-white px-2.5 py-1 rounded-lg border border-red-500/20 transition text-xs font-bold" title="Hapus baris data ini saja">
+                            🗑️ Hapus
+                        </button>
+                    </td>
                 `;
                 tbody.appendChild(tr);
             });
         }
 
+        // Simpan Permanen ke Firebase (Tersimpan di Cloud, Bisa Diakses dari Semua Perangkat)
         function catatDataTabel() {
             const itemBaru = {
                 waktu: new Date().toLocaleString('id-ID'),
@@ -605,14 +627,31 @@
                 kelembapan_udara: dataTerakhir.kelembapan_udara,
                 kelembapan_tanah: dataTerakhir.kelembapan_tanah,
                 statusTanah: dataTerakhir.statusTanah,
-                statusPompa: dataTerakhir.statusPompa
+                statusPompa: dataTerakhir.statusPompa,
+                timestamp: firebase.database.ServerValue.TIMESTAMP
             };
 
-            riwayatTabel.unshift(itemBaru);
-            if (riwayatTabel.length > 50) riwayatTabel.pop(); // Simpan max 50 riwayat
-            localStorage.setItem('selada_tabel_data', JSON.stringify(riwayatTabel));
-            renderTabel();
-            alert("✅ Data sensor berhasil dicatat ke tabel!");
+            dbTabel.push(itemBaru)
+                .then(() => {
+                    alert("✅ Data sensor berhasil dicatat secara permanen ke Database Cloud!");
+                })
+                .catch(err => {
+                    alert("Gagal menyimpan ke database: " + err.message);
+                });
+        }
+
+        // Hapus Data 1 per 1 jika ada salah klik atau salah ambil data
+        function hapusBarisTabel(key) {
+            if (!key) return;
+            if (confirm("Apakah Anda yakin ingin menghapus 1 baris data ini?")) {
+                dbTabel.child(key).remove()
+                    .then(() => {
+                        alert("✅ Baris data berhasil dihapus!");
+                    })
+                    .catch(err => {
+                        alert("Gagal menghapus baris data: " + err.message);
+                    });
+            }
         }
 
         // DOWNLOAD EXCEL CANTIK DENGAN AUTO-WIDTH KOLOM
@@ -624,7 +663,7 @@
             const excelRows = [
                 ["LAPORAN REKAPITULASI MONITORING SELADA KERITING"],
                 ["Waktu Ekspor: " + new Date().toLocaleString('id-ID')],
-                [], // Baris kosong pemisah
+                [],
                 ["No", "Jadwal Pengambilan (Tanggal & Waktu)", "Suhu Udara (°C)", "Kelembapan Udara (%)", "Kelembapan Tanah (%)", "Kondisi Tanah", "Status Pompa Air"]
             ];
 
@@ -658,14 +697,6 @@
 
             const tgl = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, `Laporan_Selada_Keriting_${tgl}.xlsx`);
-        }
-
-        function hapusSemuaDataTabel() {
-            if (confirm("Apakah Anda yakin ingin menghapus seluruh riwayat data di tabel?")) {
-                riwayatTabel = [];
-                localStorage.removeItem('selada_tabel_data');
-                renderTabel();
-            }
         }
 
         // ================= 5. ASISTEN AI (VISION & CHATBOT) =================
@@ -748,7 +779,7 @@
             badge.innerText = "Selesai";
             badge.className = "text-[10px] px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300";
 
-            // 3. Catat juga otomatis ke riwayat tabel
+            // 3. Catat juga otomatis ke riwayat tabel database
             catatDataTabel();
 
             // 4. Langsung Buka Modal Dokumen Laporan Email yang Cantik!
@@ -888,7 +919,6 @@
         // ================= INISIALISASI AWAL =================
         window.onload = function() {
             checkAuth();
-            renderTabel();
             const savedKey = localStorage.getItem('gemini_api_key');
             if (savedKey) document.getElementById('geminiApiKey').value = savedKey;
         };
