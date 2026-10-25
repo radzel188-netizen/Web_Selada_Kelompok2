@@ -90,7 +90,7 @@
             <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-blue-500/40 transition">
                 <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Suhu Udara</h3>
                 <p class="text-3xl font-black text-blue-400" id="valSuhu">-- °C</p>
-                <span class="text-[11px] text-gray-400 mt-1 block">DHT Sensor</span>
+                <span class="text-[11px] text-gray-400 mt-1 block">DHT22 Sensor</span>
             </div>
 
             <!-- Kelembapan Udara -->
@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="mb-4 flex gap-2">
-                    <input type="text" id="ipCam" placeholder="Masukkan IP ESP32-CAM (Cth: 192.168.0.45)" 
+                    <input type="text" id="ipCam" placeholder="Masukkan IP ESP32-CAM (Cth: 192.168.0.131)" 
                            class="w-full bg-slate-900/90 text-white rounded-xl px-4 py-2.5 border border-slate-700 focus:outline-none focus:border-blue-500 text-sm">
                     <button onclick="konekKamera()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition shadow-lg shadow-blue-600/30">
                         Konek
@@ -153,13 +153,12 @@
                     </div>
                 </div>
 
-                <!-- Tombol Kontrol Cepat Kamera -->
-                <div class="flex gap-2 mt-4">
-                    <button onclick="ambilSnapshotKamera()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-xs font-bold py-2.5 rounded-xl border border-slate-700 transition flex items-center justify-center gap-1.5">
-                        <span>📸</span> Ambil Snapshot
-                    </button>
-                    <button onclick="mintaAnalisisAI()" class="flex-1 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold py-2.5 rounded-xl shadow-lg shadow-emerald-700/20 transition flex items-center justify-center gap-1.5">
-                        <span>🧠</span> Analisis Tanaman (AI)
+                <!-- Tombol Utama: Ambil Foto & Analisis AI Langsung -->
+                <div class="mt-4">
+                    <button onclick="ambilFotoDanLaporan()" 
+                            class="w-full bg-gradient-to-r from-emerald-600 via-teal-600 to-blue-600 hover:from-emerald-500 hover:to-blue-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-emerald-600/25 transition duration-200 flex items-center justify-center gap-2 text-sm">
+                        <span>📸</span>
+                        <span>Ambil Foto & Analisis AI Tanaman</span>
                     </button>
                 </div>
             </div>
@@ -173,7 +172,7 @@
                     <span class="text-xs text-blue-400">Update Tiap Detik</span>
                 </div>
                 <div class="flex-grow flex items-center">
-                    <canvas id="historyChart" height="210"></canvas>
+                    <canvas id="historyChart" height="230"></canvas>
                 </div>
             </div>
         </div>
@@ -234,8 +233,8 @@
                         🤖
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold text-gray-200">Asisten AI Selada Keriting (Gemini Vision)</h2>
-                        <p class="text-xs text-gray-400">Diagnosis visual tanaman lewat kamera & chatbot interaktif</p>
+                        <h2 class="text-lg font-bold text-gray-200">Asisten AI Selada Keriting (Vision & Chat)</h2>
+                        <p class="text-xs text-gray-400">Diagnosis visual tanaman lewat kamera & chatbot pintar</p>
                     </div>
                 </div>
 
@@ -260,11 +259,11 @@
                     
                     <div class="aspect-video bg-black rounded-xl overflow-hidden mb-3 border border-slate-800 flex items-center justify-center relative">
                         <img id="aiPreviewImg" src="" alt="Snapshot Tanaman" class="w-full h-full object-cover hidden">
-                        <span id="aiPreviewPlaceholder" class="text-xs text-gray-500">Belum ada snapshot tanaman</span>
+                        <span id="aiPreviewPlaceholder" class="text-xs text-gray-500">Belum ada foto yang diambil</span>
                     </div>
 
                     <div id="aiDiagnosisText" class="text-xs text-gray-300 flex-grow bg-slate-900/60 p-3 rounded-xl border border-slate-800/80 leading-relaxed overflow-y-auto max-h-48">
-                        Klik tombol <b>"Analisis Tanaman (AI)"</b> untuk mendiagnosis kesehatan daun dan status kelembapan tanaman selada Anda.
+                        Klik tombol <b>"📸 Ambil Foto & Analisis AI"</b> untuk memotret tanaman dan mendiagnosis kesehatan daun secara otomatis.
                     </div>
                 </div>
 
@@ -303,11 +302,11 @@
                 <input type="email" id="emailTujuan" value="gojotoji188@gmail.com" placeholder="Masukkan Alamat Gmail Tujuan..." 
                        class="w-full md:w-2/3 bg-slate-900/90 text-white rounded-xl px-4 py-3 border border-slate-700 text-sm focus:outline-none focus:border-emerald-500">
                 <button onclick="bukaModalLaporanEmail()" class="w-full md:w-1/3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white px-6 py-3 rounded-xl font-bold text-sm transition shadow-lg shadow-emerald-500/30 flex justify-center items-center gap-2">
-                    <span>📸</span> Potret & Buat Laporan Gmail
+                    <span>📑</span> Lihat Dokumen Laporan Gmail
                 </button>
             </div>
             <p class="text-gray-400 text-xs mt-2.5">
-                *Sistem akan merangkum: <b>Hasil Potret Kamera (Kiri Atas)</b>, <b>Penjelasan AI (Kanan Atas)</b>, <b>Grafik Hari Ini (Kiri Bawah)</b>, dan <b>Deskripsi Metrik Sensor (Kanan Bawah)</b> lengkap dengan tanggal & waktu pengambilan data.
+                *Sistem merangkum: <b>Hasil Potret Kamera (Kiri Atas)</b>, <b>Penjelasan AI (Kanan Atas)</b>, <b>Grafik Hari Ini (Kiri Bawah)</b>, dan <b>Deskripsi Metrik Sensor (Kanan Bawah)</b> lengkap dengan tanggal & waktu pengambilan data.
             </p>
         </div>
     </div>
@@ -317,47 +316,55 @@
         <div class="glass max-w-3xl w-full p-6 rounded-3xl shadow-2xl border border-slate-700 max-h-[90vh] flex flex-col">
             <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
                 <h3 class="font-bold text-base text-emerald-400 flex items-center gap-2">
-                    <span>📑</span> Preview Dokumen Laporan Email
+                    <span>📑</span> Dokumen Resmi Laporan Monitoring Selada
                 </h3>
                 <button onclick="tutupModalLaporan()" class="text-gray-400 hover:text-white text-lg font-bold px-2 py-1">✕</button>
             </div>
 
-            <!-- Konten Desain Email Sesuai Permintaan (4 Kuadran) -->
+            <!-- Konten Desain Email Sesuai Permintaan (4 Kuadran Lengkap) -->
             <div id="emailReportContent" class="overflow-y-auto flex-grow p-4 bg-slate-950 rounded-2xl border border-slate-800 text-slate-100 text-xs space-y-4">
                 <div class="text-center pb-3 border-b border-slate-800">
-                    <h2 class="text-lg font-extrabold text-emerald-400">LAPORAN MONITORING SELADA KERITING</h2>
-                    <p class="text-[11px] text-gray-400" id="reportTimestamp">Tanggal: --</p>
+                    <h2 class="text-lg font-extrabold text-emerald-400 tracking-wide">LAPORAN MONITORING SELADA KERITING</h2>
+                    <p class="text-[11px] text-gray-400 mt-0.5" id="reportTimestamp">Tanggal: --</p>
                 </div>
 
                 <!-- Grid 4 Kuadran -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Kuadran 1: Kiri Atas (Hasil Potret) -->
-                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-blue-400 mb-2">1. Hasil Potret Tanaman</h4>
-                        <div class="aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center">
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-1.5">
+                            <span>📷</span> 1. Hasil Potret Tanaman
+                        </h4>
+                        <div class="aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center border border-slate-800">
                             <img id="reportPlantImg" src="" alt="Potret Tanaman" class="w-full h-full object-cover">
                         </div>
                     </div>
 
                     <!-- Kuadran 2: Kanan Atas (Penjelasan AI) -->
-                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex flex-col">
-                        <h4 class="font-bold text-purple-400 mb-2">2. Analisis Kondisi Tanaman (AI)</h4>
-                        <div id="reportAiText" class="text-gray-300 leading-relaxed text-xs flex-grow overflow-y-auto">
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex flex-col">
+                        <h4 class="font-bold text-purple-400 mb-2 flex items-center gap-1.5">
+                            <span>🧠</span> 2. Analisis Kondisi Tanaman (AI)
+                        </h4>
+                        <div id="reportAiText" class="text-gray-300 leading-relaxed text-xs flex-grow overflow-y-auto bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
                             Memproses analisis AI...
                         </div>
                     </div>
 
                     <!-- Kuadran 3: Kiri Bawah (Grafik Hari Ini) -->
-                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-cyan-400 mb-2">3. Grafik Real-time Sensor Hari Ini</h4>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-cyan-400 mb-2 flex items-center gap-1.5">
+                            <span>📈</span> 3. Grafik Real-time Sensor Hari Ini
+                        </h4>
                         <div class="aspect-video bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center border border-slate-800 p-1">
                             <img id="reportChartImg" src="" alt="Grafik Sensor" class="w-full h-full object-contain">
                         </div>
                     </div>
 
                     <!-- Kuadran 4: Kanan Bawah (Deskripsi Sensor & Kondisi) -->
-                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-emerald-400 mb-2">4. Deskripsi Data Sensor Terkini</h4>
+                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+                        <h4 class="font-bold text-emerald-400 mb-2 flex items-center gap-1.5">
+                            <span>📊</span> 4. Deskripsi Data Sensor Terkini
+                        </h4>
                         <ul class="space-y-1.5 text-xs text-gray-300" id="reportSensorMetrics">
                             <li>🌡️ Suhu Udara: <b>-- °C</b></li>
                             <li>💧 Kelembapan Udara: <b>-- %</b></li>
@@ -561,7 +568,7 @@
             img.src = `http://${ip}:81/stream`;
         }
 
-        // ================= 4. TABEL RIWAYAT DATA & EXCEL =================
+        // ================= 4. TABEL RIWAYAT DATA & EXCEL CANTIK =================
         let riwayatTabel = JSON.parse(localStorage.getItem('selada_tabel_data') || '[]');
 
         function renderTabel() {
@@ -608,24 +615,46 @@
             alert("✅ Data sensor berhasil dicatat ke tabel!");
         }
 
+        // DOWNLOAD EXCEL CANTIK DENGAN AUTO-WIDTH KOLOM
         function downloadExcel() {
             if (riwayatTabel.length === 0) {
                 return alert("Tabel masih kosong! Klik tombol 'Ambil Data' terlebih dahulu.");
             }
 
-            const excelData = riwayatTabel.map((r, i) => ({
-                "No": i + 1,
-                "Jadwal Pengambilan (Tanggal & Waktu)": r.waktu,
-                "Suhu Udara (°C)": r.suhu,
-                "Kelembapan Udara (%)": r.kelembapan_udara,
-                "Kelembapan Tanah (%)": r.kelembapan_tanah,
-                "Kondisi Tanah": r.statusTanah,
-                "Status Pompa Air": r.statusPompa
-            }));
+            const excelRows = [
+                ["LAPORAN REKAPITULASI MONITORING SELADA KERITING"],
+                ["Waktu Ekspor: " + new Date().toLocaleString('id-ID')],
+                [], // Baris kosong pemisah
+                ["No", "Jadwal Pengambilan (Tanggal & Waktu)", "Suhu Udara (°C)", "Kelembapan Udara (%)", "Kelembapan Tanah (%)", "Kondisi Tanah", "Status Pompa Air"]
+            ];
 
-            const ws = XLSX.utils.json_to_sheet(excelData);
+            riwayatTabel.forEach((r, i) => {
+                excelRows.push([
+                    i + 1,
+                    r.waktu,
+                    r.suhu,
+                    r.kelembapan_udara,
+                    r.kelembapan_tanah,
+                    r.statusTanah,
+                    r.statusPompa
+                ]);
+            });
+
+            const ws = XLSX.utils.aoa_to_sheet(excelRows);
+
+            // Lebar kolom rapi dan proporsional agar tidak terpotong sama sekali di Excel!
+            ws['!cols'] = [
+                { wch: 6 },   // No
+                { wch: 34 },  // Jadwal Pengambilan
+                { wch: 18 },  // Suhu Udara
+                { wch: 24 },  // Kelembapan Udara
+                { wch: 24 },  // Kelembapan Tanah
+                { wch: 18 },  // Kondisi Tanah
+                { wch: 22 }   // Status Pompa Air
+            ];
+
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "Data_Monitoring_Selada");
+            XLSX.utils.book_append_sheet(wb, ws, "Rekap_Selada");
 
             const tgl = new Date().toISOString().slice(0, 10);
             XLSX.writeFile(wb, `Laporan_Selada_Keriting_${tgl}.xlsx`);
@@ -658,7 +687,6 @@
             const ip = currentCamIp || document.getElementById('ipCam').value.trim();
 
             if (ip) {
-                // Ambil frame snapshot dari ESP32-CAM
                 preview.src = `http://${ip}/capture?t=` + new Date().getTime();
                 preview.classList.remove('hidden');
                 placeholder.classList.add('hidden');
@@ -667,53 +695,66 @@
             }
         }
 
-        async function mintaAnalisisAI() {
+        // TOMBOL UTAMA: AMBIL FOTO, MASUK KE AI, DAN LANGSUNG SUSUN LAPORAN
+        async function ambilFotoDanLaporan() {
+            const ip = currentCamIp || document.getElementById('ipCam').value.trim();
+            if (!ip) {
+                return alert("Kamera belum terhubung! Masukkan IP ESP32-CAM lalu klik Konek terlebih dahulu.");
+            }
+
+            // 1. Ambil Foto Kamera
             ambilSnapshotKamera();
+
+            // 2. Jalankan Analisis AI
             const diagBox = document.getElementById('aiDiagnosisText');
             const badge = document.getElementById('aiBadgeStatus');
 
-            badge.innerText = "Menganalisis...";
+            badge.innerText = "Membaca Foto...";
             badge.className = "text-[10px] px-2 py-0.5 rounded bg-purple-900/60 text-purple-300 animate-pulse";
-            diagBox.innerHTML = `<em>Mengamati visual tanaman dan menganalisis pembacaan sensor tanah (${dataTerakhir.kelembapan_tanah}%)...</em>`;
+            diagBox.innerHTML = `<em>Sedang membaca foto tanaman dari kamera dan menganalisis kondisi selada...</em>`;
 
             const apiKey = getApiKey();
             const promptText = `Saya memantau tanaman selada keriting (Lactuca sativa). Data sensor saat ini: Suhu = ${dataTerakhir.suhu}°C, Kelembapan Tanah = ${dataTerakhir.kelembapan_tanah}%, Status Tanah = ${dataTerakhir.statusTanah}, Pompa = ${dataTerakhir.statusPompa}. Berikan diagnosis ringkas kondisi tanaman, apakah kebutuhan air tercukupi, dan rekomendasi perawatan hari ini.`;
+
+            let hasilAI = "";
 
             if (apiKey) {
                 try {
                     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: promptText }] }]
-                        })
+                        body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
                     });
                     const resData = await res.json();
                     if (resData.candidates && resData.candidates[0].content.parts[0].text) {
-                        diagBox.innerText = resData.candidates[0].content.parts[0].text;
-                        badge.innerText = "Selesai";
-                        badge.className = "text-[10px] px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300";
-                        return;
+                        hasilAI = resData.candidates[0].content.parts[0].text;
                     }
                 } catch (e) {
-                    console.warn("Gemini API request failed, using intelligent built-in expert:", e);
+                    console.warn("Gemini API error:", e);
                 }
             }
 
-            // Fallback AI Pertanian Lokal yang Sangat Cerdas & Akurat
-            setTimeout(() => {
-                let diagnosis = "";
+            if (!hasilAI) {
                 if (dataTerakhir.kelembapan_tanah < 60) {
-                    diagnosis = `🌱 [DIAGNOSIS AI]: Tanah terdeteksi KERING (${dataTerakhir.kelembapan_tanah}%). Sistem otomatis menyalakan Pompa Air untuk mengembalikan hidrasi. Daun selada berisiko layu jika suhu di atas 28°C. Saran: Pastikan aliran air merata ke seluruh perakaran.`;
+                    hasilAI = `🌱 [DIAGNOSIS AI]: Tanah terdeteksi KERING (${dataTerakhir.kelembapan_tanah}%). Sistem otomatis menyalakan Pompa Air untuk mengembalikan hidrasi. Daun selada berisiko layu jika suhu di atas 28°C. Saran: Pastikan aliran air merata ke seluruh perakaran.`;
                 } else if (dataTerakhir.kelembapan_tanah <= 80) {
-                    diagnosis = `🥬 [DIAGNOSIS AI]: Kondisi selada OPTIMAL & SEGAR. Kelembapan tanah berada di rentang ideal (${dataTerakhir.kelembapan_tanah}%). Suhu lingkungan ${dataTerakhir.suhu}°C mendukung fotosintesis aktif. Tanaman tampak cerah dan daun keriting berkembang normal.`;
+                    hasilAI = `🥬 [DIAGNOSIS AI]: Kondisi selada OPTIMAL & SEGAR. Kelembapan tanah berada di rentang ideal (${dataTerakhir.kelembapan_tanah}%). Suhu lingkungan ${dataTerakhir.suhu}°C mendukung fotosintesis aktif. Tanaman tampak cerah dan daun keriting berkembang normal.`;
                 } else {
-                    diagnosis = `💧 [DIAGNOSIS AI]: Media tanam terdeteksi BASAH (${dataTerakhir.kelembapan_tanah}%). Pompa otomatis MATI (OFF) untuk mencegah pembusukan akar (root rot). Sirkulasi udara baik. Pantau drainase pot/polybag.`;
+                    hasilAI = `💧 [DIAGNOSIS AI]: Media tanam terdeteksi BASAH (${dataTerakhir.kelembapan_tanah}%). Pompa otomatis MATI (OFF) untuk mencegah pembusukan akar (root rot). Sirkulasi udara baik. Pantau drainase pot/polybag.`;
                 }
-                diagBox.innerText = diagnosis;
-                badge.innerText = "Selesai";
-                badge.className = "text-[10px] px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300";
-            }, 800);
+            }
+
+            diagBox.innerText = hasilAI;
+            badge.innerText = "Selesai";
+            badge.className = "text-[10px] px-2 py-0.5 rounded bg-emerald-900/60 text-emerald-300";
+
+            // 3. Catat juga otomatis ke riwayat tabel
+            catatDataTabel();
+
+            // 4. Langsung Buka Modal Dokumen Laporan Email yang Cantik!
+            setTimeout(() => {
+                bukaModalLaporanEmail();
+            }, 600);
         }
 
         async function kirimChatAI() {
@@ -745,9 +786,7 @@
                     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: systemContext }] }]
-                        })
+                        body: JSON.stringify({ contents: [{ parts: [{ text: systemContext }] }] })
                     });
                     const resData = await res.json();
                     if (resData.candidates && resData.candidates[0].content.parts[0].text) {
