@@ -17,8 +17,6 @@
         body { background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e293b 100%); color: #f8fafc; min-height: 100vh; scroll-behavior: smooth; }
         .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
         .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.06); }
-        .chat-bubble-user { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
-        .chat-bubble-ai { background: rgba(51, 65, 85, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); }
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.6); }
@@ -99,17 +97,6 @@
                     </div>
                 </div>
                 <span class="text-[10px] text-purple-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
-            </button>
-
-            <button onclick="pilihDashboard('sec-chat')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-pink-600/20 hover:border-pink-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🤖</span>
-                    <div>
-                        <span class="font-bold text-white block">Asisten AI Chatbot</span>
-                        <span class="text-[10px] text-gray-400">Tanya Jawab Budidaya Selada</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-pink-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
             <button onclick="pilihDashboard('sec-email')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700/60 transition flex items-center justify-between group">
@@ -210,7 +197,7 @@
                     <h2 class="text-base font-bold text-gray-200 flex items-center gap-2">
                         <span>📡</span> Koneksi Jaringan Perangkat ESP32 (Sensor & Kamera)
                     </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Tempel IP dari masing-masing portal hotspot untuk menghubungkan ke web</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Tempel IP dari masing-masing portal hotspot untuk menyinkronkan data secara real-time</p>
                 </div>
                 <div class="flex items-center gap-2">
                     <span id="badgeSensorHeader" class="text-[10px] px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
@@ -233,11 +220,11 @@
                             <span id="badgeSensor" class="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold">Standby (Cloud)</span>
                         </div>
                         <p class="text-[11px] text-gray-400 mb-2.5">
-                            Hubungkan HP/Laptop ke hotspot <b>esp selada keriting</b> (192.168.4.1), salin IP yang didapat lalu tempel di sini:
+                            Hubungkan HP/Laptop ke hotspot <b>esp selada keriting</b> (http://192.168.4.1), salin IP yang didapat lalu tempel di sini:
                         </p>
                     </div>
                     <div class="flex gap-2">
-                        <input type="text" id="ipSensor" placeholder="IP ESP32 Sensor (Cth: 192.168.0.120)" 
+                        <input type="text" id="ipSensor" placeholder="IP ESP32 Sensor (Cth: 192.168.0.120 atau 172.20.10.3)" 
                                class="w-full bg-slate-950 text-white rounded-xl px-3.5 py-2.5 border border-slate-700 focus:outline-none focus:border-blue-500 text-xs">
                         <button onclick="konekSensor()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs transition shadow-lg shadow-blue-600/30 whitespace-nowrap">
                             Konek Sensor
@@ -255,7 +242,7 @@
                             <span id="badgeCam" class="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold">Offline</span>
                         </div>
                         <p class="text-[11px] text-gray-400 mb-2.5">
-                            Hubungkan ke hotspot <b>ESP32-CAM-SELADA</b> (192.168.4.1), salin IP kamera lalu tempel di sini:
+                            Hubungkan ke hotspot <b>ESP32-CAM-SELADA</b> (http://192.168.4.2), salin IP kamera lalu tempel di sini:
                         </p>
                     </div>
                     <div class="flex gap-2">
@@ -286,9 +273,6 @@
                 </button>
                 <button id="tab-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
                     <span>📊</span> <span>Dashboard 4: Model CNN</span>
-                </button>
-                <button id="tab-sec-chat" onclick="pilihDashboard('sec-chat')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
-                    <span>🤖</span> <span>Asisten AI</span>
                 </button>
                 <button id="tab-sec-email" onclick="pilihDashboard('sec-email')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
                     <span>📧</span> <span>Laporan Gmail</span>
@@ -632,50 +616,7 @@
             </div>
         </div>
 
-        <!-- ================= BAGIAN 6: ASISTEN AI CHATBOT ================= -->
-        <div id="sec-chat" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg shadow-purple-600/30">
-                        🤖
-                    </div>
-                    <div>
-                        <h2 class="text-lg font-bold text-gray-200">Asisten AI Selada Keriting (Interaktif Chatbot)</h2>
-                        <p class="text-xs text-gray-400">Tanya jawab pintar seputar selada keriting, nutrisi, penyakit daun, dan teknik panen</p>
-                    </div>
-                </div>
-
-                <!-- Input API Key Gemini (Opsional) -->
-                <div class="flex items-center gap-2">
-                    <input type="password" id="geminiApiKey" placeholder="API Key Gemini (Opsional)" 
-                           class="bg-slate-900/90 text-white rounded-xl px-3 py-1.5 border border-slate-700 text-xs focus:outline-none focus:border-purple-500 w-44">
-                    <button onclick="simpanApiKey()" class="bg-purple-700 hover:bg-purple-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
-                        Simpan
-                    </button>
-                </div>
-            </div>
-
-            <div class="glass-card p-4 rounded-2xl border border-slate-700/60 flex flex-col h-[380px]">
-                <!-- Area Pesan Chat -->
-                <div id="chatMessages" class="flex-grow overflow-y-auto space-y-3 p-2 pr-1 text-xs mb-3">
-                    <div class="chat-bubble-ai p-3 rounded-2xl max-w-[85%] text-gray-200">
-                        Halo! Saya asisten AI pintar budidaya selada keriting Anda. Tanyakan apa saja tentang kondisi daun, prediksi LSTM, analisis CNN, atau jadwal penyiraman! 🌱
-                    </div>
-                </div>
-
-                <!-- Input Chat -->
-                <div class="flex gap-2">
-                    <input type="text" id="userChatInput" placeholder="Ketik pertanyaan ke AI (misal: 'Apakah selada siap dipanen hari ini?')..." 
-                           onkeypress="if(event.key === 'Enter') kirimChatAI()"
-                           class="flex-grow bg-slate-900/90 text-white rounded-xl px-4 py-2.5 border border-slate-700 text-xs focus:outline-none focus:border-blue-500">
-                    <button onclick="kirimChatAI()" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg shadow-blue-600/30 transition">
-                        Kirim
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= BAGIAN 7: EKSPOR LAPORAN GMAIL ================= -->
+        <!-- ================= BAGIAN 6: EKSPOR LAPORAN GMAIL ================= -->
         <div id="sec-email" class="dashboard-section glass p-6 rounded-3xl shadow-2xl mb-8 hidden">
             <h2 class="text-lg font-bold text-emerald-400 mb-2 border-b border-slate-700/60 pb-3 flex items-center gap-2">
                 <span>📧</span> Ekspor Laporan Resmi (Kirim ke Gmail)
@@ -838,7 +779,7 @@
         function pilihDashboard(targetId) {
             if (isDrawerOpen) toggleSidebarMenu();
 
-            const sections = ['sec-baris1', 'sec-tabel', 'sec-baris2', 'sec-baris3', 'sec-baris4', 'sec-chat', 'sec-email'];
+            const sections = ['sec-baris1', 'sec-tabel', 'sec-baris2', 'sec-baris3', 'sec-baris4', 'sec-email'];
 
             // Reset gaya semua tab navigasi
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -878,7 +819,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // ================= 3. FIREBASE & LOGIKA POMPA AIR =================
+        // ================= 3. FIREBASE & LOGIKA REAL-TIME SENSOR =================
         const firebaseConfig = { 
             databaseURL: "https://smart-farming-selada-default-rtdb.asia-southeast1.firebasedatabase.app" 
         };
@@ -918,31 +859,25 @@
             waktu: ""
         };
 
-        // Menarik Data Real-time Sensor dari Firebase
-        db.limitToLast(1).on('child_added', (snapshot) => {
-            const raw = snapshot.val();
-            const soil = parseFloat(raw.kelembapan_tanah) || 0;
-            const suhu = parseFloat(raw.suhu) || 0;
-            const hum  = parseFloat(raw.kelembapan_udara) || 0;
+        // FUNGSI SENTRAL UPDATE UI SENSOR REAL-TIME
+        function updateSensorUI(suhu, hum, soil, statusTanah, statusPompa) {
+            suhu = (parseFloat(suhu) || 0);
+            hum  = (parseFloat(hum) || 0);
+            soil = (parseFloat(soil) || 0);
 
-            // Logika Pompa: <= 80% ON, > 80% OFF
-            let statusTanah = "Normal";
-            let statusPompa = "ON (Menyiram)";
-            let dotClass = "bg-emerald-400 animate-ping";
-            let pompaTextClass = "text-emerald-400";
-
-            if (soil < 60) {
-                statusTanah = "Kering";
-                statusPompa = "ON (Menyiram)";
-            } else if (soil <= 80) {
-                statusTanah = "Normal";
-                statusPompa = "ON (Menyiram)";
-            } else {
-                statusTanah = "Basah";
-                statusPompa = "OFF (Standby)";
-                dotClass = "bg-gray-500";
-                pompaTextClass = "text-gray-400";
+            // Logika Status Tanah & Pompa
+            if (!statusTanah) {
+                if (soil < 60) statusTanah = "Kering";
+                else if (soil <= 80) statusTanah = "Normal";
+                else statusTanah = "Basah";
             }
+
+            if (!statusPompa) {
+                statusPompa = (soil <= 80) ? "ON (Menyiram)" : "OFF (Standby)";
+            }
+
+            let dotClass = statusPompa.includes("ON") ? "bg-emerald-400 animate-ping" : "bg-gray-500";
+            let pompaTextClass = statusPompa.includes("ON") ? "text-emerald-400" : "text-gray-400";
 
             dataTerakhir = {
                 suhu: suhu,
@@ -953,7 +888,7 @@
                 waktu: new Date().toLocaleString('id-ID')
             };
 
-            // Update UI Kartu
+            // Update Kartu Sensor
             document.getElementById('valSuhu').innerText = suhu + " °C";
             document.getElementById('valHum').innerText = hum + " %";
             document.getElementById('valSoil').innerText = soil + " %";
@@ -974,12 +909,48 @@
             }
             historyChart.update();
 
-            // Perbarui prediksi model bila ada data baru
+            // Update Prediksi Model LSTM
             updateLstmChart(soil, suhu);
+        }
+
+        // Listener Firebase RTDB (Real-time Cloud Sync)
+        db.limitToLast(1).on('child_added', (snapshot) => {
+            const raw = snapshot.val();
+            if (raw) {
+                const soil = parseFloat(raw.kelembapan_tanah) || 0;
+                const suhu = parseFloat(raw.suhu) || 0;
+                const hum  = parseFloat(raw.kelembapan_udara) || 0;
+                updateSensorUI(suhu, hum, soil, raw.status, null);
+            }
         });
 
-        // ================= 4. KONEKSI IP ESP32 SENSOR (OTAK UTAMA) =================
+        // ================= 4. KONEKSI IP ESP32 SENSOR (OTAK UTAMA) & DIRECT POLLING =================
         let currentSensorIp = "";
+        let sensorPollTimer = null;
+
+        async function fetchSensorLive() {
+            if (!currentSensorIp) return;
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
+                const res = await fetch(`http://${currentSensorIp}/status`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+
+                if (res.ok) {
+                    const data = await res.json();
+                    updateSensorUI(data.suhu, data.kelembapan_udara, data.kelembapan_tanah, data.kondisi, data.pompa);
+
+                    const badge = document.getElementById('badgeSensor');
+                    const headerBadge = document.getElementById('badgeSensorHeader');
+                    badge.innerText = "Online (" + currentSensorIp + ")";
+                    badge.className = "text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
+                    headerBadge.innerText = "Sensor Online: " + currentSensorIp;
+                    headerBadge.className = "text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold";
+                }
+            } catch (e) {
+                // Jika direct HTTP terhalang mixed content di HTTPS Vercel, Firebase Cloud otomatis menangani sinkronisasi
+            }
+        }
 
         async function konekSensor() {
             let ip = document.getElementById('ipSensor').value.trim();
@@ -993,35 +964,18 @@
             const badge = document.getElementById('badgeSensor');
             const headerBadge = document.getElementById('badgeSensorHeader');
 
-            badge.innerText = "Mengecek " + ip + "...";
+            badge.innerText = "Menghubungkan " + ip + "...";
             badge.className = "text-[11px] px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/40 animate-pulse";
 
-            try {
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3500);
+            if (sensorPollTimer) clearInterval(sensorPollTimer);
+            await fetchSensorLive();
+            sensorPollTimer = setInterval(fetchSensorLive, 1200);
 
-                const res = await fetch(`http://${ip}/status`, { signal: controller.signal });
-                clearTimeout(timeoutId);
-
-                if (res.ok) {
-                    const data = await res.json();
-                    badge.innerText = "Online (" + ip + ")";
-                    badge.className = "text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
-                    headerBadge.innerText = "Sensor Online: " + ip;
-                    headerBadge.className = "text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold";
-                    alert(`✅ Berhasil terhubung ke ESP32 Sensor di IP ${ip}!\nStatus Perangkat: Online`);
-                    return;
-                }
-            } catch (e) {
-                console.log("Ping sensor via HTTP:", e.message);
-            }
-
-            // Jika dibuka via Vercel HTTPS (browser memblokir mixed content lokal), status tetap tersambung via Cloud RTDB
             badge.innerText = "Tersambung: " + ip;
             badge.className = "text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
             headerBadge.innerText = "Sensor: " + ip;
             headerBadge.className = "text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold";
-            alert(`✅ IP ESP32 Sensor ${ip} berhasil dicatat!\nData sensor terus disinkronkan secara real-time via Cloud Firebase.`);
+            alert(`✅ IP ESP32 Sensor ${ip} berhasil dicatat!\nData sensor tersinkronisasi secara real-time.`);
         }
 
         // ================= 5. KONEKSI KAMERA ESP32-CAM & FULLSCREEN =================
@@ -1407,78 +1361,7 @@
             document.getElementById('cnnSkorPanen').innerText = skor + " %";
         }
 
-        // ================= 10. CHATBOT INTERAKTIF AI =================
-        function simpanApiKey() {
-            const k = document.getElementById('geminiApiKey').value.trim();
-            if (k) {
-                localStorage.setItem('gemini_api_key', k);
-                alert("✅ API Key Gemini berhasil disimpan!");
-            }
-        }
-
-        function getApiKey() {
-            return localStorage.getItem('gemini_api_key') || document.getElementById('geminiApiKey').value.trim();
-        }
-
-        async function kirimChatAI() {
-            const input = document.getElementById('userChatInput');
-            const q = input.value.trim();
-            if (!q) return;
-
-            const chatBox = document.getElementById('chatMessages');
-
-            const userBubble = document.createElement('div');
-            userBubble.className = "chat-bubble-user p-3 rounded-2xl max-w-[85%] text-white ml-auto";
-            userBubble.innerText = q;
-            chatBox.appendChild(userBubble);
-            input.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            const aiBubble = document.createElement('div');
-            aiBubble.className = "chat-bubble-ai p-3 rounded-2xl max-w-[85%] text-gray-300";
-            aiBubble.innerText = "Sedang berpikir...";
-            chatBox.appendChild(aiBubble);
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            const apiKey = getApiKey();
-            if (apiKey) {
-                try {
-                    const systemContext = `Anda adalah asisten AI pintar ahli pertanian sistem selada keriting. Data sensor: Suhu ${dataTerakhir.suhu}°C, Tanah ${dataTerakhir.kelembapan_tanah}%, Status Pompa ${dataTerakhir.statusPompa}. Jawab pertanyaan dengan ramah dan solutif: ${q}`;
-                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: systemContext }] }] })
-                    });
-                    const resData = await res.json();
-                    if (resData.candidates && resData.candidates[0].content.parts[0].text) {
-                        aiBubble.innerText = resData.candidates[0].content.parts[0].text;
-                        chatBox.scrollTop = chatBox.scrollHeight;
-                        return;
-                    }
-                } catch (e) {
-                    console.warn("Chat Gemini API error:", e);
-                }
-            }
-
-            // Fallback AI Pertanian Cerdas
-            setTimeout(() => {
-                const qLower = q.toLowerCase();
-                let ans = "";
-                if (qLower.includes("panen") || qLower.includes("layak")) {
-                    ans = `Berdasarkan parameter visual CNN dan tren LSTM, selada keriting ideal dipanen saat tinggi mencapai 15–20 cm dan daun keriting lebat. Prediksi LSTM menunjukkan hari ke-3 hingga ke-4 adalah waktu panen puncak.`;
-                } else if (qLower.includes("suhu")) {
-                    ans = `Suhu lingkungan saat ini tercatat ${dataTerakhir.suhu}°C. Selada keriting tumbuh optimal di rentang 15°C hingga 25°C.`;
-                } else if (qLower.includes("air") || qLower.includes("pompa")) {
-                    ans = `Pompa air otomatis menyiram jika kelembapan tanah ≤ 80% dan standby jika > 80%. Status pompa saat ini adalah ${dataTerakhir.statusPompa}.`;
-                } else {
-                    ans = `Mengenai "${q}": Dalam budidaya selada keriting, pastikan kelembapan tanah terjaga di atas 60% dan pencahayaan merata. Anda bisa memantau proyeksi 4 hari ke depan di Dashboard 3 (LSTM) dan memeriksa kematangan di Dashboard 4 (CNN).`;
-                }
-                aiBubble.innerText = ans;
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
-        }
-
-        // ================= 11. EKSPOR LAPORAN GMAIL (4 KUADRAN) =================
+        // ================= 10. EKSPOR LAPORAN GMAIL (4 KUADRAN) =================
         function bukaModalLaporanEmail() {
             const emailTujuan = document.getElementById('emailTujuan').value.trim() || "gojotoji188@gmail.com";
             const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
@@ -1542,8 +1425,6 @@
         // ================= INISIALISASI AWAL =================
         window.onload = function() {
             checkAuth();
-            const savedKey = localStorage.getItem('gemini_api_key');
-            if (savedKey) document.getElementById('geminiApiKey').value = savedKey;
 
             const savedSensorIp = localStorage.getItem('selada_ip_sensor');
             if (savedSensorIp) {
