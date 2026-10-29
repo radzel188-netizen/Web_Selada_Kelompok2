@@ -35,83 +35,64 @@
         <div class="flex items-center justify-between pb-4 border-b border-slate-800">
             <div>
                 <h3 class="text-base font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-teal-300 to-emerald-400 flex items-center gap-2">
-                    <span>🥬</span> Menu Dashboard
+                    <span>🥬</span> Pilih Dashboard
                 </h3>
-                <p class="text-[11px] text-gray-400 mt-0.5">Pilih dashboard untuk navigasi cepat</p>
+                <p class="text-[11px] text-gray-400 mt-0.5">Klik untuk menampilkan dashboard full</p>
             </div>
             <button onclick="toggleSidebarMenu()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-300 flex items-center justify-center font-bold text-sm transition">
                 ✕
             </button>
         </div>
 
-        <!-- Mode Tampilan (Filter / Scroll) -->
-        <div class="mt-4 mb-2 flex items-center justify-between bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-[11px]">
-            <span class="text-gray-400 font-medium">Mode Navigasi:</span>
-            <button id="btnToggleMode" onclick="toggleFilterMode()" class="px-2.5 py-1 rounded-lg bg-blue-600/30 text-blue-300 border border-blue-500/30 font-bold transition">
-                Lompat (Scroll)
-            </button>
-        </div>
-
         <!-- Daftar Pilihan Dashboard -->
-        <div class="flex-grow overflow-y-auto space-y-2 py-2 pr-1 text-xs">
-            <button onclick="pilihDashboard('semua')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">🌟</span>
-                    <div>
-                        <span class="font-bold text-white block">Tampilkan Semua</span>
-                        <span class="text-[10px] text-gray-400">Tampilkan seluruh baris</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-blue-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
-            </button>
-
-            <button onclick="pilihDashboard('sec-baris1')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">📹</span>
+        <div class="flex-grow overflow-y-auto space-y-2 py-4 pr-1 text-xs">
+            <button onclick="pilihDashboard('sec-baris1')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-blue-600/20 hover:border-blue-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">📹</span>
                     <div>
                         <span class="font-bold text-white block">Dashboard 1: Monitoring</span>
-                        <span class="text-[10px] text-gray-400">Sensor & Kamera Live</span>
+                        <span class="text-[10px] text-gray-400">Sensor & Kamera Live Stream</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-blue-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-tabel')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">📋</span>
+            <button onclick="pilihDashboard('sec-tabel')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">📋</span>
                     <div>
                         <span class="font-bold text-white block">Tabel Riwayat Data</span>
-                        <span class="text-[10px] text-gray-400">Database Cloud & Excel</span>
+                        <span class="text-[10px] text-gray-400">Database Cloud & Download Excel</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-baris2')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-teal-600/20 hover:border-teal-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">🌱</span>
+            <button onclick="pilihDashboard('sec-baris2')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-teal-600/20 hover:border-teal-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🌱</span>
                     <div>
                         <span class="font-bold text-white block">Dashboard 2: Evaluasi Panen</span>
-                        <span class="text-[10px] text-gray-400">Upload Manual Screenshot</span>
+                        <span class="text-[10px] text-gray-400">Upload Manual Screenshot Tanaman</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-teal-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-baris3')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-indigo-600/20 hover:border-indigo-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">🔮</span>
+            <button onclick="pilihDashboard('sec-baris3')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-indigo-600/20 hover:border-indigo-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🔮</span>
                     <div>
                         <span class="font-bold text-white block">Dashboard 3: Prediksi LSTM</span>
-                        <span class="text-[10px] text-gray-400">Proyeksi Longitudinal 3-4 Hari</span>
+                        <span class="text-[10px] text-gray-400">Grafik Longitudinal 3-4 Hari</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-indigo-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-baris4')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-purple-600/20 hover:border-purple-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">📊</span>
+            <button onclick="pilihDashboard('sec-baris4')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-purple-600/20 hover:border-purple-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">📊</span>
                     <div>
                         <span class="font-bold text-white block">Dashboard 4: Model CNN Citra</span>
                         <span class="text-[10px] text-gray-400">Grafik Batang Parameter Panen</span>
@@ -120,32 +101,42 @@
                 <span class="text-[10px] text-purple-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-chat')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-pink-600/20 hover:border-pink-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">🤖</span>
+            <button onclick="pilihDashboard('sec-chat')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-pink-600/20 hover:border-pink-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🤖</span>
                     <div>
                         <span class="font-bold text-white block">Asisten AI Chatbot</span>
-                        <span class="text-[10px] text-gray-400">Tanya Jawab Selada Pintar</span>
+                        <span class="text-[10px] text-gray-400">Tanya Jawab Budidaya Selada</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-pink-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
 
-            <button onclick="pilihDashboard('sec-email')" class="w-full text-left p-3 rounded-xl bg-slate-800/80 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-2.5">
-                    <span class="text-lg">📧</span>
+            <button onclick="pilihDashboard('sec-email')" class="w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-emerald-600/20 hover:border-emerald-500/40 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">📧</span>
                     <div>
                         <span class="font-bold text-white block">Ekspor Laporan Gmail</span>
-                        <span class="text-[10px] text-gray-400">Kirim Rangkuman Resmi</span>
+                        <span class="text-[10px] text-gray-400">Kirim Rangkuman Resmi ke Email</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">Buka &rarr;</span>
             </button>
+
+            <div class="pt-2 border-t border-slate-800">
+                <button onclick="pilihDashboard('semua')" class="w-full text-left p-3 rounded-xl bg-slate-900/60 hover:bg-slate-800 border border-slate-700/40 transition flex items-center justify-between group">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-base">🌟</span>
+                        <span class="font-bold text-gray-300">Tampilkan Semua Sekaligus</span>
+                    </div>
+                    <span class="text-[10px] text-gray-400 font-bold">&rarr;</span>
+                </button>
+            </div>
         </div>
 
         <!-- Footer Drawer -->
         <div class="pt-3 border-t border-slate-800 text-[11px] text-gray-400 flex items-center justify-between">
-            <span>Kelompok 2 - Selada</span>
+            <span>Kelompok 2 - Selada Keriting</span>
             <span class="text-emerald-400 font-bold">Online</span>
         </div>
     </aside>
@@ -187,7 +178,7 @@
     </div>
 
     <!-- ================= DASHBOARD UTAMA ================= -->
-    <div id="mainDashboard" class="max-w-7xl mx-auto hidden space-y-8">
+    <div id="mainDashboard" class="max-w-7xl mx-auto hidden space-y-6">
         
         <!-- Header -->
         <header class="flex flex-col md:flex-row items-center justify-between gap-4 pb-4 border-b border-slate-800">
@@ -277,96 +268,129 @@
                 </div>
             </div>
         </div>
-        
-        <!-- 5 Kartu Sensor & Kontrol Pompa -->
-        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <!-- Suhu Udara -->
-            <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-blue-500/40 transition">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Suhu Udara</h3>
-                <p class="text-3xl font-black text-blue-400" id="valSuhu">-- °C</p>
-                <span class="text-[11px] text-gray-400 mt-1 block">DHT22 Sensor</span>
-            </div>
 
-            <!-- Kelembapan Udara -->
-            <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-cyan-500/40 transition">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kelembapan Udara</h3>
-                <p class="text-3xl font-black text-cyan-300" id="valHum">-- %</p>
-                <span class="text-[11px] text-gray-400 mt-1 block">Udara Sekitar</span>
+        <!-- ================= NAVIGASI TAB PILIHAN DASHBOARD (FULL VIEW PER DASHBOARD) ================= -->
+        <div class="glass p-2.5 rounded-2xl shadow-xl flex items-center justify-between gap-2 overflow-x-auto border border-slate-700/80">
+            <div class="flex items-center gap-2 min-w-max">
+                <button id="tab-sec-baris1" onclick="pilihDashboard('sec-baris1')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg shadow-blue-500/20">
+                    <span>📹</span> <span>Dashboard 1: Monitoring</span>
+                </button>
+                <button id="tab-sec-tabel" onclick="pilihDashboard('sec-tabel')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>📋</span> <span>Tabel Riwayat</span>
+                </button>
+                <button id="tab-sec-baris2" onclick="pilihDashboard('sec-baris2')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>🌱</span> <span>Dashboard 2: Evaluasi Panen</span>
+                </button>
+                <button id="tab-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>🔮</span> <span>Dashboard 3: Prediksi LSTM</span>
+                </button>
+                <button id="tab-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>📊</span> <span>Dashboard 4: Model CNN</span>
+                </button>
+                <button id="tab-sec-chat" onclick="pilihDashboard('sec-chat')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>🤖</span> <span>Asisten AI</span>
+                </button>
+                <button id="tab-sec-email" onclick="pilihDashboard('sec-email')" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800">
+                    <span>📧</span> <span>Laporan Gmail</span>
+                </button>
             </div>
-
-            <!-- Kelembapan Tanah -->
-            <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-emerald-500/40 transition">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kelembapan Tanah</h3>
-                <p class="text-3xl font-black text-emerald-400" id="valSoil">-- %</p>
-                <span class="text-[11px] text-gray-400 mt-1 block">Soil Moisture</span>
-            </div>
-
-            <!-- Status Kondisi Tanah -->
-            <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-indigo-500/40 transition">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kondisi Tanah</h3>
-                <p class="text-2xl font-black text-indigo-400 mt-1" id="valStatus">--</p>
-                <span class="text-[10px] text-gray-400 mt-1 block" id="valStatusDesc">&lt;60% Kering | 60-80% Normal | &gt;80% Basah</span>
-            </div>
-
-            <!-- Status Pompa Air -->
-            <div class="glass p-5 rounded-2xl text-center shadow-xl col-span-2 md:col-span-1 border-t-4 border-blue-500 transition" id="cardPompa">
-                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Status Pompa Air</h3>
-                <div class="flex items-center justify-center gap-2 mt-1">
-                    <span id="dotPompa" class="w-3 h-3 rounded-full bg-gray-500"></span>
-                    <p class="text-2xl font-black text-gray-300" id="valPompa">--</p>
-                </div>
-                <span class="text-[11px] text-gray-400 mt-1 block" id="descPompa">Otomatisasi Aktif</span>
-            </div>
+            <button id="tab-semua" onclick="pilihDashboard('semua')" class="tab-btn px-3 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 bg-slate-900/60 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800 whitespace-nowrap ml-2" title="Tampilkan Semua Sekaligus">
+                <span>🌟</span> <span>Semua</span>
+            </button>
         </div>
 
-        <!-- ================= BARIS 1: LIVE CAMERA DENGAN FULLSCREEN & GRAFIK REAL-TIME ================= -->
-        <div id="sec-baris1" class="dashboard-section grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Kamera ESP32-CAM -->
-            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
-                <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
-                    <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
-                        <span>📹</span> Live Camera ESP32-CAM
-                    </h2>
-                    <span id="badgeCamMini" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-gray-400 border border-slate-700">Offline</span>
+        <!-- ================= BAGIAN 1: DASHBOARD 1 (MONITORING SENSOR & KAMERA REAL-TIME) ================= -->
+        <div id="sec-baris1" class="dashboard-section space-y-6">
+            <!-- 5 Kartu Sensor & Kontrol Pompa -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <!-- Suhu Udara -->
+                <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-blue-500/40 transition">
+                    <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Suhu Udara</h3>
+                    <p class="text-3xl font-black text-blue-400" id="valSuhu">-- °C</p>
+                    <span class="text-[11px] text-gray-400 mt-1 block">DHT22 Sensor</span>
                 </div>
 
-                <!-- Container Video dengan Tombol Fullscreen di Kiri Bawah -->
-                <div id="cameraContainer" class="flex-grow bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-slate-800 aspect-video relative min-h-[240px]">
-                    <img id="kameraStream" src="" alt="Kamera Offline" class="w-full h-full object-cover hidden">
-                    <div id="camStatus" class="text-center p-4 text-gray-500 text-sm">
-                        <span class="text-3xl block mb-2">📷</span>
-                        <span>Kamera Belum Terhubung</span><br>
-                        <small class="text-xs text-gray-400">Masukkan IP ESP32-CAM pada panel koneksi di atas, lalu klik Konek.</small>
+                <!-- Kelembapan Udara -->
+                <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-cyan-500/40 transition">
+                    <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kelembapan Udara</h3>
+                    <p class="text-3xl font-black text-cyan-300" id="valHum">-- %</p>
+                    <span class="text-[11px] text-gray-400 mt-1 block">Udara Sekitar</span>
+                </div>
+
+                <!-- Kelembapan Tanah -->
+                <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-emerald-500/40 transition">
+                    <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kelembapan Tanah</h3>
+                    <p class="text-3xl font-black text-emerald-400" id="valSoil">-- %</p>
+                    <span class="text-[11px] text-gray-400 mt-1 block">Soil Moisture</span>
+                </div>
+
+                <!-- Status Kondisi Tanah -->
+                <div class="glass p-5 rounded-2xl text-center shadow-xl hover:border-indigo-500/40 transition">
+                    <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Kondisi Tanah</h3>
+                    <p class="text-2xl font-black text-indigo-400 mt-1" id="valStatus">--</p>
+                    <span class="text-[10px] text-gray-400 mt-1 block" id="valStatusDesc">&lt;60% Kering | 60-80% Normal | &gt;80% Basah</span>
+                </div>
+
+                <!-- Status Pompa Air -->
+                <div class="glass p-5 rounded-2xl text-center shadow-xl col-span-2 md:col-span-1 border-t-4 border-blue-500 transition" id="cardPompa">
+                    <h3 class="text-gray-400 text-xs font-bold uppercase tracking-wider mb-2">Status Pompa Air</h3>
+                    <div class="flex items-center justify-center gap-2 mt-1">
+                        <span id="dotPompa" class="w-3 h-3 rounded-full bg-gray-500"></span>
+                        <p class="text-2xl font-black text-gray-300" id="valPompa">--</p>
+                    </div>
+                    <span class="text-[11px] text-gray-400 mt-1 block" id="descPompa">Otomatisasi Aktif</span>
+                </div>
+            </div>
+
+            <!-- Live Camera & Grafik Real-time -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Kamera ESP32-CAM -->
+                <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
+                        <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
+                            <span>📹</span> Live Camera ESP32-CAM
+                        </h2>
+                        <span id="badgeCamMini" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-gray-400 border border-slate-700">Offline</span>
                     </div>
 
-                    <!-- Tombol Fullscreen di Pojok Kiri Bawah -->
-                    <button onclick="toggleFullscreenKamera()" 
-                            class="absolute bottom-3 left-3 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-1.5 shadow-lg">
-                        <span>⛶</span>
-                        <span>Layar Penuh (Fullscreen)</span>
-                    </button>
-                </div>
-                <p class="text-[11px] text-gray-400 mt-2.5">
-                    💡 <b>Petunjuk:</b> Klik tombol <i>Layar Penuh</i> di kiri bawah kamera, lalu ambil screenshot (SS) tanaman untuk dimasukkan ke Dashboard 2 di bawah.
-                </p>
-            </div>
+                    <!-- Container Video dengan Tombol Fullscreen di Kiri Bawah -->
+                    <div id="cameraContainer" class="flex-grow bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-slate-800 aspect-video relative min-h-[240px]">
+                        <img id="kameraStream" src="" alt="Kamera Offline" class="w-full h-full object-cover hidden">
+                        <div id="camStatus" class="text-center p-4 text-gray-500 text-sm">
+                            <span class="text-3xl block mb-2">📷</span>
+                            <span>Kamera Belum Terhubung</span><br>
+                            <small class="text-xs text-gray-400">Masukkan IP ESP32-CAM pada panel koneksi di atas, lalu klik Konek Kamera.</small>
+                        </div>
 
-            <!-- Grafik Real-Time -->
-            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
-                <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
-                    <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
-                        <span>📈</span> Grafik Sensor Real-Time
-                    </h2>
-                    <span class="text-xs text-blue-400">Update Tiap Detik</span>
+                        <!-- Tombol Fullscreen di Pojok Kiri Bawah -->
+                        <button onclick="toggleFullscreenKamera()" 
+                                class="absolute bottom-3 left-3 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-1.5 shadow-lg">
+                            <span>⛶</span>
+                            <span>Layar Penuh (Fullscreen)</span>
+                        </button>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-2.5">
+                        💡 <b>Petunjuk:</b> Klik tombol <i>Layar Penuh</i> di kiri bawah kamera, lalu ambil screenshot (SS) tanaman untuk dimasukkan ke <b>Dashboard 2</b>.
+                    </p>
                 </div>
-                <div class="flex-grow flex items-center">
-                    <canvas id="historyChart" height="230"></canvas>
+
+                <!-- Grafik Real-Time -->
+                <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
+                    <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
+                        <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
+                            <span>📈</span> Grafik Sensor Real-Time
+                        </h2>
+                        <span class="text-xs text-blue-400">Update Tiap Detik</span>
+                    </div>
+                    <div class="flex-grow flex items-center">
+                        <canvas id="historyChart" height="230"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= TABEL RIWAYAT PENGAMBILAN DATA (PERMANEN CLOUD) ================= -->
-        <div id="sec-tabel" class="dashboard-section glass p-6 rounded-3xl shadow-2xl">
+        <!-- ================= BAGIAN 2: TABEL RIWAYAT PENGAMBILAN DATA (PERMANEN CLOUD) ================= -->
+        <div id="sec-tabel" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
                 <div>
                     <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
@@ -411,8 +435,8 @@
             </div>
         </div>
 
-        <!-- ================= BARIS 2 (DASHBOARD 2): UPLOAD MANUAL SCREENSHOT & EVALUASI KELAYAKAN PANEN ================= -->
-        <div id="sec-baris2" class="dashboard-section glass p-6 rounded-3xl shadow-2xl">
+        <!-- ================= BAGIAN 3: DASHBOARD 2 (UPLOAD MANUAL SCREENSHOT & EVALUASI PANEN) ================= -->
+        <div id="sec-baris2" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
             <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
                 <div>
                     <h2 class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400 flex items-center gap-2">
@@ -445,7 +469,7 @@
                     </div>
 
                     <button onclick="prosesAnalisisManual()" 
-                            class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-teal-600/30 transition flex items-center justify-center gap-2 text-sm">
+                            class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-teal-600/30 transition flex items-center justify-center gap-2 text-sm">
                         <span>🧠</span>
                         <span>Mulai Analisis Visual AI & Kelayakan Panen</span>
                     </button>
@@ -491,8 +515,8 @@
             </div>
         </div>
 
-        <!-- ================= BARIS 3 (DASHBOARD 3): MODEL PREDIKSI LSTM 3/4 HARI (GRAFIK LONGITUDINAL) ================= -->
-        <div id="sec-baris3" class="dashboard-section glass p-6 rounded-3xl shadow-2xl">
+        <!-- ================= BAGIAN 4: DASHBOARD 3 (MODEL PREDIKSI LSTM 3/4 HARI) ================= -->
+        <div id="sec-baris3" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
                 <div>
                     <h2 class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 flex items-center gap-2">
@@ -551,8 +575,8 @@
             </div>
         </div>
 
-        <!-- ================= BARIS 4 (DASHBOARD 4): MODEL CNN EKSTRAKSI CITRA DENGAN GRAFIK BATANG ================= -->
-        <div id="sec-baris4" class="dashboard-section glass p-6 rounded-3xl shadow-2xl">
+        <!-- ================= BAGIAN 5: DASHBOARD 4 (MODEL CNN CITRA TANAMAN GRAFIK BATANG) ================= -->
+        <div id="sec-baris4" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
                 <div>
                     <h2 class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 flex items-center gap-2">
@@ -608,8 +632,8 @@
             </div>
         </div>
 
-        <!-- ================= BAGIAN ASISTEN AI CHATBOT ================= -->
-        <div id="sec-chat" class="dashboard-section glass p-6 rounded-3xl shadow-2xl">
+        <!-- ================= BAGIAN 6: ASISTEN AI CHATBOT ================= -->
+        <div id="sec-chat" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg shadow-purple-600/30">
@@ -631,7 +655,7 @@
                 </div>
             </div>
 
-            <div class="glass-card p-4 rounded-2xl border border-slate-700/60 flex flex-col h-[300px]">
+            <div class="glass-card p-4 rounded-2xl border border-slate-700/60 flex flex-col h-[380px]">
                 <!-- Area Pesan Chat -->
                 <div id="chatMessages" class="flex-grow overflow-y-auto space-y-3 p-2 pr-1 text-xs mb-3">
                     <div class="chat-bubble-ai p-3 rounded-2xl max-w-[85%] text-gray-200">
@@ -651,8 +675,8 @@
             </div>
         </div>
 
-        <!-- ================= EKSPOR LAPORAN GMAIL ================= -->
-        <div id="sec-email" class="dashboard-section glass p-6 rounded-3xl shadow-2xl mb-8">
+        <!-- ================= BAGIAN 7: EKSPOR LAPORAN GMAIL ================= -->
+        <div id="sec-email" class="dashboard-section glass p-6 rounded-3xl shadow-2xl mb-8 hidden">
             <h2 class="text-lg font-bold text-emerald-400 mb-2 border-b border-slate-700/60 pb-3 flex items-center gap-2">
                 <span>📧</span> Ekspor Laporan Resmi (Kirim ke Gmail)
             </h2>
@@ -787,9 +811,8 @@
             checkAuth();
         }
 
-        // ================= 2. SIDEBAR DRAWER MENU =================
+        // ================= 2. SIDEBAR DRAWER & SISTEM SWITCH DASHBOARD FULL =================
         let isDrawerOpen = false;
-        let isFilterModeOnly = false; // False = Smooth Scroll, True = Filter / Tampilkan 1 Bagian Saja
 
         function toggleSidebarMenu() {
             const drawer = document.getElementById('sidebarDrawer');
@@ -811,45 +834,48 @@
             }
         }
 
-        function toggleFilterMode() {
-            isFilterModeOnly = !isFilterModeOnly;
-            const btn = document.getElementById('btnToggleMode');
-            if (isFilterModeOnly) {
-                btn.innerText = "Fokus 1 Dashboard";
-                btn.className = "px-2.5 py-1 rounded-lg bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 font-bold transition";
-            } else {
-                btn.innerText = "Lompat (Scroll)";
-                btn.className = "px-2.5 py-1 rounded-lg bg-blue-600/30 text-blue-300 border border-blue-500/30 font-bold transition";
-                // Pulihkan tampilan semua section
-                document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('hidden'));
-            }
-        }
-
+        // Fungsi menampilkan masing-masing dashboard secara FULL
         function pilihDashboard(targetId) {
-            toggleSidebarMenu(); // Tutup drawer
+            if (isDrawerOpen) toggleSidebarMenu();
+
+            const sections = ['sec-baris1', 'sec-tabel', 'sec-baris2', 'sec-baris3', 'sec-baris4', 'sec-chat', 'sec-email'];
+
+            // Reset gaya semua tab navigasi
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-slate-900/80 text-gray-400 hover:text-white hover:bg-slate-800 border border-slate-800";
+            });
 
             if (targetId === 'semua') {
-                document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('hidden'));
+                sections.forEach(id => {
+                    const sec = document.getElementById(id);
+                    if (sec) sec.classList.remove('hidden');
+                });
+                const allBtn = document.getElementById('tab-semua');
+                if (allBtn) allBtn.className = "tab-btn px-3 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-1.5 bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg shadow-blue-500/20";
                 window.scrollTo({ top: 0, behavior: 'smooth' });
                 return;
             }
 
-            if (isFilterModeOnly) {
-                document.querySelectorAll('.dashboard-section').forEach(sec => {
-                    if (sec.id === targetId) {
+            // Sembunyikan semua dashboard, dan tampilkan HANYA dashboard yang dipilih secara FULL!
+            sections.forEach(id => {
+                const sec = document.getElementById(id);
+                if (sec) {
+                    if (id === targetId) {
                         sec.classList.remove('hidden');
                     } else {
                         sec.classList.add('hidden');
                     }
-                });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('hidden'));
-                const el = document.getElementById(targetId);
-                if (el) {
-                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
+            });
+
+            // Beri sorotan warna aktif pada tab tombol yang dipilih
+            const activeTab = document.getElementById('tab-' + targetId);
+            if (activeTab) {
+                activeTab.className = "tab-btn px-4 py-2.5 rounded-xl font-bold text-xs transition flex items-center gap-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white shadow-lg shadow-blue-500/20";
             }
+
+            // Scroll mulus ke bagian atas halaman
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // ================= 3. FIREBASE & LOGIKA POMPA AIR =================
@@ -1530,6 +1556,9 @@
                 document.getElementById('ipCam').value = savedCamIp;
                 konekKamera();
             }
+
+            // Default: Tampilkan Dashboard 1 secara full
+            pilihDashboard('sec-baris1');
         };
     </script>
 </body>
