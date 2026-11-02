@@ -67,17 +67,6 @@
                 <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
             </button>
 
-            <button id="drawer-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🔮</span>
-                    <div>
-                        <span class="font-bold text-white block">Prediksi LSTM</span>
-                        <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-indigo-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
-            </button>
-
             <button id="drawer-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
                 <div class="flex items-center gap-3">
                     <span class="text-xl">🌿</span>
@@ -87,6 +76,17 @@
                     </div>
                 </div>
                 <span class="text-[10px] text-purple-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
+            </button>
+
+            <button id="drawer-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🔮</span>
+                    <div>
+                        <span class="font-bold text-white block">Prediksi LSTM</span>
+                        <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-indigo-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
             </button>
 
             <button id="drawer-sec-pengaturan" onclick="pilihDashboard('sec-pengaturan')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
@@ -197,22 +197,22 @@
                         </div>
                     </button>
 
-                    <button id="nav-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
-                        <div class="flex items-center gap-3">
-                            <span class="text-lg">🔮</span>
-                            <div>
-                                <span class="font-bold text-xs block">Prediksi LSTM</span>
-                                <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
-                            </div>
-                        </div>
-                    </button>
-
                     <button id="nav-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
                         <div class="flex items-center gap-3">
                             <span class="text-lg">🌿</span>
                             <div>
                                 <span class="font-bold text-xs block">Model CNN</span>
                                 <span class="text-[10px] text-gray-400">Analisis Citra Ungu & Hijau</span>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button id="nav-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🔮</span>
+                            <div>
+                                <span class="font-bold text-xs block">Prediksi LSTM</span>
+                                <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
                             </div>
                         </div>
                     </button>
@@ -260,7 +260,16 @@
                         <p class="text-[11px] text-gray-400">Smart Farming IoT Monitoring, LSTM Forecasting & CNN Plant Vision</p>
                     </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Jam & Tanggal Realtime Berjalan di Pojok Kanan Atas -->
+                    <div class="flex items-center gap-2.5 bg-slate-900/90 border border-slate-700/80 px-3.5 py-1.5 rounded-2xl shadow-md">
+                        <span class="text-base text-cyan-400 animate-pulse">🕒</span>
+                        <div class="text-right">
+                            <div id="liveClockTime" class="font-mono font-bold text-xs text-cyan-300 tracking-wider">--:--:-- WIB</div>
+                            <div id="liveClockDate" class="text-[9px] text-gray-400 font-medium">Memuat tanggal...</div>
+                        </div>
+                    </div>
+
                     <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Firebase RTDB Aktif
                     </span>
@@ -496,351 +505,6 @@
             </p>
         </div>
 
-<!-- ================= BAGIAN 4: DASHBOARD 3 (DESAIN BARU PREDIKSI LSTM SESUAI REFERENSI) ================= -->
-        <div id="sec-baris3" class="dashboard-section space-y-6 hidden">
-            <!-- Header Dashboard 3 -->
-            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-blue-500/20">
-                <div>
-                    <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 flex items-center gap-2">
-                        <span>🔮</span> Prediksi Pertumbuhan LSTM (Siklus 42 Hari Selada)
-                    </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Analisis Time-Series Pembelajaran Mendalam (Deep Learning LSTM) untuk memprediksi tingkat kematangan & pertumbuhan tanaman selada</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active
-                    </span>
-                    <button onclick="muatUlangPrediksiLSTM()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
-                        <span>🔄</span> Muat Ulang
-                    </button>
-                </div>
-            </div>
-
-            <!-- 1. KARTU RINGKASAN STATUS DI BAGIAN ATAS (4 KARTU) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Umur Tanaman Saat Ini -->
-                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Umur Tanaman Saat Ini</span>
-                        <div class="flex items-baseline gap-2 mt-1">
-                            <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300" id="lstmPlantAge">--</span>
-                            <span class="text-[11px] text-gray-400" id="lstmDapText">(Menunggu Data)</span>
-                        </div>
-                    </div>
-                    <div class="mt-3">
-                        <div class="flex justify-between text-[10px] text-gray-400 mb-1">
-                            <span id="lstmSiklusText">Siklus Tanam: -- / 42 Hari</span>
-                            <span class="text-cyan-400 font-bold" id="lstmSiklusPct">0.0%</span>
-                        </div>
-                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                            <div id="lstmSiklusBar" class="bg-gradient-to-r from-blue-500 to-cyan-400 h-full w-[0%]"></div>
-                        </div>
-                        <span class="text-[9px] text-gray-500 mt-1 block">Target Panen: Hari ke-42</span>
-                    </div>
-                </div>
-
-                <!-- Kelembapan Tanah Saat Ini -->
-                <div class="glass p-5 rounded-2xl border border-emerald-500/30 shadow-xl flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Kelembapan Tanah Saat Ini</span>
-                        <p class="text-3xl font-black text-gray-400 mt-1" id="lstmSummarySoil">-- %</p>
-                    </div>
-                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
-                        <span class="text-[10px] text-gray-400">Kondisi:</span>
-                        <span id="lstmSoilBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-gray-400">Menunggu Data</span>
-                    </div>
-                </div>
-
-                <!-- Suhu Udara Saat Ini -->
-                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Suhu Udara Saat Ini</span>
-                        <p class="text-3xl font-black text-gray-400 mt-1" id="lstmSummaryTemp">-- °C</p>
-                    </div>
-                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
-                        <span class="text-[10px] text-gray-400">Kondisi:</span>
-                        <span id="lstmTempBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-gray-400">Menunggu Data</span>
-                    </div>
-                </div>
-
-                <!-- Status Sistem (Backend API & Jumlah Data) -->
-                <div class="glass p-5 rounded-2xl border border-purple-500/30 shadow-xl flex flex-col justify-between">
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Status Sistem & Backend</span>
-                        <div class="flex items-center gap-2 mt-1.5">
-                            <span class="w-3 h-3 rounded-full bg-blue-400 animate-pulse"></span>
-                            <span class="text-sm font-bold text-white">Standby (Siap Prediksi)</span>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-2 border-t border-slate-800/80">
-                        <p class="text-[11px] text-gray-400 font-mono" id="lstmLogCountText">0 Log Data Sensor</p>
-                        <span class="text-[9px] text-purple-300">Klik "Ambil Data" untuk memicu LSTM</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. PANEL HORIZONTAL PREDIKSI KEMATANGAN 4 HARI KE DEPAN (PERSIS GAMBAR 1) -->
-            <div class="glass p-6 rounded-3xl shadow-2xl border border-emerald-500/30">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-700/60 mb-5">
-                    <div>
-                        <h3 class="text-lg font-bold text-gray-100 flex items-center gap-2">
-                            <span>🌱</span> Prediksi Kematangan 4 Hari ke Depan
-                        </h3>
-                        <p class="text-xs text-gray-400 mt-0.5">
-                            Sistem secara otomatis menganalisis 300 data sensor terakhir (10 hari) untuk memprediksi tingkat kematangan tanaman pada 4 hari ke depan.
-                        </p>
-                    </div>
-                    <button onclick="muatUlangPrediksiLSTM()" class="self-start md:self-auto px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1.5">
-                        <span>🔄</span> Muat Ulang
-                    </button>
-                </div>
-
-                <div class="mb-3 flex items-center gap-2 text-xs font-bold text-emerald-400">
-                    <span class="text-base">🌿</span>
-                    <span>Hasil Prediksi LSTM</span>
-                </div>
-
-                <!-- 4 KARTU PREDIKSI BERJAJAR KE SAMPING (HORISONTAL SCROLLABLE / GRID 4) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto pb-2">
-                    <!-- KARTU 1: HARI KE-14 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-14</span>
-                                <span id="lstmBadgeH1" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
-                            </div>
-                            <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH1">-- %</p>
-                            </div>
-                            <!-- Bar progress hijau -->
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH1" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(1)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <!-- Kotak Gambar Tanaman Hari ke-14 -->
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group cursor-pointer flex items-center justify-center" onclick="bukaModalVisualisasi(1)">
-                            <img id="lstmImgH1" src="" alt="Selada Hari 14" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 hidden">
-                            <div id="lstmPlaceholderH1" class="text-center p-3 text-gray-500">
-                                <span class="text-3xl block mb-1">🌱</span>
-                                <span class="text-[10px] text-gray-400 font-medium">Menunggu Ambil Data</span>
-                            </div>
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 2: HARI KE-15 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-15</span>
-                                <span id="lstmBadgeH2" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
-                            </div>
-                            <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH2">-- %</p>
-                            </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH2" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(2)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <!-- Kotak Gambar Tanaman Hari ke-15 -->
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group cursor-pointer flex items-center justify-center" onclick="bukaModalVisualisasi(2)">
-                            <img id="lstmImgH2" src="" alt="Selada Hari 15" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 hidden">
-                            <div id="lstmPlaceholderH2" class="text-center p-3 text-gray-500">
-                                <span class="text-3xl block mb-1">🌱</span>
-                                <span class="text-[10px] text-gray-400 font-medium">Menunggu Ambil Data</span>
-                            </div>
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 3: HARI KE-16 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-16</span>
-                                <span id="lstmBadgeH3" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
-                            </div>
-                            <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH3">-- %</p>
-                            </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH3" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(3)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <!-- Kotak Gambar Tanaman Hari ke-16 -->
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group cursor-pointer flex items-center justify-center" onclick="bukaModalVisualisasi(3)">
-                            <img id="lstmImgH3" src="" alt="Selada Hari 16" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 hidden">
-                            <div id="lstmPlaceholderH3" class="text-center p-3 text-gray-500">
-                                <span class="text-3xl block mb-1">🌱</span>
-                                <span class="text-[10px] text-gray-400 font-medium">Menunggu Ambil Data</span>
-                            </div>
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- KARTU 4: HARI KE-17 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-17</span>
-                                <span id="lstmBadgeH4" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
-                            </div>
-                            <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH4">-- %</p>
-                            </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH4" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(4)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <!-- Kotak Gambar Tanaman Hari ke-17 -->
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group cursor-pointer flex items-center justify-center" onclick="bukaModalVisualisasi(4)">
-                            <img id="lstmImgH4" src="" alt="Selada Hari 17" class="w-full h-full object-cover group-hover:scale-105 transition duration-300 hidden">
-                            <div id="lstmPlaceholderH4" class="text-center p-3 text-gray-500">
-                                <span class="text-3xl block mb-1">🌱</span>
-                                <span class="text-[10px] text-gray-400 font-medium">Menunggu Ambil Data</span>
-                            </div>
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. GAUGE TINGKAT KEMATANGAN & GRAFIK LONGITUDINAL (PERSIS GAMBAR 5) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-                <!-- Kiri: Gauge Meter Tingkat Kematangan Saat Ini (4 Kolom - Gambar 5) -->
-                <div class="lg:col-span-4 glass p-6 rounded-3xl shadow-2xl border border-indigo-500/30 flex flex-col justify-between text-center">
-                    <div>
-                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Metrik Kematangan Tanaman</span>
-                        <h4 class="text-sm font-bold text-gray-200 mt-1">Tingkat Kematangan Tanaman (%)</h4>
-                    </div>
-
-                    <!-- Semi-circular Gauge Canvas -->
-                    <div class="relative w-48 h-28 mx-auto my-3 flex items-center justify-center">
-                        <canvas id="lstmMeterGauge"></canvas>
-                        <div class="absolute bottom-1 text-center">
-                            <span class="text-3xl font-black text-gray-400" id="gaugeValText">-- %</span>
-                            <span class="text-[9px] text-gray-400 block">Kematangan</span>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-t border-slate-800/80">
-                        <div class="flex justify-between text-[11px] text-gray-400 mb-1">
-                            <span id="gaugeCycleText">Siklus tanam: Menunggu pengambilan data</span>
-                            <span class="text-indigo-400 font-bold">55.8%</span>
-                        </div>
-                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-indigo-500 h-full w-[56%]"></div>
-                        </div>
-                        <span class="text-[10px] text-emerald-400 font-semibold mt-2 block">Masa Panen Standar: 42 Hari (Maks 46 Hari)</span>
-                    </div>
-                </div>
-
-                <!-- Kanan: Grafik Longitudinal Time-Series (8 Kolom - Gambar 4/5) -->
-                <div class="lg:col-span-8 glass p-6 rounded-3xl shadow-2xl border border-slate-800 flex flex-col justify-between">
-                    <div class="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-2">
-                        <div>
-                            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-1.5">
-                                <span>📈</span> Perkembangan Tingkat Kematangan sejak Awal Tanam
-                            </h4>
-                            <p class="text-[11px] text-gray-400">Kurva longitudinal time-series dan proyeksi 4 hari ke depan</p>
-                        </div>
-                        <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
-                            LSTM Regression
-                        </span>
-                    </div>
-                    <div class="h-56 w-full">
-                        <canvas id="lstmLongitudinalChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 4. TABEL RINGKASAN PER HARI (PERSIS GAMBAR 4) -->
-            <div class="glass p-6 rounded-3xl shadow-2xl border border-slate-800">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700/60 mb-4">
-                    <div>
-                        <h4 class="text-base font-bold text-gray-100 flex items-center gap-2">
-                            <span>📋</span> Ringkasan per hari (Tabel Nilai LSTM)
-                        </h4>
-                        <p class="text-xs text-gray-400 mt-0.5">Ringkasan proyeksi harian kelembapan, suhu, dan tingkat kematangan</p>
-                    </div>
-                    <button onclick="unduhLaporanLSTMCsv()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-2 self-start sm:self-auto shadow-md">
-                        <span>📥</span> Unduh prediksi (CSV)
-                    </button>
-                </div>
-
-                <div class="overflow-x-auto rounded-xl border border-slate-800">
-                    <table class="w-full text-left text-xs text-gray-300">
-                        <thead class="bg-slate-900/90 text-gray-400 uppercase text-[11px] font-bold border-b border-slate-800">
-                            <tr>
-                                <th class="py-3 px-4">Hari</th>
-                                <th class="py-3 px-4">Kelembapan (%)</th>
-                                <th class="py-3 px-4">Suhu (°C)</th>
-                                <th class="py-3 px-4">Tingkat Kematangan (%)</th>
-                                <th class="py-3 px-4">Tahap Perkembangan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="lstmRingkasanBody" class="divide-y divide-slate-800/60 font-mono text-xs">
-                            <tr class="hover:bg-slate-800/40">
-                                <td class="py-3 px-4 font-bold text-gray-200">Hari +1 (Hari ke-14)</td>
-                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH1">-- %</td>
-                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH1">-- °C</td>
-                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH1">-- %</td>
-                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
-                            </tr>
-                            <tr class="hover:bg-slate-800/40">
-                                <td class="py-3 px-4 font-bold text-gray-200">Hari +2 (Hari ke-15)</td>
-                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH2">-- %</td>
-                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH2">-- °C</td>
-                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH2">-- %</td>
-                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
-                            </tr>
-                            <tr class="hover:bg-slate-800/40">
-                                <td class="py-3 px-4 font-bold text-gray-200">Hari +3 (Hari ke-16)</td>
-                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH3">-- %</td>
-                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH3">-- °C</td>
-                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH3">-- %</td>
-                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
-                            </tr>
-                            <tr class="hover:bg-slate-800/40">
-                                <td class="py-3 px-4 font-bold text-gray-200">Hari +4 (Hari ke-17)</td>
-                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH4">-- %</td>
-                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH4">-- °C</td>
-                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH4">-- %</td>
-                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="mt-3.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-gray-400 flex items-center gap-2">
-                    <span class="text-blue-400 text-sm">ℹ️</span>
-                    <span>Garis abu-abu pada grafik adalah nilai sebenarnya dari data sensor sebagai pembanding akurasi model LSTM.</span>
-                </div>
-            </div>
-        </div>
-
-        
-
 <!-- ================= BAGIAN 5: DASHBOARD 4 (MODEL CNN CITRA TANAMAN - TEMA UNGU & HIJAU) ================= -->
         <div id="sec-baris4" class="dashboard-section space-y-6 hidden">
             <!-- Header Dashboard 4 -->
@@ -1050,7 +714,386 @@
 
         
 
-        <!-- ================= BAGIAN 5: PENGATURAN (SETTINGS) ================= -->
+        <!-- ================= BAGIAN 4: DASHBOARD 3 (DESAIN BARU PREDIKSI LSTM SESUAI REFERENSI) ================= -->
+        <div id="sec-baris3" class="dashboard-section space-y-6 hidden">
+            <!-- Header Dashboard 3 -->
+            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-blue-500/20">
+                <div>
+                    <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 flex items-center gap-2">
+                        <span>🔮</span> Prediksi Pertumbuhan LSTM (Siklus 42 Hari Selada)
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-0.5">Analisis Time-Series Pembelajaran Mendalam (Deep Learning LSTM) untuk memprediksi tingkat kematangan & pertumbuhan tanaman selada</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active
+                    </span>
+                    <button onclick="muatUlangPrediksiLSTM()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
+                        <span>🔄</span> Muat Ulang
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1. KARTU RINGKASAN STATUS DI BAGIAN ATAS (4 KARTU) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Umur Tanaman Saat Ini dengan Kontrol Interaktif -->
+                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Umur Tanaman Saat Ini</span>
+                            <span class="text-[9px] font-mono text-cyan-400 font-bold bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/60">DAP Controller</span>
+                        </div>
+                        <div class="flex items-baseline gap-2 mt-1">
+                            <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300" id="lstmPlantAge">--</span>
+                            <span class="text-[11px] text-gray-400" id="lstmDapText">(Menunggu Data)</span>
+                        </div>
+                        <!-- Stepper Pengaturan Umur Hari Tanaman -->
+                        <div class="flex items-center gap-2 mt-2 pt-2 border-t border-slate-800/80">
+                            <span class="text-[10px] text-gray-400 font-medium">Ubah Hari:</span>
+                            <div class="flex items-center gap-1 bg-slate-950/90 p-0.5 rounded-xl border border-slate-700/80">
+                                <button onclick="ubahHariLstm(-1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center justify-center transition" title="Kurangi 1 Hari">-</button>
+                                <input type="number" id="inputUmurTanaman" value="1" min="1" max="42" onchange="setHariLstm(this.value)" class="w-10 bg-transparent text-cyan-300 font-bold text-center text-xs py-0.5 focus:outline-none">
+                                <button onclick="ubahHariLstm(1)" class="w-6 h-6 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center justify-center transition" title="Tambah 1 Hari">+</button>
+                            </div>
+                            <span class="text-[9px] text-cyan-400 font-medium">(Hari ke-)</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1">
+                            <span id="lstmSiklusText">Siklus Tanam: -- / 42 Hari</span>
+                            <span class="text-cyan-400 font-bold" id="lstmSiklusPct">0.0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div id="lstmSiklusBar" class="bg-gradient-to-r from-blue-500 to-cyan-400 h-full w-[0%]"></div>
+                        </div>
+                        <span class="text-[9px] text-gray-500 mt-1 block">Target Panen: Hari ke-42</span>
+                    </div>
+                </div>
+
+                <!-- Kelembapan Tanah Saat Ini -->
+                <div class="glass p-5 rounded-2xl border border-emerald-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Kelembapan Tanah Saat Ini</span>
+                        <p class="text-3xl font-black text-gray-400 mt-1" id="lstmSummarySoil">-- %</p>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
+                        <span class="text-[10px] text-gray-400">Kondisi:</span>
+                        <span id="lstmSoilBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-gray-400">Menunggu Data</span>
+                    </div>
+                </div>
+
+                <!-- Suhu Udara Saat Ini -->
+                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Suhu Udara Saat Ini</span>
+                        <p class="text-3xl font-black text-gray-400 mt-1" id="lstmSummaryTemp">-- °C</p>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
+                        <span class="text-[10px] text-gray-400">Kondisi:</span>
+                        <span id="lstmTempBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 text-gray-400">Menunggu Data</span>
+                    </div>
+                </div>
+
+                <!-- Status Sistem (Backend API & Jumlah Data) -->
+                <div class="glass p-5 rounded-2xl border border-purple-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Status Sistem & Backend</span>
+                        <div class="flex items-center gap-2 mt-1.5">
+                            <span class="w-3 h-3 rounded-full bg-blue-400 animate-pulse"></span>
+                            <span class="text-sm font-bold text-white">Standby (Siap Prediksi)</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-800/80">
+                        <p class="text-[11px] text-gray-400 font-mono" id="lstmLogCountText">0 Log Data Sensor</p>
+                        <span class="text-[9px] text-purple-300">Klik "Ambil Data" untuk memicu LSTM</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. PANEL HORIZONTAL PREDIKSI KEMATANGAN 4 HARI KE DEPAN (PERSIS GAMBAR 1) -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-emerald-500/30">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-700/60 mb-5">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-100 flex items-center gap-2">
+                            <span>🌱</span> Prediksi Kematangan 4 Hari ke Depan
+                        </h3>
+                        <p class="text-xs text-gray-400 mt-0.5">
+                            Sistem secara otomatis menganalisis 300 data sensor terakhir (10 hari) untuk memprediksi tingkat kematangan tanaman pada 4 hari ke depan.
+                        </p>
+                    </div>
+                    <button onclick="muatUlangPrediksiLSTM()" class="self-start md:self-auto px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1.5">
+                        <span>🔄</span> Muat Ulang
+                    </button>
+                </div>
+
+                <div class="mb-3 flex items-center gap-2 text-xs font-bold text-emerald-400">
+                    <span class="text-base">🌿</span>
+                    <span>Hasil Prediksi LSTM</span>
+                </div>
+
+                <!-- 4 KARTU PREDIKSI BERJAJAR KE SAMPING (HORISONTAL SCROLLABLE / GRID 4) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto pb-2">
+                    <!-- KARTU 1: HARI +1 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="lstmTitleH1" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +1 (MENUNGGU DATA)</span>
+                                <span id="lstmBadgeH1" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-gray-400" id="lstmValH1">-- %</p>
+                            </div>
+                            <!-- Bar progress hijau -->
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH1" class="bg-emerald-400 h-full w-[0%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(1)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
+                        </div>
+                        <!-- Kotak Morfologi Biometrik Hari +1 (Murni Visualisasi Diagram & Estimasi, Tanpa Foto CNN) -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(1)">
+                            <div class="space-y-1 w-full">
+                                <span class="text-3xl block" id="lstmIconH1">🌱</span>
+                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH1">Menunggu Data</span>
+                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH1">
+                                    <span>💧 --%</span>
+                                    <span>•</span>
+                                    <span>🌡️ --°C</span>
+                                    <span>•</span>
+                                    <span>📐 -- cm</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 2: HARI +2 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="lstmTitleH2" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +2 (MENUNGGU DATA)</span>
+                                <span id="lstmBadgeH2" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-gray-400" id="lstmValH2">-- %</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH2" class="bg-emerald-400 h-full w-[0%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(2)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
+                        </div>
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(2)">
+                            <div class="space-y-1 w-full">
+                                <span class="text-3xl block" id="lstmIconH2">🌿</span>
+                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH2">Menunggu Data</span>
+                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH2">
+                                    <span>💧 --%</span>
+                                    <span>•</span>
+                                    <span>🌡️ --°C</span>
+                                    <span>•</span>
+                                    <span>📐 -- cm</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 3: HARI +3 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="lstmTitleH3" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +3 (MENUNGGU DATA)</span>
+                                <span id="lstmBadgeH3" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-gray-400" id="lstmValH3">-- %</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH3" class="bg-emerald-400 h-full w-[0%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(3)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
+                        </div>
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(3)">
+                            <div class="space-y-1 w-full">
+                                <span class="text-3xl block" id="lstmIconH3">🥬</span>
+                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH3">Menunggu Data</span>
+                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH3">
+                                    <span>💧 --%</span>
+                                    <span>•</span>
+                                    <span>🌡️ --°C</span>
+                                    <span>•</span>
+                                    <span>📐 -- cm</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 4: HARI +4 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span id="lstmTitleH4" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +4 (MENUNGGU DATA)</span>
+                                <span id="lstmBadgeH4" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-gray-400" id="lstmValH4">-- %</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH4" class="bg-emerald-400 h-full w-[0%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(4)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
+                        </div>
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(4)">
+                            <div class="space-y-1 w-full">
+                                <span class="text-3xl block" id="lstmIconH4">🥗</span>
+                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH4">Menunggu Data</span>
+                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH4">
+                                    <span>💧 --%</span>
+                                    <span>•</span>
+                                    <span>🌡️ --°C</span>
+                                    <span>•</span>
+                                    <span>📐 -- cm</span>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. GAUGE TINGKAT KEMATANGAN<!-- 3. GAUGE TINGKAT KEMATANGAN & GRAFIK LONGITUDINAL (PERSIS GAMBAR 5) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Kiri: Gauge Meter Tingkat Kematangan Saat Ini (4 Kolom - Gambar 5) -->
+                <div class="lg:col-span-4 glass p-6 rounded-3xl shadow-2xl border border-indigo-500/30 flex flex-col justify-between text-center">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Metrik Kematangan Tanaman</span>
+                        <h4 class="text-sm font-bold text-gray-200 mt-1">Tingkat Kematangan Tanaman (%)</h4>
+                    </div>
+
+                    <!-- Semi-circular Gauge Canvas -->
+                    <div class="relative w-48 h-28 mx-auto my-3 flex items-center justify-center">
+                        <canvas id="lstmMeterGauge"></canvas>
+                        <div class="absolute bottom-1 text-center">
+                            <span class="text-3xl font-black text-gray-400" id="gaugeValText">-- %</span>
+                            <span class="text-[9px] text-gray-400 block">Kematangan</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/80">
+                        <div class="flex justify-between text-[11px] text-gray-400 mb-1">
+                            <span id="gaugeCycleText">Siklus tanam: Menunggu pengambilan data</span>
+                            <span class="text-indigo-400 font-bold">55.8%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-indigo-500 h-full w-[56%]"></div>
+                        </div>
+                        <span class="text-[10px] text-emerald-400 font-semibold mt-2 block">Masa Panen Standar: 42 Hari (Maks 46 Hari)</span>
+                    </div>
+                </div>
+
+                <!-- Kanan: Grafik Longitudinal Time-Series (8 Kolom - Gambar 4/5) -->
+                <div class="lg:col-span-8 glass p-6 rounded-3xl shadow-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-2">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-1.5">
+                                <span>📈</span> Perkembangan Tingkat Kematangan sejak Awal Tanam
+                            </h4>
+                            <p class="text-[11px] text-gray-400">Kurva longitudinal time-series dan proyeksi 4 hari ke depan</p>
+                        </div>
+                        <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                            LSTM Regression
+                        </span>
+                    </div>
+                    <div class="h-56 w-full">
+                        <canvas id="lstmLongitudinalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. TABEL RINGKASAN PER HARI (PERSIS GAMBAR 4) -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700/60 mb-4">
+                    <div>
+                        <h4 class="text-base font-bold text-gray-100 flex items-center gap-2">
+                            <span>📋</span> Ringkasan per hari (Tabel Nilai LSTM)
+                        </h4>
+                        <p class="text-xs text-gray-400 mt-0.5">Ringkasan proyeksi harian kelembapan, suhu, dan tingkat kematangan</p>
+                    </div>
+                    <button onclick="unduhLaporanLSTMCsv()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-2 self-start sm:self-auto shadow-md">
+                        <span>📥</span> Unduh prediksi (CSV)
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left text-xs text-gray-300">
+                        <thead class="bg-slate-900/90 text-gray-400 uppercase text-[11px] font-bold border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4">Hari</th>
+                                <th class="py-3 px-4">Kelembapan (%)</th>
+                                <th class="py-3 px-4">Suhu (°C)</th>
+                                <th class="py-3 px-4">Tingkat Kematangan (%)</th>
+                                <th class="py-3 px-4">Tahap Perkembangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lstmRingkasanBody" class="divide-y divide-slate-800/60 font-mono text-xs">
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200" id="tableLstmTitleH1">Hari +1 (Menunggu Data)</td>
+                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH1">-- %</td>
+                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH1">-- °C</td>
+                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH1">-- %</td>
+                                <td class="py-3 px-4" id="tableLstmStageH1"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200" id="tableLstmTitleH2">Hari +2 (Menunggu Data)</td>
+                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH2">-- %</td>
+                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH2">-- °C</td>
+                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH2">-- %</td>
+                                <td class="py-3 px-4" id="tableLstmStageH2"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200" id="tableLstmTitleH3">Hari +3 (Menunggu Data)</td>
+                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH3">-- %</td>
+                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH3">-- °C</td>
+                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH3">-- %</td>
+                                <td class="py-3 px-4" id="tableLstmStageH3"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200" id="tableLstmTitleH4">Hari +4 (Menunggu Data)</td>
+                                <td class="py-3 px-4 text-gray-400 font-semibold" id="tableLstmSoilH4">-- %</td>
+                                <td class="py-3 px-4 text-gray-400" id="tableLstmTempH4">-- °C</td>
+                                <td class="py-3 px-4 text-gray-400 font-bold" id="tableLstmKematanganH4">-- %</td>
+                                <td class="py-3 px-4" id="tableLstmStageH4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-800 text-gray-400">Menunggu Data</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-gray-400 flex items-center gap-2">
+                    <span class="text-blue-400 text-sm">ℹ️</span>
+                    <span>Garis abu-abu pada grafik adalah nilai sebenarnya dari data sensor sebagai pembanding akurasi model LSTM.</span>
+                </div>
+            </div>
+        </div>
+
+        
+
+<!-- ================= BAGIAN 5: PENGATURAN (SETTINGS) ================= -->
         <div id="sec-pengaturan" class="dashboard-section glass p-6 rounded-3xl shadow-2xl space-y-6 hidden">
             <!-- Header Pengaturan -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700/60 pb-4">
@@ -2224,16 +2267,7 @@
                         }
                     }
 
-                    // Sinkronkan foto yang baru diunggah ke kartu visualisasi LSTM (tanpa foto internet)
-                    for (let n = 1; n <= 4; n++) {
-                        const lImg = document.getElementById('lstmImgH' + n);
-                        const lPh = document.getElementById('lstmPlaceholderH' + n);
-                        if (lImg) {
-                            lImg.src = uploadedImageBase64;
-                            lImg.classList.remove('hidden');
-                        }
-                        if (lPh) lPh.classList.add('hidden');
-                    }
+                    // Catatan: Menu CNN murni terisolasi untuk analisis visi komputer (tidak mencemari kartu prediksi LSTM)
 
                     // Sinkronkan ke Firebase node 'evaluasi_cnn'
                     try {
@@ -2268,23 +2302,56 @@
             reader.readAsDataURL(file);
         }
 
-        // ================= FUNGSI PREDIKSI LSTM OTOMATIS SAAT AMBIL DATA =================
-        function jalankanPrediksiLSTMRealtime(item) {
-            const soil = parseFloat(item.kelembapan_tanah) || 60;
-            const temp = parseFloat(item.suhu) || 27.5;
-            const count = riwayatTabel.length + 1;
+        // ================= JAM & TANGGAL REALTIME BERJALAN =================
+        function updateLiveClock() {
+            const now = new Date();
+            const optionsDate = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+            const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + " WIB";
+            
+            const timeEl = document.getElementById('liveClockTime');
+            const dateEl = document.getElementById('liveClockDate');
+            if (timeEl) timeEl.innerText = timeStr;
+            if (dateEl) dateEl.innerText = dateStr;
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
 
-            // Umur Tanaman (DAP)
-            const dap = Math.min(42, Math.max(13, 10 + Math.floor(count / 2)));
+        // ================= FUNGSI CONTROLLER UMUR HARI TANAMAN & PROYEKSI LSTM DINAMIS =================
+        let currentDap = 1;
+
+        function ubahHariLstm(delta) {
+            let newDap = currentDap + delta;
+            if (newDap < 1) newDap = 1;
+            if (newDap > 42) newDap = 42;
+            setHariLstm(newDap);
+        }
+
+        function setHariLstm(val) {
+            currentDap = parseInt(val) || 1;
+            if (currentDap < 1) currentDap = 1;
+            if (currentDap > 42) currentDap = 42;
+
+            const inputEl = document.getElementById('inputUmurTanaman');
+            if (inputEl) inputEl.value = currentDap;
+
+            sessionLstmTriggered = true;
+
+            // Hitung persentase siklus tanam (42 hari target panen selada)
             const targetDays = 42;
-            const siklusPct = parseFloat(((dap / targetDays) * 100).toFixed(1));
+            const siklusPct = parseFloat(((currentDap / targetDays) * 100).toFixed(1));
 
             // Update 4 Kartu Ringkasan Atas
-            if (document.getElementById('lstmPlantAge')) document.getElementById('lstmPlantAge').innerText = "Hari ke-" + dap;
-            if (document.getElementById('lstmDapText')) document.getElementById('lstmDapText').innerText = "(DAP " + dap + ")";
-            if (document.getElementById('lstmSiklusText')) document.getElementById('lstmSiklusText').innerText = "Siklus Tanam: " + dap + "/42 Hari";
+            if (document.getElementById('lstmPlantAge')) document.getElementById('lstmPlantAge').innerText = "Hari ke-" + currentDap;
+            if (document.getElementById('lstmDapText')) document.getElementById('lstmDapText').innerText = `(DAP ${currentDap})`;
+            if (document.getElementById('lstmSiklusText')) document.getElementById('lstmSiklusText').innerText = `Siklus Tanam: ${currentDap}/42 Hari`;
             if (document.getElementById('lstmSiklusPct')) document.getElementById('lstmSiklusPct').innerText = siklusPct + "%";
             if (document.getElementById('lstmSiklusBar')) document.getElementById('lstmSiklusBar').style.width = siklusPct + "%";
+
+            // Kondisi sensor saat ini
+            const soil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
+            const temp = parseFloat(dataTerakhir.suhu) || 27.2;
+
             if (document.getElementById('lstmSummarySoil')) document.getElementById('lstmSummarySoil').innerText = soil + " %";
             if (document.getElementById('lstmSoilBadge')) {
                 document.getElementById('lstmSoilBadge').innerText = (soil >= 65 && soil <= 78) ? "Ideal (65% - 78%)" : (soil < 65 ? "Kering (<65%)" : "Basah (>78%)");
@@ -2295,112 +2362,135 @@
                 document.getElementById('lstmTempBadge').innerText = "Optimal (24°C - 28°C)";
                 document.getElementById('lstmTempBadge').className = "text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300";
             }
-            if (document.getElementById('lstmLogCountText')) document.getElementById('lstmLogCountText').innerText = count + " Log Data Sensor Tercatat";
 
-            // Proyeksi 4 Hari ke Depan (Simulasi Regresi Longitudinal LSTM)
-            const p1_soil = parseFloat((soil * 0.98).toFixed(1));
-            const p1_temp = parseFloat((temp - 0.2).toFixed(1));
-            const p1_kem = parseFloat(Math.min(95, (dap / 42 * 100) + 2.5).toFixed(1));
+            // Hitung Proyeksi 4 Hari ke Depan (Misal Hari ke-1 -> Hari ke-2, 3, 4, 5)
+            const chartLabels = [`Hari Ini (H${currentDap})`];
+            const baseKem = parseFloat(Math.min(98, Math.max(8, (currentDap / 42) * 100)).toFixed(1));
+            const chartKematangan = [baseKem];
+            const chartSoil = [soil];
+            const chartTemp = [temp];
 
-            const p2_soil = parseFloat((soil * 0.96).toFixed(1));
-            const p2_temp = parseFloat((temp - 0.4).toFixed(1));
-            const p2_kem = parseFloat(Math.min(95, (dap / 42 * 100) + 5.2).toFixed(1));
+            const p_firebase = {};
 
-            const p3_soil = parseFloat((soil * 0.95).toFixed(1));
-            const p3_temp = parseFloat((temp - 0.5).toFixed(1));
-            const p3_kem = parseFloat(Math.min(95, (dap / 42 * 100) + 7.4).toFixed(1));
+            for (let offset = 1; offset <= 4; offset++) {
+                const targetDay = currentDap + offset;
+                chartLabels.push(`H${targetDay} (H+${offset})`);
 
-            const p4_soil = parseFloat((soil * 0.94).toFixed(1));
-            const p4_temp = parseFloat((temp - 0.6).toFixed(1));
-            const p4_kem = parseFloat(Math.min(95, (dap / 42 * 100) + 9.7).toFixed(1));
+                // Regresi kematangan matematis selada keriting
+                const kemPct = parseFloat(Math.min(98.5, Math.max(10, ((targetDay / 42) * 100) + (offset * 1.5))).toFixed(1));
+                const projSoil = parseFloat((soil * (1 - offset * 0.015)).toFixed(1));
+                const projTemp = parseFloat((temp + (offset % 2 === 0 ? 0.3 : -0.2)).toFixed(1));
 
-            sessionLstmTriggered = true;
+                chartKematangan.push(kemPct);
+                chartSoil.push(projSoil);
+                chartTemp.push(projTemp);
 
-            // Update 4 Kartu Prediksi Horizontal (Tanpa Sampel Foto Internet)
-            const updatePredCard = (num, kem) => {
-                const valEl = document.getElementById('lstmValH' + num);
-                const barEl = document.getElementById('lstmBarH' + num);
-                const badgeEl = document.getElementById('lstmBadgeH' + num);
-                const imgEl = document.getElementById('lstmImgH' + num);
-                const phEl = document.getElementById('lstmPlaceholderH' + num);
+                p_firebase[`h${offset}`] = { suhu: projTemp, kelembapan_tanah: projSoil, kesiapan_panen: kemPct };
 
-                if (valEl) valEl.innerText = kem + "%";
-                if (barEl) barEl.style.width = kem + "%";
-                if (badgeEl) {
-                    badgeEl.innerText = kem >= 75 ? "SIAP PANEN" : "MASA PERTUMBUHAN";
-                    badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase " + (kem >= 75 ? "bg-emerald-500/20 text-emerald-300" : "bg-blue-500/20 text-blue-300");
-                }
+                // Evaluasi Tahapan Pertumbuhan Biometrik
+                let stageName = "Pertumbuhan Awal";
+                let stageIcon = "🌱";
+                let kanopiCm = (3.5 + targetDay * 0.42).toFixed(1);
 
-                // Jika pengguna sudah mengunggah foto selada keriting dari ESP32-CAM, gunakan foto tersebut
-                if (uploadedImageBase64 && imgEl) {
-                    imgEl.src = uploadedImageBase64;
-                    imgEl.classList.remove('hidden');
-                    if (phEl) phEl.classList.add('hidden');
+                if (targetDay <= 7) {
+                    stageName = "Persemaian / Bibit";
+                    stageIcon = "🌱";
+                } else if (targetDay <= 14) {
+                    stageName = "Pertumbuhan Vegetatif";
+                    stageIcon = "🌱";
+                } else if (targetDay <= 25) {
+                    stageName = "Vegetatif Daun Melebar";
+                    stageIcon = "🌿";
+                } else if (targetDay <= 35) {
+                    stageName = "Pembentukan Kanopi Rimbun";
+                    stageIcon = "🥬";
                 } else {
-                    // Jika belum ada foto unggahan, tampilkan ikon dan indikator morfologi hari tersebut (tanpa foto internet)
-                    if (imgEl) imgEl.classList.add('hidden');
-                    if (phEl) {
-                        phEl.classList.remove('hidden');
-                        const icons = ['🌱', '🌿', '🥬', '🥗'];
-                        const labels = ['Pertumbuhan Awal', 'Daun Melebar', 'Daun Rimbun', 'Menuju Panen'];
-                        const canopy = ['~10.5 cm', '~12.0 cm', '~14.2 cm', '~16.5 cm'];
-                        phEl.innerHTML = `
-                            <span class="text-3xl block mb-1">${icons[num - 1]}</span>
-                            <span class="text-[10px] font-bold text-emerald-400 block">${labels[num - 1]}</span>
-                            <span class="text-[9px] text-gray-500">Kanopi ${canopy[num - 1]}</span>
-                        `;
-                    }
+                    stageName = "Siap Panen Optimal";
+                    stageIcon = "🥗";
                 }
-            };
 
-            updatePredCard(1, p1_kem);
-            updatePredCard(2, p2_kem);
-            updatePredCard(3, p3_kem);
-            updatePredCard(4, p4_kem);
+                const isSiap = kemPct >= 75;
+
+                // Update 4 Kartu Prediksi
+                const titleEl = document.getElementById(`lstmTitleH${offset}`);
+                const valEl = document.getElementById(`lstmValH${offset}`);
+                const barEl = document.getElementById(`lstmBarH${offset}`);
+                const badgeEl = document.getElementById(`lstmBadgeH${offset}`);
+                const iconEl = document.getElementById(`lstmIconH${offset}`);
+                const stageEl = document.getElementById(`lstmStageH${offset}`);
+                const morphEl = document.getElementById(`lstmMorphH${offset}`);
+
+                if (titleEl) titleEl.innerText = `HARI KE-${targetDay} (H+${offset})`;
+                if (valEl) valEl.innerText = kemPct + "%";
+                if (barEl) barEl.style.width = kemPct + "%";
+                if (badgeEl) {
+                    badgeEl.innerText = isSiap ? "SIAP PANEN" : "MASA TUMBUH";
+                    badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase " + (isSiap ? "bg-emerald-500/20 text-emerald-300" : "bg-blue-500/20 text-blue-300");
+                }
+                if (iconEl) iconEl.innerText = stageIcon;
+                if (stageEl) {
+                    stageEl.innerText = stageName;
+                    stageEl.className = "text-[11px] font-bold block " + (isSiap ? "text-emerald-400" : "text-gray-300");
+                }
+                if (morphEl) {
+                    morphEl.innerHTML = `<span>💧 ${projSoil}%</span><span>•</span><span>🌡️ ${projTemp}°C</span><span>•</span><span>📐 ${kanopiCm} cm</span>`;
+                }
+
+                // Update Baris Tabel Ringkasan
+                const tTitle = document.getElementById(`tableLstmTitleH${offset}`);
+                const tSoil = document.getElementById(`tableLstmSoilH${offset}`);
+                const tTemp = document.getElementById(`tableLstmTempH${offset}`);
+                const tKem = document.getElementById(`tableLstmKematanganH${offset}`);
+                const tStage = document.getElementById(`tableLstmStageH${offset}`);
+
+                if (tTitle) tTitle.innerText = `Hari +${offset} (Hari ke-${targetDay})`;
+                if (tSoil) { tSoil.innerText = projSoil + " %"; tSoil.className = "py-3 px-4 text-emerald-400 font-semibold"; }
+                if (tTemp) { tTemp.innerText = projTemp + " °C"; tTemp.className = "py-3 px-4 text-blue-400"; }
+                if (tKem) { tKem.innerText = kemPct + " %"; tKem.className = "py-3 px-4 text-cyan-300 font-bold"; }
+                if (tStage) {
+                    tStage.innerHTML = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isSiap ? 'bg-emerald-500/20 text-emerald-300' : 'bg-blue-500/20 text-blue-300'}">${stageName}</span>`;
+                }
+            }
 
             // Update Semicircular Gauge
-            const avgKem = Math.round((p1_kem + p2_kem + p3_kem + p4_kem) / 4);
-            if (document.getElementById('gaugeValText')) document.getElementById('gaugeValText').innerText = avgKem + "%";
-            if (document.getElementById('gaugeCycleText')) document.getElementById('gaugeCycleText').innerText = `Siklus tanam: pembacaan ${count} dari 120`;
-            lstmGaugeChart.data.datasets[0].data = [avgKem, Math.max(0, 100 - avgKem)];
-            lstmGaugeChart.update();
+            if (document.getElementById('gaugeValText')) document.getElementById('gaugeValText').innerText = Math.round(baseKem) + "%";
+            if (document.getElementById('gaugeCycleText')) document.getElementById('gaugeCycleText').innerText = `Siklus Tanam: Hari ke-${currentDap} dari 42 Hari`;
+            if (typeof lstmGaugeChart !== 'undefined' && lstmGaugeChart.data) {
+                lstmGaugeChart.data.datasets[0].data = [baseKem, Math.max(0, 100 - baseKem)];
+                lstmGaugeChart.update();
+            }
 
             // Update Longitudinal Line Chart
-            lstmChart.data.datasets[0].data = [parseFloat((p1_kem - 3.2).toFixed(1)), p1_kem, p2_kem, p3_kem, p4_kem];
-            lstmChart.data.datasets[1].data = [soil, p1_soil, p2_soil, p3_soil, p4_soil];
-            lstmChart.data.datasets[2].data = [temp, p1_temp, p2_temp, p3_temp, p4_temp];
-            lstmChart.update();
-
-            // Update Tabel Ringkasan
-            const updateTableRow = (num, s, t, k) => {
-                const sEl = document.getElementById('tableLstmSoilH' + num);
-                const tEl = document.getElementById('tableLstmTempH' + num);
-                const kEl = document.getElementById('tableLstmKematanganH' + num);
-                if (sEl) { sEl.innerText = s + " %"; sEl.className = "py-3 px-4 text-emerald-400 font-semibold"; }
-                if (tEl) { tEl.innerText = t + " °C"; tEl.className = "py-3 px-4 text-blue-400"; }
-                if (kEl) { kEl.innerText = k + " %"; kEl.className = "py-3 px-4 text-cyan-300 font-bold"; }
-            };
-
-            updateTableRow(1, p1_soil, p1_temp, p1_kem);
-            updateTableRow(2, p2_soil, p2_temp, p2_kem);
-            updateTableRow(3, p3_soil, p3_temp, p3_kem);
-            updateTableRow(4, p4_soil, p4_temp, p4_kem);
+            if (typeof lstmChart !== 'undefined' && lstmChart.data) {
+                lstmChart.data.labels = chartLabels;
+                lstmChart.data.datasets[0].data = chartKematangan;
+                lstmChart.data.datasets[1].data = chartSoil;
+                lstmChart.data.datasets[2].data = chartTemp;
+                lstmChart.update();
+            }
 
             // Sinkronkan ke Firebase node 'prediksi_lstm'
-            firebase.database().ref('prediksi_lstm').update({
-                waktu_prediksi: new Date().toLocaleString('id-ID'),
-                kondisi_saat_ini: {
-                    suhu: temp,
-                    kelembapan_tanah: soil,
-                    kesiapan_panen: parseFloat((p1_kem - 3.2).toFixed(1))
-                },
-                proyeksi: {
-                    h1: { suhu: p1_temp, kelembapan_tanah: p1_soil, kesiapan_panen: p1_kem },
-                    h2: { suhu: p2_temp, kelembapan_tanah: p2_soil, kesiapan_panen: p2_kem },
-                    h3: { suhu: p3_temp, kelembapan_tanah: p3_soil, kesiapan_panen: p3_kem },
-                    h4: { suhu: p4_temp, kelembapan_tanah: p4_soil, kesiapan_panen: p4_kem }
-                }
-            }).catch(() => {});
+            try {
+                firebase.database().ref('prediksi_lstm').update({
+                    waktu_prediksi: new Date().toLocaleString('id-ID'),
+                    umur_tanaman_hari: currentDap,
+                    kondisi_saat_ini: {
+                        suhu: temp,
+                        kelembapan_tanah: soil,
+                        kesiapan_panen: baseKem
+                    },
+                    proyeksi: p_firebase
+                }).catch(() => {});
+            } catch(e) {}
+        }
+
+        // ================= FUNGSI PREDIKSI LSTM OTOMATIS SAAT AMBIL DATA =================
+        function jalankanPrediksiLSTMRealtime(item) {
+            const count = riwayatTabel.length + 1;
+            if (document.getElementById('lstmLogCountText')) document.getElementById('lstmLogCountText').innerText = count + " Log Data Sensor Tercatat";
+            
+            // Jalankan kalkulasi hari LSTM (dimulai dari currentDap)
+            setHariLstm(currentDap);
         }
 
         // ================= 8. DASHBOARD 3: MODEL PREDIKSI LSTM & GAUGE KEMATANGAN =================
@@ -2813,44 +2903,72 @@
         };
 
         function bukaModalVisualisasi(hIndex) {
-            const item = infoPrediksiHari[hIndex] || infoPrediksiHari[1];
+            const targetDay = currentDap + hIndex;
             const valEl = document.getElementById('lstmValH' + hIndex);
-            const persen = valEl ? valEl.innerText : item.persen;
+            const persen = valEl ? valEl.innerText : "-- %";
 
-            document.getElementById('zoomModalTitle').innerText = `Visualisasi Kondisi Tanaman: ${item.hari}`;
-            document.getElementById('zoomModalSubtitle').innerText = `Prediksi Model LSTM - Fase ${item.fase} (${persen})`;
+            let stageName = "Pertumbuhan Awal";
+            let stageIcon = "🌱";
+            let kanopi = (3.5 + targetDay * 0.42).toFixed(1) + " cm";
+            let bobot = Math.round(5 + Math.pow(targetDay / 42, 2) * 160) + " - " + Math.round(10 + Math.pow(targetDay / 42, 2) * 175) + " gram";
+            let desc = "Fase pertumbuhan awal selada keriting. Sistem akar menyerap air nutrisi secara aktif.";
+            let rekomendasi = "Pertahankan kelembapan media tanam pada rentang ideal 65% - 78% dan EC nutrisi 1.2 mS/cm.";
+
+            if (targetDay <= 7) {
+                stageName = "Persemaian / Bibit";
+                stageIcon = "🌱";
+                desc = "Fase perkecambahan dan kemunculan daun kotiledon. Kebutuhan air nutrisi rendah, jaga kelembapan konstan.";
+                rekomendasi = "Hindari paparan cahaya matahari terik langsung, pastikan aerasi air memadai.";
+            } else if (targetDay <= 14) {
+                stageName = "Pertumbuhan Vegetatif Awal";
+                stageIcon = "🌱";
+                desc = "Daun sejati pertama mulai membuka ke arah lateral. Akar mulai menyerap mineral makro N-P-K aktif.";
+                rekomendasi = "Pertahankan suhu lingkungan 24°C - 28°C agar pertumbuhan sel vegetative optimal.";
+            } else if (targetDay <= 25) {
+                stageName = "Vegetatif Aktif (Daun Melebar)";
+                stageIcon = "🌿";
+                desc = "Helaian daun melebar signifikan ke samping. Kandungan klorofil meningkat dengan warna hijau cerah.";
+                rekomendasi = "Tingkatkan sirkulasi nutrisi (EC 1.4 - 1.6 mS/cm). Pastikan pompa air menyala saat tanah mendekati 65%.";
+            } else if (targetDay <= 35) {
+                stageName = "Pembentukan Kanopi Rimbun";
+                stageIcon = "🥬";
+                desc = "Tingkat keriting pada tepian daun selada semakin padat dan rimbun. Bobot basah meningkat pesat.";
+                rekomendasi = "Pantau kelembapan udara (60% - 80%) agar tidak terjadi busuk daun (tip burn).";
+            } else {
+                stageName = "Siap Panen Optimal";
+                stageIcon = "🥗";
+                desc = "Kanopi selada keriting telah menutupi media secara maksimal. Daun renyah dengan bobot panen komersial tercapai.";
+                rekomendasi = "Tanaman sangat layak untuk dipanen segera guna menjaga kesegaran dan cita rasa renyah optimal.";
+            }
+
+            document.getElementById('zoomModalTitle').innerText = `Proyeksi Pertumbuhan Tanaman: Hari ke-${targetDay} (H+${hIndex})`;
+            document.getElementById('zoomModalSubtitle').innerText = `Model Deep Learning LSTM - ${stageName} (Kematangan ${persen})`;
 
             const zoomImg = document.getElementById('zoomModalImg');
             const zoomVector = document.getElementById('zoomModalVector');
             
-            if (uploadedImageBase64) {
-                zoomImg.src = uploadedImageBase64;
-                zoomImg.classList.remove('hidden');
-                if (zoomVector) zoomVector.classList.add('hidden');
-            } else {
-                zoomImg.classList.add('hidden');
-                if (zoomVector) {
-                    zoomVector.classList.remove('hidden');
-                    const icons = ['🌱', '🌿', '🥬', '🥗'];
-                    document.getElementById('zoomModalEmoji').innerText = icons[hIndex - 1] || '🌿';
-                    document.getElementById('zoomModalBadge').innerText = `${item.hari} • Tingkat Kematangan: ${persen}`;
-                }
+            // Pastikan tidak menampilkan foto CNN di modal LSTM
+            if (zoomImg) zoomImg.classList.add('hidden');
+            if (zoomVector) {
+                zoomVector.classList.remove('hidden');
+                document.getElementById('zoomModalEmoji').innerText = stageIcon;
+                document.getElementById('zoomModalBadge').innerText = `Hari ke-${targetDay} • Kematangan: ${persen} (${stageName})`;
             }
 
             document.getElementById('zoomModalDesc').innerHTML = `
                 <div class="space-y-2">
-                    <p><b>Perkembangan Morfologi:</b> ${item.desc}</p>
+                    <p><b>Perkembangan Morfologi:</b> ${desc}</p>
                     <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-[11px]">
                         <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                            <span class="text-gray-400 block">Estimasi Kanopi Daun:</span>
-                            <span class="text-emerald-400 font-bold">${item.estimasiKanopi}</span>
+                            <span class="text-gray-400 block">Estimasi Diameter Kanopi:</span>
+                            <span class="text-emerald-400 font-bold">${kanopi}</span>
                         </div>
                         <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
                             <span class="text-gray-400 block">Estimasi Bobot Basah:</span>
-                            <span class="text-blue-400 font-bold">${item.estimasiBobot}</span>
+                            <span class="text-blue-400 font-bold">${bobot}</span>
                         </div>
                     </div>
-                    <p class="text-[10px] text-gray-400 pt-1">💡 <b>Rekomendasi Pemeliharaan:</b> ${item.rekomendasi}</p>
+                    <p class="text-[10px] text-gray-400 pt-1">💡 <b>Rekomendasi Pemeliharaan:</b> ${rekomendasi}</p>
                 </div>
             `;
 
