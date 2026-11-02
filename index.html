@@ -516,8 +516,8 @@
                     <p class="text-xs text-gray-400 mt-0.5">Klasifikasi visi komputer berbasis Convolutional Neural Network untuk evaluasi kematangan, morfologi daun, dan probabilitas kelas</p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-xs px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Classifier Active
+                    <span id="cnnBadgeStatus" class="text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Citra
                     </span>
                     <button onclick="toggleEnkripsiCitra()" id="btnEnkripsi" class="bg-gradient-to-r from-purple-700 to-emerald-700 hover:from-purple-600 hover:to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-md">
                         <span>🔮</span> Enkripsi Citra (Ungu & Hijau)
@@ -581,8 +581,11 @@
                         <button onclick="document.getElementById('manualFileInput').click();" class="flex-1 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white py-2.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center justify-center gap-1.5 shadow-md">
                             <span>📁</span> Upload Screenshot Selada
                         </button>
-                        <button onclick="toggleEnkripsiCitra()" id="btnToggleViewCitra" class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition flex items-center gap-1.5" title="Beralih antara citra asli dan filter fitur CNN">
+                        <button onclick="toggleEnkripsiCitra()" id="btnToggleViewCitra" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition flex items-center gap-1.5" title="Beralih antara citra asli dan filter fitur CNN">
                             <span>🔮</span> Mode Fitur CNN
+                        </button>
+                        <button onclick="resetAnalisisCnn()" id="btnResetCnn" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-rose-950/70 text-gray-400 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 transition flex items-center gap-1.5" title="Reset / Hapus Foto dan Bersihkan Grafik">
+                            <span>🔄</span> Reset
                         </button>
                     </div>
                 </div>
@@ -702,7 +705,7 @@
                         <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
                             <span>📊</span> Perbandingan Parameter Tanaman vs Standar Ideal Siap Panen
                         </h4>
-                        <p class="text-[11px] text-gray-400">Batang Ungu = Kondisi Tanaman Saat Ini | Batang Hijau = Standar Ideal Siap Panen</p>
+                        <p class="text-[11px] text-gray-400">Batang Ungu = Kondisi Tanaman Saat Ini | Batang Hijau = Standar Ideal Siap Panen (Muncul otomatis setelah citra selada dianalisis)</p>
                     </div>
                     <span class="text-[10px] font-mono text-purple-300">Skema Ungu & Hijau</span>
                 </div>
@@ -725,11 +728,14 @@
                     <p class="text-xs text-gray-400 mt-0.5">Analisis Time-Series Pembelajaran Mendalam (Deep Learning LSTM) untuk memprediksi tingkat kematangan & pertumbuhan tanaman selada</p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active
+                    <span id="lstmBadgeStatus" class="text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Data
                     </span>
                     <button onclick="muatUlangPrediksiLSTM()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
                         <span>🔄</span> Muat Ulang
+                    </button>
+                    <button onclick="resetPrediksiLstm()" class="bg-slate-800/90 hover:bg-rose-950/70 text-gray-400 hover:text-rose-300 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-700 hover:border-rose-500/50 transition flex items-center gap-1.5" title="Kembalikan LSTM ke Mode Standby Awal">
+                        <span>⏹️</span> Reset
                     </button>
                 </div>
             </div>
@@ -997,13 +1003,16 @@
 
                     <div class="pt-3 border-t border-slate-800/80">
                         <div class="flex justify-between text-[11px] text-gray-400 mb-1">
-                            <span id="gaugeCycleText">Siklus tanam: Menunggu pengambilan data</span>
-                            <span class="text-indigo-400 font-bold">55.8%</span>
+                            <span id="gaugeCycleText">Siklus tanam: Menunggu data ESP32</span>
+                            <span id="gaugeCyclePct" class="text-indigo-400 font-bold">0.0%</span>
                         </div>
                         <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-indigo-500 h-full w-[56%]"></div>
+                            <div id="gaugeCycleBar" class="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full w-[0%] transition-all duration-500"></div>
                         </div>
-                        <span class="text-[10px] text-emerald-400 font-semibold mt-2 block">Masa Panen Standar: 42 Hari (Maks 46 Hari)</span>
+                        <div class="flex justify-between text-[10px] mt-2">
+                            <span class="text-emerald-400 font-semibold" id="gaugeCycleHariText">Masa Panen Standar: 42 Hari</span>
+                            <span class="text-cyan-300 font-semibold" id="gaugeMaturitySummaryText">Est. Kematangan: Standby</span>
+                        </div>
                     </div>
                 </div>
 
@@ -2245,12 +2254,20 @@
                     if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = warna_pct + " %";
                     if (document.getElementById('cnnSkorPanen')) document.getElementById('cnnSkorPanen').innerText = skor + " %";
 
-                    // Update Bar Chart Komparasi (Ungu & Hijau)
+                    // Update Status Badge CNN Aktif
+                    const cnnBadge = document.getElementById('cnnBadgeStatus');
+                    if (cnnBadge) {
+                        cnnBadge.className = "text-xs px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5";
+                        cnnBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Classifier Active';
+                    }
+
+                    // Update Bar Chart Komparasi (Ungu & Hijau Muncul Bersama)
                     try {
                         if (typeof cnnChart !== 'undefined' && cnnChart.data) {
                             const curSoil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
                             const curHum = parseFloat(dataTerakhir.kelembapan_udara) || 78;
                             cnnChart.data.datasets[0].data = [curSoil, curHum, lebar_cm, warna_pct, tinggi_cm, skor];
+                            cnnChart.data.datasets[1].data = [75, 80, 15.0, 90, 20.0, 100];
                             cnnChart.update();
                         }
                     } catch(err) {
@@ -2452,9 +2469,33 @@
                 }
             }
 
-            // Update Semicircular Gauge
-            if (document.getElementById('gaugeValText')) document.getElementById('gaugeValText').innerText = Math.round(baseKem) + "%";
-            if (document.getElementById('gaugeCycleText')) document.getElementById('gaugeCycleText').innerText = `Siklus Tanam: Hari ke-${currentDap} dari 42 Hari`;
+            // Update Badge Status LSTM Aktif
+            const lstmBadge = document.getElementById('lstmBadgeStatus');
+            if (lstmBadge) {
+                lstmBadge.className = "text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5";
+                lstmBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active';
+            }
+
+            // Update Semicircular Gauge & Cycle Bar Dinamis
+            if (document.getElementById('gaugeValText')) {
+                document.getElementById('gaugeValText').innerText = Math.round(baseKem) + "%";
+                document.getElementById('gaugeValText').className = "text-3xl font-black text-cyan-300";
+            }
+            if (document.getElementById('gaugeCycleText')) {
+                document.getElementById('gaugeCycleText').innerText = `Siklus Tanam: Hari ke-${currentDap} dari 42 Hari`;
+            }
+            if (document.getElementById('gaugeCyclePct')) {
+                document.getElementById('gaugeCyclePct').innerText = siklusPct + "%";
+            }
+            if (document.getElementById('gaugeCycleBar')) {
+                document.getElementById('gaugeCycleBar').style.width = siklusPct + "%";
+            }
+            if (document.getElementById('gaugeCycleHariText')) {
+                document.getElementById('gaugeCycleHariText').innerText = `Progres Siklus: Hari ke-${currentDap} (${siklusPct}%)`;
+            }
+            if (document.getElementById('gaugeMaturitySummaryText')) {
+                document.getElementById('gaugeMaturitySummaryText').innerText = `Est. Kematangan: ${Math.round(baseKem)}%`;
+            }
             if (typeof lstmGaugeChart !== 'undefined' && lstmGaugeChart.data) {
                 lstmGaugeChart.data.datasets[0].data = [baseKem, Math.max(0, 100 - baseKem)];
                 lstmGaugeChart.update();
@@ -2489,8 +2530,8 @@
             const count = riwayatTabel.length + 1;
             if (document.getElementById('lstmLogCountText')) document.getElementById('lstmLogCountText').innerText = count + " Log Data Sensor Tercatat";
             
-            // Jalankan kalkulasi hari LSTM (dimulai dari currentDap)
-            setHariLstm(currentDap);
+            // Mode Standby Awal: Siap diaktifkan begitu data ESP32 masuk atau kontrol hari diubah
+            // setHariLstm(currentDap);
         }
 
         // ================= 8. DASHBOARD 3: MODEL PREDIKSI LSTM & GAUGE KEMATANGAN =================
@@ -2591,6 +2632,120 @@
             updateLstmChart(dataTerakhir.kelembapan_tanah, dataTerakhir.suhu);
         }
 
+        
+        // Fungsi Reset Analisis CNN ke Mode Standby Bersih
+        function resetAnalisisCnn() {
+            const fileInput = document.getElementById('manualFileInput');
+            if (fileInput) fileInput.value = '';
+
+            const previewImg = document.getElementById('cnnPreviewPlantImg');
+            const featureCanvas = document.getElementById('cnnFeatureCanvas');
+            const placeholder = document.getElementById('cnnPlaceholder');
+            const overlay = document.getElementById('cnnEncryptionOverlay');
+            const alertBox = document.getElementById('alertBukanSelada');
+
+            if (previewImg) { previewImg.src = ''; previewImg.classList.add('hidden'); }
+            if (featureCanvas) featureCanvas.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+            if (overlay) overlay.style.opacity = '0';
+            if (alertBox) alertBox.classList.add('hidden');
+
+            if (document.getElementById('cnnImageSourceBadge')) {
+                document.getElementById('cnnImageSourceBadge').innerText = 'Sumber: Belum Ada Citra';
+            }
+            if (document.getElementById('cnnStatusEnkripsiBadge')) {
+                document.getElementById('cnnStatusEnkripsiBadge').innerText = 'Standby';
+            }
+            if (document.getElementById('cnnBadgeStatus')) {
+                document.getElementById('cnnBadgeStatus').className = 'text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5';
+                document.getElementById('cnnBadgeStatus').innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Citra';
+            }
+
+            if (document.getElementById('cnnFaseBadge')) {
+                document.getElementById('cnnFaseBadge').innerText = 'Standby';
+                document.getElementById('cnnFaseBadge').className = 'inline-block px-3 py-1 rounded-xl text-xs font-black bg-slate-800 text-gray-400 border border-slate-700';
+            }
+            if (document.getElementById('cnnTingkatKematangan')) {
+                document.getElementById('cnnTingkatKematangan').innerText = '-- %';
+                document.getElementById('cnnTingkatKematangan').className = 'text-3xl font-black text-gray-400 my-1';
+            }
+            if (document.getElementById('cnnConfidenceScore')) {
+                document.getElementById('cnnConfidenceScore').innerText = '-- %';
+                document.getElementById('cnnConfidenceScore').className = 'text-3xl font-black text-gray-400 my-1';
+            }
+
+            if (document.getElementById('cnnLebarDaun')) document.getElementById('cnnLebarDaun').innerText = '-- cm';
+            if (document.getElementById('cnnTinggiPohon')) document.getElementById('cnnTinggiPohon').innerText = '-- cm';
+            if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = '-- %';
+            if (document.getElementById('cnnSkorPanen')) document.getElementById('cnnSkorPanen').innerText = '-- %';
+
+            if (document.getElementById('cnnKesimpulan')) {
+                document.getElementById('cnnKesimpulan').innerText = 'Silakan upload foto tanaman selada keriting untuk memulai inferensi visual Convolutional Neural Network (CNN).';
+            }
+
+            if (typeof cnnChart !== 'undefined' && cnnChart.data) {
+                cnnChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0];
+                cnnChart.data.datasets[1].data = [0, 0, 0, 0, 0, 0];
+                cnnChart.update();
+            }
+
+            if (typeof cnnProbChart !== 'undefined' && cnnProbChart.data) {
+                cnnProbChart.data.datasets[0].data = [0, 0, 0, 0];
+                cnnProbChart.update();
+            }
+        }
+
+        // Fungsi Reset Prediksi LSTM ke Mode Standby Bersih
+        function resetPrediksiLstm() {
+            sessionLstmTriggered = false;
+            currentDap = 1;
+            const inputEl = document.getElementById('inputUmurTanaman');
+            if (inputEl) inputEl.value = 1;
+
+            if (document.getElementById('lstmPlantAge')) document.getElementById('lstmPlantAge').innerText = "--";
+            if (document.getElementById('lstmDapText')) document.getElementById('lstmDapText').innerText = "(Menunggu Data)";
+            if (document.getElementById('lstmSiklusText')) document.getElementById('lstmSiklusText').innerText = "Siklus Tanam: -- / 42 Hari";
+            if (document.getElementById('lstmSiklusPct')) document.getElementById('lstmSiklusPct').innerText = "0.0%";
+            if (document.getElementById('lstmSiklusBar')) document.getElementById('lstmSiklusBar').style.width = "0%";
+
+            if (document.getElementById('gaugeValText')) {
+                document.getElementById('gaugeValText').innerText = "-- %";
+                document.getElementById('gaugeValText').className = "text-3xl font-black text-gray-400";
+            }
+            if (document.getElementById('gaugeCycleText')) document.getElementById('gaugeCycleText').innerText = "Siklus tanam: Menunggu data ESP32";
+            if (document.getElementById('gaugeCyclePct')) document.getElementById('gaugeCyclePct').innerText = "0.0%";
+            if (document.getElementById('gaugeCycleBar')) document.getElementById('gaugeCycleBar').style.width = "0%";
+            if (document.getElementById('gaugeCycleHariText')) document.getElementById('gaugeCycleHariText').innerText = "Masa Panen Standar: 42 Hari";
+            if (document.getElementById('gaugeMaturitySummaryText')) document.getElementById('gaugeMaturitySummaryText').innerText = "Est. Kematangan: Standby";
+
+            const lstmBadge = document.getElementById('lstmBadgeStatus');
+            if (lstmBadge) {
+                lstmBadge.className = "text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5";
+                lstmBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Data';
+            }
+
+            if (typeof lstmGaugeChart !== 'undefined' && lstmGaugeChart.data) {
+                lstmGaugeChart.data.datasets[0].data = [0, 100];
+                lstmGaugeChart.update();
+            }
+
+            for (let i = 1; i <= 4; i++) {
+                const valEl = document.getElementById(`lstmValH${i}`);
+                const barEl = document.getElementById(`lstmBarH${i}`);
+                const badgeEl = document.getElementById(`lstmBadgeH${i}`);
+                const titleEl = document.getElementById(`lstmTitleH${i}`);
+                const stageEl = document.getElementById(`lstmStageH${i}`);
+                const morphEl = document.getElementById(`lstmMorphH${i}`);
+
+                if (titleEl) titleEl.innerText = `HARI +${i} (MENUNGGU DATA)`;
+                if (badgeEl) { badgeEl.innerText = "STANDBY"; badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase"; }
+                if (valEl) { valEl.innerText = "-- %"; valEl.className = "text-3xl font-black text-gray-400"; }
+                if (barEl) barEl.style.width = "0%";
+                if (stageEl) { stageEl.innerText = "Menunggu Data"; stageEl.className = "text-[11px] font-bold text-gray-400 block"; }
+                if (morphEl) morphEl.innerHTML = `<span>💧 --%</span><span>•</span><span>🌡️ --°C</span><span>•</span><span>📐 -- cm</span>`;
+            }
+        }
+
         // ================= 9. DASHBOARD 4: MODEL CNN (GRAFIK BATANG & HORIZONTAL BAR PROBABILITAS KELAS) =================
         // Horizontal Bar Chart: Probabilitas Tiap Kelas (Permintaan 3 Spesifik)
         const ctxProb = document.getElementById('cnnProbHorizontalChart').getContext('2d');
@@ -2655,7 +2810,7 @@
                     },
                     {
                         label: 'Standar Ideal Siap Panen (Hijau)',
-                        data: [75, 80, 15.0, 90, 20.0, 100],
+                        data: [0, 0, 0, 0, 0, 0],
                         backgroundColor: 'rgba(16, 185, 129, 0.85)',
                         borderColor: '#34d399',
                         borderWidth: 1.5,
@@ -2688,6 +2843,7 @@
             cnnChart.data.datasets[0].data[3] = warna;
             cnnChart.data.datasets[0].data[4] = tinggi;
             cnnChart.data.datasets[0].data[5] = skor;
+            cnnChart.data.datasets[1].data = [75, 80, 15.0, 90, 20.0, 100];
             cnnChart.update();
 
             document.getElementById('cnnLebarDaun').innerText = lebar + " cm";
