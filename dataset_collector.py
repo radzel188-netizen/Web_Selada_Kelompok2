@@ -1,7 +1,7 @@
 """
 =============================================================================
 SISTEM CERDAS SELADA KERITING - DATASET COLLECTOR (ESP32-CAM)
-Kelompok 2 - Pengumpul Dataset Citra Tanaman untuk Pelatihan Model CNN
+Kelompok 8 - Pengumpul Dataset Citra Tanaman untuk Pelatihan Model CNN
 -----------------------------------------------------------------------------
 Fungsi:
 1. Menghubungkan laptop ke ESP32-CAM secara lokal (melalui IP WiFi / Hotspot).

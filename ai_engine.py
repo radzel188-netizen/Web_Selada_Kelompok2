@@ -1,7 +1,7 @@
 """
 =============================================================================
 SISTEM CERDAS SELADA KERITING - AI ENGINE (BACKEND PYTHON)
-Kelompok 2 - Smart Farming IoT & AI
+Kelompok 8 - Smart Farming IoT & AI
 -----------------------------------------------------------------------------
 Fitur:
 1. LSTM (Long Short-Term Memory) Time-Series Forecasting:
