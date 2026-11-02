@@ -328,48 +328,81 @@
                 </div>
             </div>
 
-            <!-- Live Camera & Grafik Real-time -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Kamera ESP32-CAM -->
-                <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
-                    <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
-                        <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
-                            <span>📹</span> Live Camera ESP32-CAM
-                        </h2>
-                        <span id="badgeCamMini" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-gray-400 border border-slate-700">Offline</span>
-                    </div>
-
-                    <!-- Container Video dengan Tombol Fullscreen di Kiri Bawah -->
-                    <div id="cameraContainer" class="flex-grow bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-slate-800 aspect-video relative min-h-[240px]">
-                        <img id="kameraStream" src="" alt="Kamera Offline" class="w-full h-full object-cover hidden">
-                        <div id="camStatus" class="text-center p-4 text-gray-500 text-sm">
-                            <span class="text-3xl block mb-2">📷</span>
-                            <span>Kamera Belum Terhubung</span><br>
-                            <small class="text-xs text-gray-400">Masukkan IP ESP32-CAM pada panel koneksi di atas, lalu klik Konek Kamera.</small>
-                        </div>
-
-                        <!-- Tombol Fullscreen di Pojok Kiri Bawah -->
-                        <button onclick="toggleFullscreenKamera()" 
-                                class="absolute bottom-3 left-3 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-1.5 shadow-lg">
-                            <span>⛶</span>
-                            <span>Layar Penuh (Fullscreen)</span>
-                        </button>
-                    </div>
-                    <p class="text-[11px] text-gray-400 mt-2.5">
-                        💡 <b>Petunjuk:</b> Klik tombol <i>Layar Penuh</i> di kiri bawah kamera, lalu ambil screenshot (SS) tanaman untuk dimasukkan ke <b>Dashboard 2</b>.
-                    </p>
+            <!-- Live Camera ESP32-CAM -->
+            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
+                <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
+                    <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
+                        <span>📹</span> Live Camera ESP32-CAM (Pemantauan Tanaman)
+                    </h2>
+                    <span id="badgeCamMini" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 text-gray-400 border border-slate-700">Offline</span>
                 </div>
 
-                <!-- Grafik Real-Time -->
-                <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col">
-                    <div class="flex items-center justify-between mb-4 border-b border-slate-700/60 pb-3">
-                        <h2 class="text-lg font-bold text-gray-200 flex items-center gap-2">
-                            <span>📈</span> Grafik Sensor Real-Time
-                        </h2>
-                        <span class="text-xs text-blue-400">Update Tiap Detik</span>
+                <!-- Container Video dengan Tombol Fullscreen di Kiri Bawah -->
+                <div id="cameraContainer" class="flex-grow bg-black rounded-2xl overflow-hidden flex items-center justify-center border border-slate-800 aspect-video relative min-h-[260px]">
+                    <img id="kameraStream" src="" alt="Kamera Offline" class="w-full h-full object-cover hidden">
+                    <div id="camStatus" class="text-center p-4 text-gray-500 text-sm">
+                        <span class="text-3xl block mb-2">📷</span>
+                        <span>Kamera Belum Terhubung</span><br>
+                        <small class="text-xs text-gray-400">Masukkan IP ESP32-CAM pada panel koneksi di atas, lalu klik Konek Kamera.</small>
                     </div>
-                    <div class="flex-grow flex items-center">
-                        <canvas id="historyChart" height="230"></canvas>
+
+                    <!-- Tombol Fullscreen di Pojok Kiri Bawah -->
+                    <button onclick="toggleFullscreenKamera()" 
+                            class="absolute bottom-3 left-3 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-1.5 shadow-lg">
+                        <span>⛶</span>
+                        <span>Layar Penuh (Fullscreen)</span>
+                    </button>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-2.5">
+                    💡 <b>Petunjuk:</b> Klik tombol <i>Layar Penuh</i> di kiri bawah kamera, lalu ambil screenshot (SS) tanaman untuk dimasukkan ke <b>Dashboard 2</b>.
+                </p>
+            </div>
+
+            <!-- ================= DUA KOTAK TERPISAH GRAFIK MONITORING REAL-TIME (MEMANJANG KE SAMPING) ================= -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Kotak Kiri: Kelembapan Tanah -->
+                <div class="glass p-6 rounded-3xl shadow-2xl border border-emerald-500/30 flex flex-col justify-between hover:border-emerald-500/50 transition">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-2">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Grafik Real-Time</span>
+                            <h3 class="text-base font-extrabold text-emerald-400 flex items-center gap-2">
+                                <span>🌱</span> Kelembapan Tanah
+                            </h3>
+                        </div>
+                        <div class="text-right">
+                            <span id="chartValSoil" class="text-3xl font-black text-emerald-400">-- %</span>
+                            <span id="chartBadgeSoil" class="text-[10px] block font-semibold text-emerald-300">Standar: 65% - 78%</span>
+                        </div>
+                    </div>
+                    <div class="h-48 w-full mt-2">
+                        <canvas id="soilLineChart"></canvas>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[10px] text-gray-400 mt-2">
+                        <span>Status Sensor: <b id="soilSensorStatusText" class="text-emerald-400">Normal</b></span>
+                        <span class="text-emerald-400/80 font-mono">Live Sync Firebase</span>
+                    </div>
+                </div>
+
+                <!-- Kotak Kanan: Suhu Udara -->
+                <div class="glass p-6 rounded-3xl shadow-2xl border border-blue-500/30 flex flex-col justify-between hover:border-blue-500/50 transition">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-2">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">Grafik Real-Time</span>
+                            <h3 class="text-base font-extrabold text-blue-400 flex items-center gap-2">
+                                <span>🌡️</span> Suhu Udara
+                            </h3>
+                        </div>
+                        <div class="text-right">
+                            <span id="chartValTemp" class="text-3xl font-black text-blue-400">-- °C</span>
+                            <span id="chartBadgeTemp" class="text-[10px] block font-semibold text-blue-300">Optimal: 24°C - 28°C</span>
+                        </div>
+                    </div>
+                    <div class="h-48 w-full mt-2">
+                        <canvas id="tempLineChart"></canvas>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[10px] text-gray-400 mt-2">
+                        <span>Kondisi DHT22: <b id="tempSensorStatusText" class="text-blue-400">Optimal</b></span>
+                        <span class="text-blue-400/80 font-mono">Live Sync Firebase</span>
                     </div>
                 </div>
             </div>
@@ -501,119 +534,523 @@
             </div>
         </div>
 
-        <!-- ================= BAGIAN 4: DASHBOARD 3 (MODEL PREDIKSI LSTM 3/4 HARI) ================= -->
-        <div id="sec-baris3" class="dashboard-section glass p-6 rounded-3xl shadow-2xl hidden">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-slate-700/60">
+        <!-- ================= BAGIAN 4: DASHBOARD 3 (DESAIN BARU PREDIKSI LSTM SESUAI REFERENSI) ================= -->
+        <div id="sec-baris3" class="dashboard-section space-y-6 hidden">
+            <!-- Header Dashboard 3 -->
+            <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-blue-500/20">
                 <div>
-                    <h2 class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 flex items-center gap-2">
-                        <span>🔮</span> Dashboard 3: Model Prediksi LSTM (3 - 4 Hari ke Depan)
+                    <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 flex items-center gap-2">
+                        <span>🔮</span> Dashboard 3: Model Prediksi LSTM (Siklus 42 Hari Selada)
                     </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Grafik Longitudinal Time-Series: Prediksi tren kelembapan tanah, suhu, dan laju pertumbuhan tanaman selada</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Analisis Time-Series Pembelajaran Mendalam (Deep Learning LSTM) untuk memprediksi tingkat kematangan & pertumbuhan tanaman selada</p>
                 </div>
                 <div class="flex items-center gap-2">
-                    <span class="text-xs px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-semibold">
-                        LSTM Neural Network Engine
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active
                     </span>
+                    <button onclick="muatUlangPrediksiLSTM()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-1.5">
+                        <span>🔄</span> Muat Ulang
+                    </button>
                 </div>
             </div>
 
-            <!-- Grid: Grafik Longitudinal LSTM + Kartu Proyeksi Harian -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <!-- Grafik Longitudinal (8 Kolom) -->
-                <div class="lg:col-span-8 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-                    <canvas id="lstmLongitudinalChart" height="230"></canvas>
+            <!-- 1. KARTU RINGKASAN STATUS DI BAGIAN ATAS (4 KARTU) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Umur Tanaman Saat Ini -->
+                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Umur Tanaman Saat Ini</span>
+                        <div class="flex items-baseline gap-2 mt-1">
+                            <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300" id="lstmPlantAge">Hari ke-13</span>
+                            <span class="text-[11px] text-gray-400">(DAP 13)</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1">
+                            <span>Siklus Tanam: 13/42 Hari</span>
+                            <span class="text-cyan-400 font-bold">31.0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-blue-500 to-cyan-400 h-full w-[31%]"></div>
+                        </div>
+                        <span class="text-[9px] text-gray-500 mt-1 block">Target Panen: Hari ke-42</span>
+                    </div>
                 </div>
 
-                <!-- Kartu Proyeksi Hari ke-1 s/d Hari ke-4 (4 Kolom) -->
-                <div class="lg:col-span-4 space-y-2.5">
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-gray-400 font-bold block uppercase">Besok (Hari ke-1)</span>
-                            <span class="text-xs text-gray-200">Tanah: <b class="text-emerald-400" id="lstmSoilH1">65%</b> | Suhu: <b class="text-blue-400" id="lstmTempH1">27.8°C</b></span>
+                <!-- Kelembapan Tanah Saat Ini -->
+                <div class="glass p-5 rounded-2xl border border-emerald-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Kelembapan Tanah Saat Ini</span>
+                        <p class="text-3xl font-black text-emerald-400 mt-1" id="lstmSummarySoil">72.0 %</p>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
+                        <span class="text-[10px] text-gray-400">Kondisi:</span>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Ideal (65% - 78%)</span>
+                    </div>
+                </div>
+
+                <!-- Suhu Udara Saat Ini -->
+                <div class="glass p-5 rounded-2xl border border-blue-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Suhu Udara Saat Ini</span>
+                        <p class="text-3xl font-black text-blue-400 mt-1" id="lstmSummaryTemp">27.5 °C</p>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between pt-2 border-t border-slate-800/80">
+                        <span class="text-[10px] text-gray-400">Kondisi:</span>
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300">Optimal (24°C - 28°C)</span>
+                    </div>
+                </div>
+
+                <!-- Status Sistem (Backend API & Jumlah Data) -->
+                <div class="glass p-5 rounded-2xl border border-purple-500/30 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Status Sistem & Backend</span>
+                        <div class="flex items-center gap-2 mt-1.5">
+                            <span class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="text-sm font-bold text-white">Backend API Active</span>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">Pertumbuhan Aktif</span>
+                    </div>
+                    <div class="mt-3 pt-2 border-t border-slate-800/80">
+                        <p class="text-[11px] text-gray-300 font-mono" id="lstmLogCountText">1,440 Log Data Sensor</p>
+                        <span class="text-[9px] text-purple-300">Node: Firebase tabel_rekap</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. PANEL HORIZONTAL PREDIKSI KEMATANGAN 4 HARI KE DEPAN (PERSIS GAMBAR 1) -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-emerald-500/30">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-4 border-b border-slate-700/60 mb-5">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-100 flex items-center gap-2">
+                            <span>🌱</span> Prediksi Kematangan 4 Hari ke Depan
+                        </h3>
+                        <p class="text-xs text-gray-400 mt-0.5">
+                            Sistem secara otomatis menganalisis 300 data sensor terakhir (10 hari) untuk memprediksi tingkat kematangan tanaman pada 4 hari ke depan.
+                        </p>
+                    </div>
+                    <button onclick="muatUlangPrediksiLSTM()" class="self-start md:self-auto px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 transition flex items-center gap-1.5">
+                        <span>🔄</span> Muat Ulang
+                    </button>
+                </div>
+
+                <div class="mb-3 flex items-center gap-2 text-xs font-bold text-emerald-400">
+                    <span class="text-base">🌿</span>
+                    <span>Hasil Prediksi LSTM</span>
+                </div>
+
+                <!-- 4 KARTU PREDIKSI BERJAJAR KE SAMPING (HORISONTAL SCROLLABLE / GRID 4) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto pb-2">
+                    <!-- KARTU 1: HARI KE-14 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-14</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-500/20 text-blue-300 uppercase">MASA PERTUMBUHAN</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-emerald-400" id="lstmValH1">31.2%</p>
+                            </div>
+                            <!-- Bar progress hijau -->
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH1" class="bg-emerald-400 h-full w-[31.2%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(1)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
+                        </div>
+                        <!-- Kotak Gambar Tanaman Hari ke-14 -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-black/60 border border-slate-800 relative group cursor-pointer" onclick="bukaModalVisualisasi(1)">
+                            <img id="lstmImgH1" src="https://images.unsplash.com/photo-1592417817098-8f3d6eb22509?w=600&auto=format&fit=crop&q=60" alt="Selada Hari 14" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                    <!-- KARTU 2: HARI KE-15 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
                         <div>
-                            <span class="text-[10px] text-gray-400 font-bold block uppercase">Lusa (Hari ke-2)</span>
-                            <span class="text-xs text-gray-200">Tanah: <b class="text-emerald-400" id="lstmSoilH2">68%</b> | Suhu: <b class="text-blue-400" id="lstmTempH2">27.5°C</b></span>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-15</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-500/20 text-blue-300 uppercase">MASA PERTUMBUHAN</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-emerald-400" id="lstmValH2">33.9%</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH2" class="bg-emerald-400 h-full w-[33.9%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(2)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">Daun Melebar</span>
+                        <!-- Kotak Gambar Tanaman Hari ke-15 -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-black/60 border border-slate-800 relative group cursor-pointer" onclick="bukaModalVisualisasi(2)">
+                            <img id="lstmImgH2" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=60" alt="Selada Hari 15" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                    <!-- KARTU 3: HARI KE-16 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
                         <div>
-                            <span class="text-[10px] text-gray-400 font-bold block uppercase">Hari ke-3</span>
-                            <span class="text-xs text-gray-200">Tanah: <b class="text-emerald-400" id="lstmSoilH3">72%</b> | Suhu: <b class="text-blue-400" id="lstmTempH3">26.9°C</b></span>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-16</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-500/20 text-blue-300 uppercase">MASA PERTUMBUHAN</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-emerald-400" id="lstmValH3">36.1%</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH3" class="bg-emerald-400 h-full w-[36.1%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(3)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-500/20 text-teal-300">Menjelang Panen</span>
+                        <!-- Kotak Gambar Tanaman Hari ke-16 -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-black/60 border border-slate-800 relative group cursor-pointer" onclick="bukaModalVisualisasi(3)">
+                            <img id="lstmImgH3" src="https://images.unsplash.com/photo-1556881286-fc6915169721?w=600&auto=format&fit=crop&q=60" alt="Selada Hari 16" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-indigo-500/30 flex items-center justify-between">
+                    <!-- KARTU 4: HARI KE-17 -->
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
                         <div>
-                            <span class="text-[10px] text-indigo-400 font-bold block uppercase">Hari ke-4 (Target Panen)</span>
-                            <span class="text-xs text-gray-200">Tanah: <b class="text-emerald-400" id="lstmSoilH4">74%</b> | Suhu: <b class="text-blue-400" id="lstmTempH4">26.5°C</b></span>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI KE-17</span>
+                                <span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-blue-500/20 text-blue-300 uppercase">MASA PERTUMBUHAN</span>
+                            </div>
+                            <div class="flex items-baseline gap-2">
+                                <p class="text-3xl font-black text-emerald-400" id="lstmValH4">38.4%</p>
+                            </div>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
+                                <div id="lstmBarH4" class="bg-emerald-400 h-full w-[38.4%]"></div>
+                            </div>
+                            <p class="text-[10px] text-gray-400 mb-2">
+                                Visualisasi Kondisi: <button onclick="bukaModalVisualisasi(4)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
+                            </p>
                         </div>
-                        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">🥬 Siap Panen</span>
+                        <!-- Kotak Gambar Tanaman Hari ke-17 -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-black/60 border border-slate-800 relative group cursor-pointer" onclick="bukaModalVisualisasi(4)">
+                            <img id="lstmImgH4" src="https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=600&auto=format&fit=crop&q=60" alt="Selada Hari 17" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="w-8 h-8 rounded-full bg-slate-900/80 backdrop-blur-sm text-white flex items-center justify-center text-sm shadow-md">🔍</span>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- 3. GAUGE TINGKAT KEMATANGAN & GRAFIK LONGITUDINAL (PERSIS GAMBAR 5) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Kiri: Gauge Meter Tingkat Kematangan Saat Ini (4 Kolom - Gambar 5) -->
+                <div class="lg:col-span-4 glass p-6 rounded-3xl shadow-2xl border border-indigo-500/30 flex flex-col justify-between text-center">
+                    <div>
+                        <span class="text-[10px] text-gray-400 uppercase font-bold tracking-wider block">Metrik Kematangan Tanaman</span>
+                        <h4 class="text-sm font-bold text-gray-200 mt-1">Tingkat Kematangan Tanaman (%)</h4>
+                    </div>
+
+                    <!-- Semi-circular Gauge Canvas -->
+                    <div class="relative w-48 h-28 mx-auto my-3 flex items-center justify-center">
+                        <canvas id="lstmMeterGauge"></canvas>
+                        <div class="absolute bottom-1 text-center">
+                            <span class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300" id="gaugeValText">60%</span>
+                            <span class="text-[9px] text-gray-400 block">Kematangan</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/80">
+                        <div class="flex justify-between text-[11px] text-gray-400 mb-1">
+                            <span>Siklus tanam: pembacaan 67 dari 120</span>
+                            <span class="text-indigo-400 font-bold">55.8%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                            <div class="bg-indigo-500 h-full w-[56%]"></div>
+                        </div>
+                        <span class="text-[10px] text-emerald-400 font-semibold mt-2 block">Masa Panen Standar: 42 Hari (Maks 46 Hari)</span>
+                    </div>
+                </div>
+
+                <!-- Kanan: Grafik Longitudinal Time-Series (8 Kolom - Gambar 4/5) -->
+                <div class="lg:col-span-8 glass p-6 rounded-3xl shadow-2xl border border-slate-800 flex flex-col justify-between">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-700/60 mb-2">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-200 flex items-center gap-1.5">
+                                <span>📈</span> Perkembangan Tingkat Kematangan sejak Awal Tanam
+                            </h4>
+                            <p class="text-[11px] text-gray-400">Kurva longitudinal time-series dan proyeksi 4 hari ke depan</p>
+                        </div>
+                        <span class="text-[10px] px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                            LSTM Regression
+                        </span>
+                    </div>
+                    <div class="h-56 w-full">
+                        <canvas id="lstmLongitudinalChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. TABEL RINGKASAN PER HARI (PERSIS GAMBAR 4) -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700/60 mb-4">
+                    <div>
+                        <h4 class="text-base font-bold text-gray-100 flex items-center gap-2">
+                            <span>📋</span> Ringkasan per hari (Tabel Nilai LSTM)
+                        </h4>
+                        <p class="text-xs text-gray-400 mt-0.5">Ringkasan proyeksi harian kelembapan, suhu, dan tingkat kematangan</p>
+                    </div>
+                    <button onclick="unduhLaporanLSTMCsv()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 px-4 py-2 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center gap-2 self-start sm:self-auto shadow-md">
+                        <span>📥</span> Unduh prediksi (CSV)
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto rounded-xl border border-slate-800">
+                    <table class="w-full text-left text-xs text-gray-300">
+                        <thead class="bg-slate-900/90 text-gray-400 uppercase text-[11px] font-bold border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4">Hari</th>
+                                <th class="py-3 px-4">Kelembapan (%)</th>
+                                <th class="py-3 px-4">Suhu (°C)</th>
+                                <th class="py-3 px-4">Tingkat Kematangan (%)</th>
+                                <th class="py-3 px-4">Tahap Perkembangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lstmRingkasanBody" class="divide-y divide-slate-800/60 font-mono text-xs">
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200">Hari +1 (Hari ke-14)</td>
+                                <td class="py-3 px-4 text-emerald-400 font-semibold" id="tableLstmSoilH1">58.2 %</td>
+                                <td class="py-3 px-4 text-blue-400" id="tableLstmTempH1">27.1 °C</td>
+                                <td class="py-3 px-4 text-cyan-300 font-bold" id="tableLstmKematanganH1">31.2 %</td>
+                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300">Masa Pertumbuhan</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200">Hari +2 (Hari ke-15)</td>
+                                <td class="py-3 px-4 text-emerald-400 font-semibold" id="tableLstmSoilH2">57.2 %</td>
+                                <td class="py-3 px-4 text-blue-400" id="tableLstmTempH2">27.1 °C</td>
+                                <td class="py-3 px-4 text-cyan-300 font-bold" id="tableLstmKematanganH2">33.9 %</td>
+                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300">Masa Pertumbuhan</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200">Hari +3 (Hari ke-16)</td>
+                                <td class="py-3 px-4 text-emerald-400 font-semibold" id="tableLstmSoilH3">57.1 %</td>
+                                <td class="py-3 px-4 text-blue-400" id="tableLstmTempH3">27.1 °C</td>
+                                <td class="py-3 px-4 text-cyan-300 font-bold" id="tableLstmKematanganH3">36.1 %</td>
+                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300">Masa Pertumbuhan</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/40">
+                                <td class="py-3 px-4 font-bold text-gray-200">Hari +4 (Hari ke-17)</td>
+                                <td class="py-3 px-4 text-emerald-400 font-semibold" id="tableLstmSoilH4">56.2 %</td>
+                                <td class="py-3 px-4 text-blue-400" id="tableLstmTempH4">27.1 °C</td>
+                                <td class="py-3 px-4 text-cyan-300 font-bold" id="tableLstmKematanganH4">38.4 %</td>
+                                <td class="py-3 px-4"><span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/20 text-blue-300">Masa Pertumbuhan</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3.5 p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-gray-400 flex items-center gap-2">
+                    <span class="text-blue-400 text-sm">ℹ️</span>
+                    <span>Garis abu-abu pada grafik adalah nilai sebenarnya dari data sensor sebagai pembanding akurasi model LSTM.</span>
                 </div>
             </div>
         </div>
 
-        <!-- ================= BAGIAN 5: DASHBOARD 4 (MODEL CNN CITRA TANAMAN GRAFIK BATANG - TEMA UNGU & HIJAU) ================= -->
-        <div id="sec-baris4" class="dashboard-section glass p-6 rounded-3xl shadow-2xl border border-purple-500/30 shadow-purple-950/20 hidden">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4 pb-3 border-b border-purple-500/20">
+        <!-- ================= BAGIAN 5: DASHBOARD 4 (MODEL CNN CITRA TANAMAN - TEMA UNGU & HIJAU) ================= -->
+        <div id="sec-baris4" class="dashboard-section space-y-6 hidden">
+            <!-- Header Dashboard 4 -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-purple-500/40 shadow-purple-950/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-300 to-emerald-400 flex items-center gap-2">
+                    <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-300 to-emerald-400 flex items-center gap-2">
                         <span>📊</span> Dashboard 4: Model CNN Citra Tanaman (Tema Ungu & Hijau)
                     </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Analisis fitur visual CNN: Morfologi daun selada, parameter panen, dan perbandingan standar ideal</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Klasifikasi visi komputer berbasis Convolutional Neural Network untuk evaluasi kematangan, morfologi daun, dan probabilitas kelas</p>
                 </div>
-                <span class="text-xs px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5">
-                    <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Visual Feature Extractor
-                </span>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Classifier Active
+                    </span>
+                    <button onclick="toggleEnkripsiCitra()" id="btnEnkripsi" class="bg-gradient-to-r from-purple-700 to-emerald-700 hover:from-purple-600 hover:to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-md">
+                        <span>🔮</span> Enkripsi Citra (Ungu & Hijau)
+                    </button>
+                </div>
             </div>
 
-            <!-- Grid: Grafik Batang CNN + Panel Metrik Nilai (Ungu & Hijau) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                <!-- Grafik Batang (8 Kolom) -->
-                <div class="lg:col-span-8 bg-slate-950/70 p-4 rounded-2xl border border-purple-900/40">
-                    <canvas id="cnnBarChart" height="240"></canvas>
+            <!-- Banner Peringatan Penolakan Jika Terdeteksi Bukan Selada -->
+            <div id="alertBukanSelada" class="hidden p-4 rounded-2xl bg-red-950/80 border border-red-500/70 text-red-200 text-xs flex items-center gap-3 shadow-lg">
+                <span class="text-2xl">⚠️</span>
+                <div>
+                    <b class="text-sm text-red-400 block font-black">DETEKSI DITOLAK: Objek yang diunggah BUKAN tanaman selada keriting!</b>
+                    <span class="text-[11px] text-red-300">Model CNN mendeteksi probabilitas kelas "Bukan Selada" tinggi. Sistem menolak pemrosesan panen untuk melindungi akurasi dataset.</span>
+                </div>
+            </div>
+
+            <!-- Grid: Gambar yang Diunggah (Kiri) & Hasil Analisis CNN (Kanan - Sesuai Gambar 2) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Kolom Kiri: Gambar yang Diunggah (5 Kolom) -->
+                <div class="lg:col-span-5 glass p-5 rounded-3xl shadow-xl border border-purple-500/30 flex flex-col space-y-3">
+                    <div class="flex items-center justify-between pb-3 border-b border-purple-500/20">
+                        <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                            <span>🖼️</span> Gambar yang Diunggah
+                        </h3>
+                        <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-mono">224 x 224 RGB</span>
+                    </div>
+
+                    <!-- Container Foto dengan Filter Enkripsi Citra CNN -->
+                    <div class="aspect-square bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 relative group flex items-center justify-center">
+                        <img id="cnnPreviewPlantImg" src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=60" alt="Citra Selada CNN" class="w-full h-full object-cover transition duration-300">
+                        
+                        <!-- Overlay Enkripsi Visual Citra CNN (Ungu & Hijau) -->
+                        <div id="cnnEncryptionOverlay" class="absolute inset-0 bg-gradient-to-tr from-purple-900/60 via-emerald-900/30 to-purple-600/40 mix-blend-color-dodge pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                            <span class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-mono text-purple-300 border border-purple-500/50">
+                                🔮 Filter Fitur Konvolusi: Ungu & Hijau
+                            </span>
+                        </div>
+
+                        <!-- Badge Status Deteksi -->
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                            <span id="cnnImageSourceBadge" class="px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-[10px] font-semibold text-gray-300 border border-slate-700">
+                                Sumber: ESP32-CAM / Upload
+                            </span>
+                            <span id="cnnStatusEnkripsiBadge" class="px-2.5 py-1 rounded-xl bg-purple-900/80 backdrop-blur-md text-[10px] font-bold text-purple-300 border border-purple-500/40">
+                                Enkripsi Standar
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="document.getElementById('manualFileInput').click(); pilihDashboard('sec-baris2');" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-200 py-2.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center justify-center gap-1.5">
+                            <span>📁</span> Ganti / Upload Foto Baru
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 5 Kartu Parameter Metrik CNN (4 Kolom - Kombinasi Ungu & Hijau) -->
-                <div class="lg:col-span-4 grid grid-cols-2 gap-3">
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-emerald-500/30 hover:border-emerald-500/60 transition">
+                <!-- Kolom Kanan: Hasil Analisis CNN & 3 Kartu Metrik (7 Kolom - Persis Gambar 2) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="glass p-6 rounded-3xl shadow-xl border border-emerald-500/30">
+                        <div class="flex items-center justify-between pb-3 border-b border-emerald-500/20 mb-4">
+                            <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
+                                <span>🌿</span> Hasil Analisis CNN
+                            </h3>
+                            <span class="text-[11px] text-gray-400">Softmax & Feature Extraction</span>
+                        </div>
+
+                        <!-- 3 KARTU INDIKATOR UTAMA (PERSIS GAMBAR 2) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
+                            <!-- FASE PERTUMBUHAN -->
+                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-amber-500/30 text-center flex flex-col justify-between">
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">FASE PERTUMBUHAN</span>
+                                <div class="my-2">
+                                    <span id="cnnFaseBadge" class="inline-block px-3 py-1 rounded-xl text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                        Mendekati Panen
+                                    </span>
+                                </div>
+                                <span class="text-[9px] text-gray-500">Masa Panen: 42 Hari</span>
+                            </div>
+
+                            <!-- TINGKAT KEMATANGAN -->
+                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-emerald-500/30 text-center flex flex-col justify-between">
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">TINGKAT KEMATANGAN</span>
+                                <p class="text-3xl font-black text-emerald-400 my-1" id="cnnTingkatKematangan">73.8%</p>
+                                <span class="text-[9px] text-emerald-300 font-semibold">Kategori Prima</span>
+                            </div>
+
+                            <!-- CONFIDENCE SCORE -->
+                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-purple-500/30 text-center flex flex-col justify-between">
+                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">CONFIDENCE SCORE</span>
+                                <p class="text-3xl font-black text-purple-300 my-1" id="cnnConfidenceScore">87.0%</p>
+                                <span class="text-[9px] text-purple-400 font-mono">Model Akurat</span>
+                            </div>
+                        </div>
+
+                        <!-- KOMPONEN BARU: HORIZONTAL BAR CHART "PROBABILITAS TIAP KELAS" (PERMINTAAN SPESIFIK 3) -->
+                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-purple-900/50">
+                            <div class="flex items-center justify-between mb-2">
+                                <div>
+                                    <h4 class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-1.5">
+                                        <span>📊</span> Probabilitas tiap kelas
+                                    </h4>
+                                    <p class="text-[10px] text-gray-400">Tingkat probabilitas klasifikasi model CNN untuk masing-masing tahap tanaman</p>
+                                </div>
+                                <span class="text-[10px] font-mono text-purple-300">Softmax Output</span>
+                            </div>
+                            
+                            <!-- Canvas Horizontal Bar Chart -->
+                            <div class="h-44 w-full">
+                                <canvas id="cnnProbHorizontalChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parameter Morfologi & Estimasi Menuju Panen 42 Hari (Kombinasi Ungu & Hijau) -->
+            <div class="glass p-6 rounded-3xl shadow-xl border border-purple-500/30">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/20 mb-4">
+                    <div>
+                        <h4 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400 flex items-center gap-2">
+                            <span>📐</span> Parameter Morfologi Daun & Estimasi Panen
+                        </h4>
+                        <p class="text-xs text-gray-400 mt-0.5">Pengukuran lebar daun untuk mendekati panen (Masa panen optimal 42 hari, prediksi 4 hari ke depan hingga 46 hari)</p>
+                    </div>
+                    <span class="text-[10px] px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-semibold self-start sm:self-auto">
+                        Target Siklus: 42 - 46 Hari
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-emerald-500/30">
                         <span class="text-[10px] text-emerald-400 uppercase font-bold block">Lebar Daun</span>
-                        <p class="text-xl font-black text-emerald-400 mt-1" id="cnnLebarDaun">12.5 cm</p>
-                        <span class="text-[9px] text-gray-400">Standar Panen: 10-15 cm</span>
+                        <p class="text-2xl font-black text-emerald-400 mt-1" id="cnnLebarDaun">12.5 cm</p>
+                        <span class="text-[9px] text-gray-400">Target Panen: 15.0 - 20.0 cm</span>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-purple-500/30 hover:border-purple-500/60 transition">
-                        <span class="text-[10px] text-purple-300 uppercase font-bold block">Tinggi Tanaman</span>
-                        <p class="text-xl font-black text-purple-300 mt-1" id="cnnTinggiPohon">18.2 cm</p>
-                        <span class="text-[9px] text-gray-400">Standar Panen: 15-20 cm</span>
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-purple-500/30">
+                        <span class="text-[10px] text-purple-300 uppercase font-bold block">Tinggi Kanopi</span>
+                        <p class="text-2xl font-black text-purple-300 mt-1" id="cnnTinggiPohon">18.2 cm</p>
+                        <span class="text-[9px] text-gray-400">Target Panen: 20.0 - 25.0 cm</span>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-emerald-500/30 hover:border-emerald-500/60 transition">
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-emerald-500/30">
                         <span class="text-[10px] text-emerald-400 uppercase font-bold block">Warna Daun (Hijau)</span>
-                        <p class="text-xl font-black text-emerald-400 mt-1" id="cnnWarnaDaun">86 %</p>
-                        <span class="text-[9px] text-emerald-300/80">Klorofil Tinggi</span>
+                        <p class="text-2xl font-black text-emerald-400 mt-1" id="cnnWarnaDaun">86.0 %</p>
+                        <span class="text-[9px] text-emerald-300/80">Klorofil Normal & Segar</span>
                     </div>
 
-                    <div class="bg-slate-900/80 p-3 rounded-xl border border-purple-500/40 bg-purple-950/20 hover:border-purple-500/70 transition">
+                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-purple-500/40 bg-purple-950/20">
                         <span class="text-[10px] text-purple-300 uppercase font-bold block">Kesiapan Panen</span>
-                        <p class="text-xl font-black text-purple-300 mt-1" id="cnnSkorPanen">92 %</p>
-                        <span class="text-[9px] text-emerald-400 font-semibold">Kategori Siap</span>
+                        <p class="text-2xl font-black text-purple-300 mt-1" id="cnnSkorPanen">92.0 %</p>
+                        <span class="text-[9px] text-emerald-400 font-semibold">Layak Panen Hari Ini</span>
                     </div>
+                </div>
 
-                    <div class="col-span-2 bg-gradient-to-r from-purple-950/70 via-slate-900 to-emerald-950/70 p-3.5 rounded-xl border border-purple-500/40">
-                        <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">Kesimpulan CNN Vision (Ungu & Hijau)</span>
-                        <p class="text-xs text-gray-200 mt-1" id="cnnKesimpulan">
-                            Berdasarkan morfologi visual dan ketinggian kanopi selada, tanaman memiliki tingkat keriting optimal dan telah memenuhi bobot siap panen.
-                        </p>
+                <!-- Kesimpulan CNN Vision (Ungu & Hijau) -->
+                <div class="bg-gradient-to-r from-purple-950/70 via-slate-900 to-emerald-950/70 p-4 rounded-2xl border border-purple-500/40">
+                    <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">Kesimpulan CNN Vision (Ungu & Hijau)</span>
+                    <p class="text-xs text-gray-200 mt-1 leading-relaxed" id="cnnKesimpulan">
+                        Berdasarkan morfologi visual dan ketinggian kanopi selada, daun memiliki lebar 12.5 cm dengan tingkat keriting optimal. Tanaman mendekati masa panen penuh 42 hari dengan kondisi segar bebas klorosis.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Perbandingan Parameter Panen vs Standar Ideal (cnnBarChart - Ungu & Hijau) -->
+            <div class="glass p-6 rounded-3xl shadow-xl border border-purple-500/30">
+                <div class="flex items-center justify-between pb-3 border-b border-purple-500/20 mb-3">
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                            <span>📊</span> Perbandingan Parameter Tanaman vs Standar Ideal Siap Panen
+                        </h4>
+                        <p class="text-[11px] text-gray-400">Batang Ungu = Kondisi Tanaman Saat Ini | Batang Hijau = Standar Ideal Siap Panen</p>
                     </div>
+                    <span class="text-[10px] font-mono text-purple-300">Skema Ungu & Hijau</span>
+                </div>
+                <div class="h-64 w-full">
+                    <canvas id="cnnBarChart"></canvas>
                 </div>
             </div>
         </div>
@@ -711,6 +1148,36 @@
                     <span>📨</span> Buka di Gmail & Kirim
                 </button>
                 <button onclick="tutupModalLaporan()" class="bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold px-4 py-2.5 rounded-xl text-xs transition">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL PEMBESARAN GAMBAR PREDIKSI LSTM ================= -->
+    <div id="imageZoomModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md p-4 hidden">
+        <div class="glass max-w-2xl w-full p-6 rounded-3xl shadow-2xl border border-emerald-500/30 flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-700/80 mb-3">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl">🔍</span>
+                    <div>
+                        <h3 id="zoomModalTitle" class="font-extrabold text-base text-emerald-400">Visualisasi Kondisi Tanaman: Hari ke-14</h3>
+                        <p id="zoomModalSubtitle" class="text-xs text-gray-400">Prediksi Model LSTM - Fase Masa Pertumbuhan (31.2%)</p>
+                    </div>
+                </div>
+                <button onclick="tutupModalVisualisasi()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold flex items-center justify-center transition">✕</button>
+            </div>
+
+            <div class="aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800 relative mb-4">
+                <img id="zoomModalImg" src="" alt="Perbesaran Tanaman" class="w-full h-full object-cover">
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-gray-300 leading-relaxed mb-4" id="zoomModalDesc">
+                Estimasi visual perkembangan kanopi daun selada keriting berdasarkan proyeksi kelembapan dan suhu harian.
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="tutupModalVisualisasi()" class="bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold px-5 py-2 rounded-xl text-xs transition">
                     Tutup
                 </button>
             </div>
@@ -831,26 +1298,70 @@
         const db = firebase.database().ref('kelompok2');
         const dbTabel = firebase.database().ref('tabel_rekap');
 
-        // Setup Chart.js Real-time
+        // ================= 3. SETUP DUA GRAFIK MONITORING REAL-TIME (TANAH & SUHU) =================
         Chart.defaults.color = '#94a3b8';
-        const ctx = document.getElementById('historyChart').getContext('2d');
-        const historyChart = new Chart(ctx, {
+
+        // 1. Grafik Garis Kelembapan Tanah (Kotak Kiri)
+        const ctxSoil = document.getElementById('soilLineChart').getContext('2d');
+        const soilLineChart = new Chart(ctxSoil, {
             type: 'line',
             data: {
-                labels: [], 
-                datasets: [
-                    { label: 'Suhu (°C)', borderColor: '#60a5fa', backgroundColor: 'rgba(96, 165, 250, 0.1)', data: [], fill: true, tension: 0.4 },
-                    { label: 'Kelembapan Tanah (%)', borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', data: [], fill: true, tension: 0.4 }
-                ]
+                labels: [],
+                datasets: [{
+                    label: 'Kelembapan Tanah (%)',
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                    data: [],
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2.5,
+                    pointRadius: 2,
+                    pointHoverRadius: 5
+                }]
             },
-            options: { 
-                animation: false, 
+            options: {
+                animation: false,
                 responsive: true,
                 maintainAspectRatio: false,
-                scales: { 
-                    y: { beginAtZero: true, grid: { color: '#1e293b' } }, 
-                    x: { grid: { color: '#1e293b' } } 
-                } 
+                scales: {
+                    y: { beginAtZero: false, min: 20, max: 100, grid: { color: '#1e293b' } },
+                    x: { grid: { color: '#1e293b' }, ticks: { font: { size: 9 }, maxTicksLimit: 8 } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // 2. Grafik Garis Suhu Udara (Kotak Kanan)
+        const ctxTemp = document.getElementById('tempLineChart').getContext('2d');
+        const tempLineChart = new Chart(ctxTemp, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'Suhu Udara (°C)',
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                    data: [],
+                    fill: true,
+                    tension: 0.35,
+                    borderWidth: 2.5,
+                    pointRadius: 2,
+                    pointHoverRadius: 5
+                }]
+            },
+            options: {
+                animation: false,
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: false, min: 15, max: 45, grid: { color: '#1e293b' } },
+                    x: { grid: { color: '#1e293b' }, ticks: { font: { size: 9 }, maxTicksLimit: 8 } }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
             }
         });
 
@@ -907,17 +1418,36 @@
             document.getElementById('valPompa').className = "text-2xl font-black " + pompaTextClass;
             document.getElementById('dotPompa').className = "w-3 h-3 rounded-full " + dotClass;
 
-            // Update Grafik Real-time
-            const jam = new Date().toLocaleTimeString('id-ID');
-            historyChart.data.labels.push(jam);
-            historyChart.data.datasets[0].data.push(suhu);
-            historyChart.data.datasets[1].data.push(soil);
+            // Update Dua Kotak Terpisah Monitoring Real-Time
+            if (document.getElementById('chartValSoil')) document.getElementById('chartValSoil').innerText = soil + " %";
+            if (document.getElementById('chartBadgeSoil')) document.getElementById('chartBadgeSoil').innerText = "Status: " + statusTanah + " (65% - 78%)";
+            if (document.getElementById('soilSensorStatusText')) document.getElementById('soilSensorStatusText').innerText = statusTanah;
 
-            if (historyChart.data.labels.length > 20) {
-                historyChart.data.labels.shift();
-                historyChart.data.datasets.forEach(d => d.data.shift());
+            if (document.getElementById('chartValTemp')) document.getElementById('chartValTemp').innerText = suhu + " °C";
+            if (document.getElementById('chartBadgeTemp')) document.getElementById('chartBadgeTemp').innerText = "Status: " + statusUdara + " (24°C - 28°C)";
+            if (document.getElementById('tempSensorStatusText')) document.getElementById('tempSensorStatusText').innerText = statusUdara;
+
+            // Update Ringkasan Dashboard 3
+            if (document.getElementById('lstmSummarySoil')) document.getElementById('lstmSummarySoil').innerText = soil + " %";
+            if (document.getElementById('lstmSummaryTemp')) document.getElementById('lstmSummaryTemp').innerText = suhu + " °C";
+
+            // Update Dua Grafik Garis Real-time Terpisah
+            const jam = new Date().toLocaleTimeString('id-ID');
+            soilLineChart.data.labels.push(jam);
+            soilLineChart.data.datasets[0].data.push(soil);
+            if (soilLineChart.data.labels.length > 20) {
+                soilLineChart.data.labels.shift();
+                soilLineChart.data.datasets[0].data.shift();
             }
-            historyChart.update();
+            soilLineChart.update();
+
+            tempLineChart.data.labels.push(jam);
+            tempLineChart.data.datasets[0].data.push(suhu);
+            if (tempLineChart.data.labels.length > 20) {
+                tempLineChart.data.labels.shift();
+                tempLineChart.data.datasets[0].data.shift();
+            }
+            tempLineChart.update();
 
             // Update Prediksi Model LSTM
             updateLstmChart(soil, suhu);
@@ -1264,38 +1794,68 @@
             }, 900);
         }
 
-        // ================= 8. DASHBOARD 3: MODEL PREDIKSI LSTM 3/4 HARI =================
+        // ================= 8. DASHBOARD 3: MODEL PREDIKSI LSTM & GAUGE KEMATANGAN =================
+        // Semi-circular Gauge Meter Kematangan Tanaman (Persis Gambar 5)
+        const ctxGauge = document.getElementById('lstmMeterGauge').getContext('2d');
+        const lstmGaugeChart = new Chart(ctxGauge, {
+            type: 'doughnut',
+            data: {
+                labels: ['Tingkat Kematangan', 'Sisa Pertumbuhan Menuju Panen'],
+                datasets: [{
+                    data: [60, 40],
+                    backgroundColor: ['#6366f1', '#1e293b'],
+                    borderWidth: 0,
+                    circumference: 180,
+                    rotation: 270
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '76%',
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+
+        // Grafik Longitudinal Time-Series LSTM (Gambar 4 & 5)
         const ctxLstm = document.getElementById('lstmLongitudinalChart').getContext('2d');
         const lstmChart = new Chart(ctxLstm, {
             type: 'line',
             data: {
-                labels: ['Hari Ini', 'Hari +1', 'Hari +2', 'Hari +3', 'Hari +4 (Target Panen)'],
+                labels: ['Hari Ini', 'Hari +1 (H14)', 'Hari +2 (H15)', 'Hari +3 (H16)', 'Hari +4 (H17)'],
                 datasets: [
                     {
-                        label: 'Proyeksi Kelembapan Tanah (%)',
-                        data: [60, 65, 68, 72, 74],
+                        label: 'Tingkat Kematangan Tanaman (%)',
+                        data: [28.0, 31.2, 33.9, 36.1, 38.4],
                         borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        backgroundColor: 'rgba(16, 185, 129, 0.12)',
                         fill: true,
                         tension: 0.35,
-                        borderWidth: 2.5
+                        borderWidth: 2.5,
+                        pointBackgroundColor: '#10b981',
+                        pointRadius: 4
                     },
                     {
-                        label: 'Proyeksi Suhu Lingkungan (°C)',
-                        data: [28.3, 27.8, 27.5, 26.9, 26.5],
+                        label: 'Proyeksi Kelembapan Tanah (%)',
+                        data: [60.0, 58.2, 57.2, 57.1, 56.2],
                         borderColor: '#38bdf8',
                         backgroundColor: 'transparent',
                         borderDash: [5, 5],
                         tension: 0.35,
-                        borderWidth: 2
+                        borderWidth: 2,
+                        pointRadius: 3
                     },
                     {
-                        label: 'Indeks Kesiapan Panen (%)',
-                        data: [50, 62, 75, 88, 95],
+                        label: 'Proyeksi Suhu Udara (°C)',
+                        data: [27.8, 27.1, 27.1, 27.1, 27.1],
                         borderColor: '#a855f7',
                         backgroundColor: 'transparent',
                         tension: 0.35,
-                        borderWidth: 2
+                        borderWidth: 2,
+                        pointRadius: 3
                     }
                 ]
             },
@@ -1304,10 +1864,10 @@
                 maintainAspectRatio: false,
                 scales: {
                     y: { beginAtZero: false, min: 20, max: 100, grid: { color: '#1e293b' } },
-                    x: { grid: { color: '#1e293b' } }
+                    x: { grid: { color: '#1e293b' }, ticks: { font: { size: 10 } } }
                 },
                 plugins: {
-                    legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+                    legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 }, color: '#cbd5e1' } }
                 }
             }
         });
@@ -1321,22 +1881,69 @@
             const h3Soil = Math.min(100, Math.round(baseSoil * 0.85 + 20));
             const h4Soil = Math.min(100, Math.round(baseSoil * 0.80 + 25));
 
-            lstmChart.data.datasets[0].data = [baseSoil, h1Soil, h2Soil, h3Soil, h4Soil];
-            lstmChart.data.datasets[1].data = [baseTemp, (baseTemp - 0.4).toFixed(1), (baseTemp - 0.7).toFixed(1), (baseTemp - 1.1).toFixed(1), (baseTemp - 1.4).toFixed(1)];
+            lstmChart.data.datasets[1].data = [baseSoil, h1Soil, h2Soil, h3Soil, h4Soil];
+            lstmChart.data.datasets[2].data = [baseTemp, (baseTemp - 0.4).toFixed(1), (baseTemp - 0.7).toFixed(1), (baseTemp - 1.1).toFixed(1), (baseTemp - 1.4).toFixed(1)];
             lstmChart.update();
-
-            document.getElementById('lstmSoilH1').innerText = h1Soil + "%";
-            document.getElementById('lstmSoilH2').innerText = h2Soil + "%";
-            document.getElementById('lstmSoilH3').innerText = h3Soil + "%";
-            document.getElementById('lstmSoilH4').innerText = h4Soil + "%";
         }
 
-        // ================= 9. DASHBOARD 4: MODEL CNN DENGAN GRAFIK BATANG (TEMA UNGU & HIJAU) =================
+        function muatUlangPrediksiLSTM() {
+            alert("🔄 Memuat ulang prediksi 1D-CNN & LSTM 4 hari ke depan dari Firebase...");
+            updateLstmChart(dataTerakhir.kelembapan_tanah, dataTerakhir.suhu);
+        }
+
+        // ================= 9. DASHBOARD 4: MODEL CNN (GRAFIK BATANG & HORIZONTAL BAR PROBABILITAS KELAS) =================
+        // Horizontal Bar Chart: Probabilitas Tiap Kelas (Permintaan 3 Spesifik)
+        const ctxProb = document.getElementById('cnnProbHorizontalChart').getContext('2d');
+        const cnnProbChart = new Chart(ctxProb, {
+            type: 'bar',
+            data: {
+                labels: ['Siap Panen', 'Mendekati Panen', 'Masa Pertumbuhan', 'Bukan Selada'],
+                datasets: [{
+                    label: 'Tingkat Probabilitas (%)',
+                    data: [31, 68, 15, 2],
+                    backgroundColor: [
+                        '#10b981', // Hijau (Siap Panen)
+                        '#f59e0b', // Cokelat/Oranye (Mendekati Panen)
+                        '#8b5cf6', // Ungu (Masa Pertumbuhan)
+                        '#ef4444'  // Merah (Bukan Selada)
+                    ],
+                    borderRadius: 8,
+                    barPercentage: 0.65
+                }]
+            },
+            options: {
+                indexAxis: 'y', // HORIZONTAL BAR CHART
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: { color: '#1e293b' },
+                        ticks: { callback: v => v + '%', font: { size: 10 } }
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { font: { weight: 'bold', size: 11 }, color: '#e2e8f0' }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: ctx => ` Probabilitas: ${ctx.raw}%`
+                        }
+                    }
+                }
+            }
+        });
+
+        // Grafik Batang Perbandingan Parameter Panen vs Standar Ideal (cnnBarChart - Ungu & Hijau)
         const ctxCnn = document.getElementById('cnnBarChart').getContext('2d');
         const cnnChart = new Chart(ctxCnn, {
             type: 'bar',
             data: {
-                labels: ['Kelembapan Tanah (%)', 'Kelembapan Udara (%)', 'Lebar Daun (cm)', 'Warna Daun (Green %)', 'Tinggi Tanaman (cm)', 'Kesiapan Panen (%)'],
+                labels: ['Kelembapan Tanah (%)', 'Kelembapan Udara (%)', 'Lebar Daun (cm)', 'Warna Daun (Green %)', 'Tinggi Kanopi (cm)', 'Kesiapan Panen (%)'],
                 datasets: [
                     {
                         label: 'Tanaman Saat Ini (Deteksi CNN - Ungu)',
@@ -1376,7 +1983,7 @@
             }
         });
 
-        function updateCnnChart(lebar, tinggi, warna, skor) {
+        function updateCnnChart(lebar, tinggi, warna, skor, probObj) {
             cnnChart.data.datasets[0].data[2] = lebar;
             cnnChart.data.datasets[0].data[3] = warna;
             cnnChart.data.datasets[0].data[4] = tinggi;
@@ -1387,6 +1994,25 @@
             document.getElementById('cnnTinggiPohon').innerText = tinggi + " cm";
             document.getElementById('cnnWarnaDaun').innerText = warna + " %";
             document.getElementById('cnnSkorPanen').innerText = skor + " %";
+
+            // Update Probabilitas Horizontal Bar Chart jika ada
+            if (probObj) {
+                const pSiap = probObj.siap_panen || 31;
+                const pDekat = probObj.mendekati_panen || 68;
+                const pTumbuh = probObj.masa_pertumbuhan || 15;
+                const pBukan = probObj.bukan_selada || 2;
+
+                cnnProbChart.data.datasets[0].data = [pSiap, pDekat, pTumbuh, pBukan];
+                cnnProbChart.update();
+
+                // Validasi Penolakan Bukan Selada
+                const alertBukan = document.getElementById('alertBukanSelada');
+                if (pBukan >= 50 || (pBukan > pSiap && pBukan > pDekat && pBukan > pTumbuh)) {
+                    alertBukan.classList.remove('hidden');
+                } else {
+                    alertBukan.classList.add('hidden');
+                }
+            }
 
             // Sinkronkan ke Firebase node 'evaluasi_cnn' agar tersimpan di cloud
             firebase.database().ref('evaluasi_cnn').update({
@@ -1408,52 +2034,67 @@
             const data = snapshot.val();
             if (data && data.proyeksi) {
                 const p = data.proyeksi;
-                const c = data.kondisi_saat_ini || { kelembapan_tanah: 70, suhu: 28, kesiapan_panen: 65 };
+                const c = data.kondisi_saat_ini || { kelembapan_tanah: 60, suhu: 27.8, kesiapan_panen: 28.0 };
 
-                // Update Longitudinal Chart
+                // 1. Update Longitudinal Line Chart
                 lstmChart.data.datasets[0].data = [
-                    c.kelembapan_tanah,
-                    p.h1.kelembapan_tanah,
-                    p.h2.kelembapan_tanah,
-                    p.h3.kelembapan_tanah,
-                    p.h4.kelembapan_tanah
-                ];
-                lstmChart.data.datasets[1].data = [
-                    c.suhu,
-                    p.h1.suhu,
-                    p.h2.suhu,
-                    p.h3.suhu,
-                    p.h4.suhu
-                ];
-                lstmChart.data.datasets[2].data = [
                     c.kesiapan_panen,
                     p.h1.kesiapan_panen,
                     p.h2.kesiapan_panen,
                     p.h3.kesiapan_panen,
                     p.h4.kesiapan_panen
                 ];
+                lstmChart.data.datasets[1].data = [
+                    c.kelembapan_tanah,
+                    p.h1.kelembapan_tanah,
+                    p.h2.kelembapan_tanah,
+                    p.h3.kelembapan_tanah,
+                    p.h4.kelembapan_tanah
+                ];
+                lstmChart.data.datasets[2].data = [
+                    c.suhu,
+                    p.h1.suhu,
+                    p.h2.suhu,
+                    p.h3.suhu,
+                    p.h4.suhu
+                ];
                 lstmChart.update();
 
-                // Update Kartu Proyeksi 4 Hari
-                const elSoilH1 = document.getElementById('lstmSoilH1');
-                const elTempH1 = document.getElementById('lstmTempH1');
-                if (elSoilH1) elSoilH1.innerText = p.h1.kelembapan_tanah + "%";
-                if (elTempH1) elTempH1.innerText = p.h1.suhu + "°C";
+                // 2. Update 4 Kartu Prediksi Horizontal (Persis Gambar 1)
+                if (document.getElementById('lstmValH1')) document.getElementById('lstmValH1').innerText = p.h1.kesiapan_panen + "%";
+                if (document.getElementById('lstmBarH1')) document.getElementById('lstmBarH1').style.width = p.h1.kesiapan_panen + "%";
 
-                const elSoilH2 = document.getElementById('lstmSoilH2');
-                const elTempH2 = document.getElementById('lstmTempH2');
-                if (elSoilH2) elSoilH2.innerText = p.h2.kelembapan_tanah + "%";
-                if (elTempH2) elTempH2.innerText = p.h2.suhu + "°C";
+                if (document.getElementById('lstmValH2')) document.getElementById('lstmValH2').innerText = p.h2.kesiapan_panen + "%";
+                if (document.getElementById('lstmBarH2')) document.getElementById('lstmBarH2').style.width = p.h2.kesiapan_panen + "%";
 
-                const elSoilH3 = document.getElementById('lstmSoilH3');
-                const elTempH3 = document.getElementById('lstmTempH3');
-                if (elSoilH3) elSoilH3.innerText = p.h3.kelembapan_tanah + "%";
-                if (elTempH3) elTempH3.innerText = p.h3.suhu + "°C";
+                if (document.getElementById('lstmValH3')) document.getElementById('lstmValH3').innerText = p.h3.kesiapan_panen + "%";
+                if (document.getElementById('lstmBarH3')) document.getElementById('lstmBarH3').style.width = p.h3.kesiapan_panen + "%";
 
-                const elSoilH4 = document.getElementById('lstmSoilH4');
-                const elTempH4 = document.getElementById('lstmTempH4');
-                if (elSoilH4) elSoilH4.innerText = p.h4.kelembapan_tanah + "%";
-                if (elTempH4) elTempH4.innerText = p.h4.suhu + "°C";
+                if (document.getElementById('lstmValH4')) document.getElementById('lstmValH4').innerText = p.h4.kesiapan_panen + "%";
+                if (document.getElementById('lstmBarH4')) document.getElementById('lstmBarH4').style.width = p.h4.kesiapan_panen + "%";
+
+                // 3. Update Tabel Ringkasan per Hari (Persis Gambar 4)
+                if (document.getElementById('tableLstmSoilH1')) document.getElementById('tableLstmSoilH1').innerText = p.h1.kelembapan_tanah + " %";
+                if (document.getElementById('tableLstmTempH1')) document.getElementById('tableLstmTempH1').innerText = p.h1.suhu + " °C";
+                if (document.getElementById('tableLstmKematanganH1')) document.getElementById('tableLstmKematanganH1').innerText = p.h1.kesiapan_panen + " %";
+
+                if (document.getElementById('tableLstmSoilH2')) document.getElementById('tableLstmSoilH2').innerText = p.h2.kelembapan_tanah + " %";
+                if (document.getElementById('tableLstmTempH2')) document.getElementById('tableLstmTempH2').innerText = p.h2.suhu + " °C";
+                if (document.getElementById('tableLstmKematanganH2')) document.getElementById('tableLstmKematanganH2').innerText = p.h2.kesiapan_panen + " %";
+
+                if (document.getElementById('tableLstmSoilH3')) document.getElementById('tableLstmSoilH3').innerText = p.h3.kelembapan_tanah + " %";
+                if (document.getElementById('tableLstmTempH3')) document.getElementById('tableLstmTempH3').innerText = p.h3.suhu + " °C";
+                if (document.getElementById('tableLstmKematanganH3')) document.getElementById('tableLstmKematanganH3').innerText = p.h3.kesiapan_panen + " %";
+
+                if (document.getElementById('tableLstmSoilH4')) document.getElementById('tableLstmSoilH4').innerText = p.h4.kelembapan_tanah + " %";
+                if (document.getElementById('tableLstmTempH4')) document.getElementById('tableLstmTempH4').innerText = p.h4.suhu + " °C";
+                if (document.getElementById('tableLstmKematanganH4')) document.getElementById('tableLstmKematanganH4').innerText = p.h4.kesiapan_panen + " %";
+
+                // 4. Update Gauge Kematangan Meter (Gambar 5)
+                const kematanganSaatIni = c.kesiapan_panen || 60;
+                if (document.getElementById('gaugeValText')) document.getElementById('gaugeValText').innerText = Math.round(kematanganSaatIni) + "%";
+                lstmGaugeChart.data.datasets[0].data = [kematanganSaatIni, Math.max(0, 100 - kematanganSaatIni)];
+                lstmGaugeChart.update();
             }
         });
 
@@ -1465,6 +2106,7 @@
                 const param = data.parameter_panen;
                 const ideal = data.standar_ideal || { kelembapan_tanah: 75, kelembapan_udara: 80, lebar_daun_cm: 15.0, warna_daun_persen: 90, tinggi_tanaman_cm: 20.0, skor_kesiapan_panen: 100 };
 
+                // Update Bar Chart Parameter
                 cnnChart.data.datasets[0].data = [
                     param.kelembapan_tanah,
                     param.kelembapan_udara,
@@ -1483,6 +2125,33 @@
                 ];
                 cnnChart.update();
 
+                // Update 3 Kartu Metrik CNN (Gambar 2)
+                if (document.getElementById('cnnTingkatKematangan')) document.getElementById('cnnTingkatKematangan').innerText = param.skor_kesiapan_panen + "%";
+                if (document.getElementById('cnnConfidenceScore')) document.getElementById('cnnConfidenceScore').innerText = (data.confidence_score || 87.0) + "%";
+                if (document.getElementById('cnnFaseBadge')) {
+                    const fase = data.fase_pertumbuhan || (param.skor_kesiapan_panen >= 75 ? "Siap Panen" : "Mendekati Panen");
+                    document.getElementById('cnnFaseBadge').innerText = fase;
+                }
+
+                // Update Horizontal Bar Chart Probabilitas Tiap Kelas (Permintaan 3)
+                const probs = data.probabilitas_kelas || { siap_panen: 31, mendekati_panen: 68, masa_pertumbuhan: 15, bukan_selada: 2 };
+                cnnProbChart.data.datasets[0].data = [
+                    probs.siap_panen,
+                    probs.mendekati_panen,
+                    probs.masa_pertumbuhan,
+                    probs.bukan_selada
+                ];
+                cnnProbChart.update();
+
+                // Deteksi Penolakan Bukan Selada
+                const alertBukan = document.getElementById('alertBukanSelada');
+                if (probs.bukan_selada >= 50 || (probs.bukan_selada > probs.siap_panen && probs.bukan_selada > probs.mendekati_panen && probs.bukan_selada > probs.masa_pertumbuhan)) {
+                    alertBukan.classList.remove('hidden');
+                } else {
+                    alertBukan.classList.add('hidden');
+                }
+
+                // Update Kartu Morfologi Daun
                 if (document.getElementById('cnnLebarDaun')) document.getElementById('cnnLebarDaun').innerText = param.lebar_daun_cm + " cm";
                 if (document.getElementById('cnnTinggiPohon')) document.getElementById('cnnTinggiPohon').innerText = param.tinggi_tanaman_cm + " cm";
                 if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = param.warna_daun_persen + " %";
@@ -1491,7 +2160,87 @@
             }
         });
 
-        // ================= 10. EKSPOR LAPORAN GMAIL (4 KUADRAN) =================
+        // ================= 10. FITUR VISUALISASI PERBESARAN FOTO PREDIKSI LSTM =================
+        const dataFotoPrediksi = {
+            1: {
+                hari: "Hari ke-14",
+                persen: "31.2%",
+                fase: "Masa Pertumbuhan",
+                img: "https://images.unsplash.com/photo-1592417817098-8f3d6eb22509?w=900&auto=format&fit=crop&q=80",
+                desc: "Fase Pertumbuhan Awal: Daun muda selada mulai muncul di atas media tanam. Sistem akar menyerap air nutrisi aktif dengan kelembapan tanah optimal."
+            },
+            2: {
+                hari: "Hari ke-15",
+                persen: "33.9%",
+                fase: "Masa Pertumbuhan (Daun Melebar)",
+                img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop&q=80",
+                desc: "Fase Vegetatif Aktif: Helaian daun melebar ke arah lateral. Klorofil daun meningkat dengan warna hijau cerah dan kanopi mulai terbentuk."
+            },
+            3: {
+                hari: "Hari ke-16",
+                persen: "36.1%",
+                fase: "Masa Pertumbuhan (Daun Rimbun)",
+                img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=900&auto=format&fit=crop&q=80",
+                desc: "Fase Kanopi Rapat: Tingkat keriting selada mulai tampak jelas pada tepian daun. Bobot basah tanaman meningkat secara eksponensial."
+            },
+            4: {
+                hari: "Hari ke-17",
+                persen: "38.4%",
+                fase: "Menuju Fase Panen Penuh (42 Hari)",
+                img: "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=900&auto=format&fit=crop&q=80",
+                desc: "Proyeksi Hari ke-17: Pertumbuhan stabil menuju siklus panen optimal 42 hari (maksimal 46 hari). Selada siap mencapai bobot panen komersial."
+            }
+        };
+
+        function bukaModalVisualisasi(hIndex) {
+            const item = dataFotoPrediksi[hIndex] || dataFotoPrediksi[1];
+            document.getElementById('zoomModalTitle').innerText = `Visualisasi Kondisi Tanaman: ${item.hari}`;
+            document.getElementById('zoomModalSubtitle').innerText = `Prediksi Model LSTM - Fase ${item.fase} (${item.persen})`;
+            document.getElementById('zoomModalImg').src = item.img;
+            document.getElementById('zoomModalDesc').innerHTML = `<b>Perkembangan Morfologi:</b> ${item.desc}`;
+            document.getElementById('imageZoomModal').classList.remove('hidden');
+        }
+
+        function tutupModalVisualisasi() {
+            document.getElementById('imageZoomModal').classList.add('hidden');
+        }
+
+        function unduhLaporanLSTMCsv() {
+            let csv = "Hari,Kelembapan (%),Suhu (C),Tingkat Kematangan (%),Tahap Perkembangan\n";
+            csv += `Hari +1 (Hari ke-14),${document.getElementById('tableLstmSoilH1').innerText},${document.getElementById('tableLstmTempH1').innerText},${document.getElementById('tableLstmKematanganH1').innerText},Masa Pertumbuhan\n`;
+            csv += `Hari +2 (Hari ke-15),${document.getElementById('tableLstmSoilH2').innerText},${document.getElementById('tableLstmTempH2').innerText},${document.getElementById('tableLstmKematanganH2').innerText},Masa Pertumbuhan\n`;
+            csv += `Hari +3 (Hari ke-16),${document.getElementById('tableLstmSoilH3').innerText},${document.getElementById('tableLstmTempH3').innerText},${document.getElementById('tableLstmKematanganH3').innerText},Masa Pertumbuhan\n`;
+            csv += `Hari +4 (Hari ke-17),${document.getElementById('tableLstmSoilH4').innerText},${document.getElementById('tableLstmTempH4').innerText},${document.getElementById('tableLstmKematanganH4').innerText},Masa Pertumbuhan\n`;
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Prediksi_LSTM_Selada_Keriting_${new Date().toISOString().slice(0, 10)}.csv`;
+            a.click();
+        }
+
+        let isEnkripsiAktif = false;
+        function toggleEnkripsiCitra() {
+            isEnkripsiAktif = !isEnkripsiAktif;
+            const overlay = document.getElementById('cnnEncryptionOverlay');
+            const badge = document.getElementById('cnnStatusEnkripsiBadge');
+            const btn = document.getElementById('btnEnkripsi');
+
+            if (isEnkripsiAktif) {
+                overlay.classList.remove('opacity-0');
+                badge.innerText = "Enkripsi Konvolusi Aktif";
+                badge.className = "px-2.5 py-1 rounded-xl bg-purple-600 text-[10px] font-bold text-white border border-purple-400";
+                btn.className = "bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-400 transition flex items-center gap-1.5 shadow-lg ring-2 ring-purple-400/50";
+            } else {
+                overlay.classList.add('opacity-0');
+                badge.innerText = "Enkripsi Standar";
+                badge.className = "px-2.5 py-1 rounded-xl bg-purple-900/80 backdrop-blur-md text-[10px] font-bold text-purple-300 border border-purple-500/40";
+                btn.className = "bg-gradient-to-r from-purple-700 to-emerald-700 hover:from-purple-600 hover:to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-md";
+            }
+        }
+
+        // ================= 11. EKSPOR LAPORAN GMAIL (4 KUADRAN) =================
         function bukaModalLaporanEmail() {
             const emailTujuan = document.getElementById('emailTujuan').value.trim() || "gojotoji188@gmail.com";
             const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
@@ -1510,7 +2259,7 @@
             document.getElementById('reportAiText').innerText = document.getElementById('resDiagnosisLengkap').innerText;
 
             try {
-                document.getElementById('reportChartImg').src = historyChart.toBase64Image();
+                document.getElementById('reportChartImg').src = soilLineChart.toBase64Image();
             } catch(e) {
                 console.warn(e);
             }
