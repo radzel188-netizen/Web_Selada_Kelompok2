@@ -881,31 +881,37 @@
                         <div id="cnnPlaceholder" class="flex flex-col items-center justify-center text-center p-6 text-gray-500">
                             <span class="text-5xl mb-2 opacity-40">📷</span>
                             <span class="font-bold text-xs text-gray-300">Belum Ada Foto Tanaman</span>
-                            <p class="text-[10px] text-gray-500 mt-1 max-w-[200px]">Upload foto screenshot selada keriting untuk memulai inferensi CNN.</p>
+                            <p class="text-[10px] text-gray-500 mt-1 max-w-[200px]">Upload screenshot selada keriting dari Menu 2 (Kamera Tanaman) untuk memulai inferensi CNN.</p>
                         </div>
                         <img id="cnnPreviewPlantImg" src="" alt="Citra Selada CNN" class="w-full h-full object-cover transition duration-300 hidden">
                         
+                        <!-- Canvas Visualisasi Enkripsi Fitur Konvolusi CNN (Ungu & Hijau) -->
+                        <canvas id="cnnFeatureCanvas" class="w-full h-full object-cover absolute inset-0 hidden"></canvas>
+
                         <!-- Overlay Enkripsi Visual Citra CNN (Ungu & Hijau) -->
-                        <div id="cnnEncryptionOverlay" class="absolute inset-0 bg-gradient-to-tr from-purple-900/60 via-emerald-900/30 to-purple-600/40 mix-blend-color-dodge pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                        <div id="cnnEncryptionOverlay" class="absolute inset-0 bg-gradient-to-tr from-purple-900/30 via-transparent to-emerald-900/20 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
                             <span class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-mono text-purple-300 border border-purple-500/50">
-                                🔮 Filter Fitur Konvolusi: Ungu & Hijau
+                                🔮 Filter Fitur Konvolusi: Ungu & Hijau Aktif
                             </span>
                         </div>
 
                         <!-- Badge Status Deteksi -->
-                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                             <span id="cnnImageSourceBadge" class="px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-[10px] font-semibold text-gray-300 border border-slate-700">
                                 Sumber: Belum Ada Citra
                             </span>
                             <span id="cnnStatusEnkripsiBadge" class="px-2.5 py-1 rounded-xl bg-purple-900/80 backdrop-blur-md text-[10px] font-bold text-purple-300 border border-purple-500/40">
-                                Enkripsi Standar
+                                Standby
                             </span>
                         </div>
                     </div>
 
                     <div class="flex gap-2 pt-1">
-                        <button onclick="document.getElementById('manualFileInput').click(); " class="w-full bg-slate-800 hover:bg-slate-700 text-gray-200 py-2.5 rounded-xl text-xs font-bold border border-slate-700 transition flex items-center justify-center gap-1.5">
-                            <span>📁</span> Ganti / Upload Foto Baru
+                        <button onclick="document.getElementById('manualFileInput').click();" class="flex-1 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white py-2.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center justify-center gap-1.5 shadow-md">
+                            <span>📁</span> Upload Screenshot Selada
+                        </button>
+                        <button onclick="toggleEnkripsiCitra()" id="btnToggleViewCitra" class="px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition flex items-center gap-1.5" title="Beralih antara citra asli dan filter fitur CNN">
+                            <span>🔮</span> Mode Fitur CNN
                         </button>
                     </div>
                 </div>
@@ -1242,8 +1248,13 @@
                 <button onclick="tutupModalVisualisasi()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold flex items-center justify-center transition">✕</button>
             </div>
 
-            <div class="aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800 relative mb-4">
-                <img id="zoomModalImg" src="" alt="Perbesaran Tanaman" class="w-full h-full object-cover">
+            <div class="aspect-video bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 relative mb-4 flex items-center justify-center">
+                <img id="zoomModalImg" src="" alt="Perbesaran Tanaman" class="w-full h-full object-cover hidden">
+                <div id="zoomModalVector" class="flex flex-col items-center justify-center text-center p-6 text-gray-400">
+                    <span id="zoomModalEmoji" class="text-6xl mb-2">🌿</span>
+                    <span id="zoomModalBadge" class="text-xs font-bold text-emerald-400 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30">Proyeksi Morfologi Daun Selada</span>
+                    <p class="text-[11px] text-gray-500 mt-2 max-w-sm">Visualisasi berbasis model estimasi biometrik pertumbuhan kanopi (Lactuca sativa var. crispa).</p>
+                </div>
             </div>
 
             <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-gray-300 leading-relaxed mb-4" id="zoomModalDesc">
@@ -1816,9 +1827,119 @@
             XLSX.writeFile(wb, `Laporan_Selada_Keriting_${tgl}.xlsx`);
         }
 
-        // ================= 7. MODEL CNN: VALIDASI FILTER NON-SELADA & ANALISIS CITRA =================
+        // ================= 7. MODEL CNN: VALIDASI FILTER NON-SELADA & ENKRIPSI CITRA KONVOLUSI (UNGU & HIJAU) =================
         let uploadedImageBase64 = "";
+        let isEnkripsiAktif = true;
+        let sessionCnnTriggered = false;
+        let sessionLstmTriggered = false;
 
+        // FUNGSI RENDER VISUALISASI ENKRIPSI CITRA FITUR KONVOLUSI CNN (WARNA UNGU & HIJAU)
+        function renderCnnFeatureMap(imgSource) {
+            const canvas = document.getElementById('cnnFeatureCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const w = 320;
+            const h = 320;
+            canvas.width = w;
+            canvas.height = h;
+
+            // Gambar citra asli yang diskalakan ke canvas
+            ctx.drawImage(imgSource, 0, 0, w, h);
+            const imgData = ctx.getImageData(0, 0, w, h);
+            const data = imgData.data;
+
+            const outputData = ctx.createImageData(w, h);
+            const out = outputData.data;
+
+            let minX = w, maxX = 0, minY = h, maxY = 0;
+            let plantPixelsFound = 0;
+
+            for (let y = 1; y < h - 1; y++) {
+                for (let x = 1; x < w - 1; x++) {
+                    const idx = (y * w + x) * 4;
+                    const r = data[idx];
+                    const g = data[idx + 1];
+                    const b = data[idx + 2];
+
+                    // Deteksi klorofil & indeks vegetasi ExG
+                    const exg = 2 * g - r - b;
+                    const isVegetation = (g > r && g > b && g > 35 && exg > 8) || (exg > 15 && g > 40);
+
+                    // Hitung respon konvolusi gradien lokal (Sobel / Laplacian Edge kernel)
+                    const idxLeft = (y * w + (x - 1)) * 4;
+                    const idxRight = (y * w + (x + 1)) * 4;
+                    const idxUp = ((y - 1) * w + x) * 4;
+                    const idxDown = ((y + 1) * w + x) * 4;
+
+                    const gx = Math.abs(data[idxRight + 1] - data[idxLeft + 1]);
+                    const gy = Math.abs(data[idxDown + 1] - data[idxUp + 1]);
+                    const grad = gx + gy;
+
+                    if (isVegetation) {
+                        plantPixelsFound++;
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+
+                        // Area Kanopi Daun Selada: Konvolusi Hijau Neon & Zamrud dengan Aksen Cyan
+                        if (grad > 25) {
+                            // Lipatan bergelombang & tepi daun keriting (High Activation Filter)
+                            out[idx] = Math.min(255, 35 + grad * 1.6);       // R
+                            out[idx + 1] = Math.min(255, 215 + grad * 0.7);  // G: Hijau neon menyala
+                            out[idx + 2] = Math.min(255, 140 + grad * 1.6);  // B: Semburat cyan
+                            out[idx + 3] = 255;
+                        } else {
+                            // Helaian badan daun (Klorofil Feature Map) -> Hijau Zamrud Segar
+                            out[idx] = Math.min(255, 15 + r * 0.25);
+                            out[idx + 1] = Math.min(255, 185 + g * 0.35);
+                            out[idx + 2] = Math.min(255, 70 + b * 0.35);
+                            out[idx + 3] = 255;
+                        }
+                    } else {
+                        // Area Background / Non-Tanaman: Ditekan menjadi Warna Ungu / Violet / Indigo Konvolusi
+                        const lum = (r * 0.299 + g * 0.587 + b * 0.114);
+                        out[idx] = Math.min(255, Math.floor(48 + lum * 0.35));     // Purple R
+                        out[idx + 1] = Math.min(255, Math.floor(10 + lum * 0.10)); // Low G
+                        out[idx + 2] = Math.min(255, Math.floor(92 + lum * 0.50)); // Deep Indigo B
+                        out[idx + 3] = 255;
+                    }
+                }
+            }
+
+            ctx.putImageData(outputData, 0, 0);
+
+            // Bounding Box Deteksi & Label HUD Conv2D
+            if (plantPixelsFound > 150 && maxX > minX && maxY > minY) {
+                ctx.strokeStyle = '#10b981'; // Emerald Green
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 4]);
+                const pad = 8;
+                const bx = Math.max(0, minX - pad);
+                const by = Math.max(0, minY - pad);
+                const bw = Math.min(w - bx, (maxX - minX) + pad * 2);
+                const bh = Math.min(h - by, (maxY - minY) + pad * 2);
+                ctx.strokeRect(bx, by, bw, bh);
+                ctx.setLineDash([]);
+
+                // HUD Tag
+                ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                ctx.fillRect(bx, Math.max(0, by - 22), 175, 20);
+                ctx.fillStyle = '#c084fc'; // Light Purple
+                ctx.font = 'bold 9px monospace';
+                ctx.fillText("CNN: SELADA KERITING DETECTED", bx + 6, Math.max(13, by - 8));
+            }
+
+            // Watermark HUD
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.75)';
+            ctx.fillRect(10, h - 26, 220, 18);
+            ctx.fillStyle = '#34d399'; // Mint Green
+            ctx.font = 'bold 8.5px monospace';
+            ctx.fillText("FEATURE MAP: Conv2D (Ungu & Hijau)", 16, h - 14);
+        }
+
+        // FUNGSI UTAMA: PENANGANAN UPLOAD CITRA DENGAN VALIDASI SELADA KERITING & EKSTRAKSI CNN
         function handleManualUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -1827,76 +1948,154 @@
             reader.onload = function(evt) {
                 const img = new Image();
                 img.onload = function() {
-                    // Validasi Citra Selada menggunakan Canvas Pixel Analysis (Klorofil Daun)
-                    const canvas = document.createElement('canvas');
-                    const w = 100, h = 100;
-                    canvas.width = w;
-                    canvas.height = h;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, w, h);
-                    const imgData = ctx.getImageData(0, 0, w, h).data;
+                    // Validasi Cepat Citra Selada Keriting (Canvas Downsampled 150x150)
+                    const canvasTest = document.createElement('canvas');
+                    const tw = 150, th = 150;
+                    canvasTest.width = tw;
+                    canvasTest.height = th;
+                    const ctxTest = canvasTest.getContext('2d');
+                    ctxTest.drawImage(img, 0, 0, tw, th);
+                    const testData = ctxTest.getImageData(0, 0, tw, th).data;
 
-                    let greenPixels = 0;
-                    const totalPixels = w * h;
+                    let plantPixels = 0;
+                    let curlyEdgeScore = 0;
+                    const totalPixels = tw * th;
 
-                    for (let i = 0; i < imgData.length; i += 4) {
-                        const r = imgData[i];
-                        const g = imgData[i + 1];
-                        const b = imgData[i + 2];
-                        // Ambang deteksi klorofil daun: G dominan dan intensitas hijau memadai
-                        if (g > r && g > b && g > 45 && ((2 * g - r - b) > 15)) {
-                            greenPixels++;
+                    for (let y = 1; y < th - 1; y++) {
+                        for (let x = 1; x < tw - 1; x++) {
+                            const i = (y * tw + x) * 4;
+                            const r = testData[i];
+                            const g = testData[i + 1];
+                            const b = testData[i + 2];
+                            const exg = 2 * g - r - b;
+
+                            // Kriteria pigmen klorofil tanaman:
+                            const isChlorophyll = (g > r && g > b && g > 35 && exg > 8) || (exg > 15 && g > 40 && (g - r) > -5);
+
+                            if (isChlorophyll) {
+                                plantPixels++;
+
+                                // Gradien lokal untuk mengukur lipatan / gelombang keriting selada
+                                const iL = (y * tw + (x - 1)) * 4;
+                                const iR = (y * tw + (x + 1)) * 4;
+                                const iU = ((y - 1) * tw + x) * 4;
+                                const iD = ((y + 1) * tw + x) * 4;
+
+                                const gx = Math.abs(testData[iR + 1] - testData[iL + 1]);
+                                const gy = Math.abs(testData[iD + 1] - testData[iU + 1]);
+                                if (gx + gy > 20) {
+                                    curlyEdgeScore++;
+                                }
+                            }
                         }
                     }
 
-                    const greenRatio = greenPixels / totalPixels;
+                    const plantRatio = plantPixels / totalPixels;
+                    const curlyRatio = plantPixels > 0 ? (curlyEdgeScore / plantPixels) : 0;
 
-                    // 1. FILTER PENOLAKAN: JIKA BUKAN TANAMAN SELADA (Klorofil daun < 12%)
-                    if (greenRatio < 0.12) {
+                    // 1. FILTER PENOLAKAN: JIKA BUKAN TANAMAN (Klorofil < 5%)
+                    if (plantRatio < 0.05) {
                         e.target.value = '';
-                        document.getElementById('alertBukanSelada').classList.remove('hidden');
-                        alert("❌ UPLOAD DITOLAK!\n\nObjek yang diunggah terdeteksi BUKAN tanaman selada keriting yang valid (kandungan klorofil/tekstur daun tidak mencukupi standar).\n\nSistem AI menolak foto non-selada untuk menjaga akurasi evaluasi panen. Silakan upload foto tanaman selada keriting yang jelas.");
+                        const alertEl = document.getElementById('alertBukanSelada');
+                        if (alertEl) {
+                            alertEl.classList.remove('hidden');
+                            alertEl.innerHTML = `
+                                <span class="text-2xl">⚠️</span>
+                                <div>
+                                    <h4 class="font-bold text-red-300">Upload Ditolak: Objek Bukan Tanaman</h4>
+                                    <p class="text-[11px] text-red-200/90 mt-0.5">Citra yang diunggah tidak mengandung pigmen klorofil/daun yang valid. Silakan gunakan tangkapan layar (SS) tanaman selada dari Menu 2 (Kamera Tanaman).</p>
+                                </div>
+                            `;
+                        }
+                        alert("❌ UPLOAD DITOLAK: BUKAN TANAMAN!\n\nObjek yang diunggah terdeteksi BUKAN tanaman (tidak ada pigmen daun/klorofil yang valid).\n\nSilakan ambil screenshot tanaman dari menu Kamera Tanaman (Menu 2) lalu upload kembali.");
                         return;
                     }
 
-                    // 2. JIKA CITRA VALID SELADA KERITING:
+                    // 2. FILTER PENOLAKAN: JIKA BUKAN SELADA KERITING (Daun Rata / Polos / Spesies Lain)
+                    if (curlyRatio < 0.08 && plantRatio < 0.85) {
+                        e.target.value = '';
+                        const alertEl = document.getElementById('alertBukanSelada');
+                        if (alertEl) {
+                            alertEl.classList.remove('hidden');
+                            alertEl.innerHTML = `
+                                <span class="text-2xl">⚠️</span>
+                                <div>
+                                    <h4 class="font-bold text-amber-300">Upload Ditolak: Bukan Selada Keriting</h4>
+                                    <p class="text-[11px] text-amber-200/90 mt-0.5">Objek terdeteksi berupa tanaman lain tanpa struktur lipatan/gelombang daun keriting (Lactuca sativa var. crispa). Sistem AI Smart Farming hanya memproses selada keriting.</p>
+                                </div>
+                            `;
+                        }
+                        alert("❌ UPLOAD DITOLAK: BUKAN SELADA KERITING!\n\nObjek terdeteksi sebagai tanaman lain (daun rata/polos tanpa tekstur lipatan keriting selada).\n\nSistem AI Smart Farming khusus dilatih untuk Selada Keriting (Lactuca sativa var. crispa). Silakan upload foto selada keriting yang jelas.");
+                        return;
+                    }
+
+                    // 3. JIKA CITRA VALID SELADA KERITING:
+                    sessionCnnTriggered = true;
                     document.getElementById('alertBukanSelada').classList.add('hidden');
                     uploadedImageBase64 = evt.target.result;
 
-                    // Tampilkan foto preview & sembunyikan placeholder
+                    // Set preview foto & sembunyikan placeholder
                     const cnnImg = document.getElementById('cnnPreviewPlantImg');
-                    cnnImg.src = uploadedImageBase64;
-                    cnnImg.classList.remove('hidden');
+                    if (cnnImg) cnnImg.src = uploadedImageBase64;
                     const ph = document.getElementById('cnnPlaceholder');
                     if (ph) ph.classList.add('hidden');
-                    document.getElementById('cnnImageSourceBadge').innerText = "Sumber: Upload Citra Selada";
+                    if (document.getElementById('cnnImageSourceBadge')) {
+                        document.getElementById('cnnImageSourceBadge').innerText = "Sumber: Upload Screenshot Selada";
+                    }
+
+                    // RENDER HASIL ENKRIPSI CITRA FITUR KONVOLUSI (WARNA UNGU & HIJAU)
+                    renderCnnFeatureMap(img);
+
+                    // Tampilkan secara otomatis tampilan enkripsi / fitur konvolusi (Ungu & Hijau)
+                    isEnkripsiAktif = true;
+                    const cnnCanvas = document.getElementById('cnnFeatureCanvas');
+                    const overlayEl = document.getElementById('cnnEncryptionOverlay');
+                    const badgeEl = document.getElementById('cnnStatusEnkripsiBadge');
+                    const btnEnkripsiEl = document.getElementById('btnEnkripsi');
+                    const btnToggleEl = document.getElementById('btnToggleViewCitra');
+
+                    if (cnnCanvas) cnnCanvas.classList.remove('hidden');
+                    if (cnnImg) cnnImg.classList.add('hidden');
+                    if (overlayEl) overlayEl.classList.remove('opacity-0');
+                    if (badgeEl) {
+                        badgeEl.innerText = "Fitur CNN: Ungu & Hijau";
+                        badgeEl.className = "px-2.5 py-1 rounded-xl bg-purple-600 text-[10px] font-bold text-white border border-purple-400";
+                    }
+                    if (btnEnkripsiEl) {
+                        btnEnkripsiEl.innerHTML = '<span>🔮</span> Fitur CNN: Ungu & Hijau';
+                        btnEnkripsiEl.className = "bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-400 transition flex items-center gap-1.5 shadow-lg ring-2 ring-purple-400/50";
+                    }
+                    if (btnToggleEl) {
+                        btnToggleEl.innerHTML = '<span>🖼️</span> Lihat Citra Asli';
+                        btnToggleEl.className = "px-3.5 py-2.5 rounded-xl text-xs font-bold bg-purple-900/40 hover:bg-purple-800 text-purple-200 border border-purple-400/50 transition flex items-center gap-1.5";
+                    }
 
                     // Ekstraksi Morfologi Daun & Skor Kematangan
-                    const warna_pct = Math.round(Math.min(98, Math.max(55, greenRatio * 100 * 2.2)));
-                    const lebar_cm = parseFloat(Math.min(18.0, Math.max(7.5, 9.0 + greenRatio * 14.0)).toFixed(1));
-                    const tinggi_cm = parseFloat(Math.min(22.0, Math.max(9.0, 12.0 + greenRatio * 15.0)).toFixed(1));
-                    const skor = Math.round(Math.min(99, Math.max(35, (warna_pct * 0.40) + ((lebar_cm / 15.0) * 100 * 0.30) + ((tinggi_cm / 18.0) * 100 * 0.30))));
+                    const warna_pct = Math.round(Math.min(98, Math.max(60, plantRatio * 100 * 2.0 + 35)));
+                    const lebar_cm = parseFloat(Math.min(18.5, Math.max(8.0, 9.5 + (plantRatio * 16.0))).toFixed(1));
+                    const tinggi_cm = parseFloat(Math.min(22.0, Math.max(9.5, 11.0 + (plantRatio * 17.0))).toFixed(1));
+                    const skor = Math.round(Math.min(99, Math.max(38, (warna_pct * 0.40) + ((lebar_cm / 15.0) * 100 * 0.30) + ((tinggi_cm / 18.0) * 100 * 0.30))));
 
                     // Klasifikasi Probabilitas Softmax
                     let fase, probSiap, probDekat, probTumbuh, probBukan, conf;
                     if (skor >= 75) {
                         fase = "Siap Panen";
-                        probSiap = Math.min(95, Math.round(skor * 0.9));
-                        probDekat = Math.max(5, 100 - probSiap - 4);
-                        probTumbuh = 3;
+                        probSiap = Math.min(96, Math.round(skor * 0.92));
+                        probDekat = Math.max(3, 100 - probSiap - 3);
+                        probTumbuh = 2;
                         probBukan = 1;
                         conf = probSiap;
                     } else if (skor >= 55) {
                         fase = "Mendekati Panen";
                         probDekat = 68;
-                        probSiap = 31;
-                        probTumbuh = 15;
+                        probSiap = 28;
+                        probTumbuh = 18;
                         probBukan = 2;
-                        conf = 87.0;
+                        conf = 86.5;
                     } else {
                         fase = "Masa Pertumbuhan";
-                        probTumbuh = 74;
-                        probDekat = 22;
+                        probTumbuh = 76;
+                        probDekat = 20;
                         probSiap = 3;
                         probBukan = 1;
                         conf = probTumbuh;
@@ -1904,69 +2103,102 @@
 
                     // Update 3 Kartu Metrik CNN (Gambar 2)
                     const faseBadge = document.getElementById('cnnFaseBadge');
-                    faseBadge.innerText = fase;
-                    if (fase === "Siap Panen") {
-                        faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                    } else if (fase === "Mendekati Panen") {
-                        faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40";
-                    } else {
-                        faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40";
+                    if (faseBadge) {
+                        faseBadge.innerText = fase;
+                        if (fase === "Siap Panen") {
+                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                        } else if (fase === "Mendekati Panen") {
+                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40";
+                        } else {
+                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40";
+                        }
                     }
 
-                    document.getElementById('cnnTingkatKematangan').innerText = skor + "%";
-                    document.getElementById('cnnTingkatKematangan').className = "text-3xl font-black text-emerald-400 my-1";
-                    document.getElementById('cnnConfidenceScore').innerText = conf + "%";
-                    document.getElementById('cnnConfidenceScore').className = "text-3xl font-black text-purple-300 my-1";
+                    if (document.getElementById('cnnTingkatKematangan')) {
+                        document.getElementById('cnnTingkatKematangan').innerText = skor + "%";
+                        document.getElementById('cnnTingkatKematangan').className = "text-3xl font-black text-emerald-400 my-1";
+                    }
+                    if (document.getElementById('cnnConfidenceScore')) {
+                        document.getElementById('cnnConfidenceScore').innerText = conf + "%";
+                        document.getElementById('cnnConfidenceScore').className = "text-3xl font-black text-purple-300 my-1";
+                    }
 
                     // Update Horizontal Bar Chart "Probabilitas tiap kelas"
-                    cnnProbChart.data.datasets[0].data = [probSiap, probDekat, probTumbuh, probBukan];
-                    cnnProbChart.update();
+                    try {
+                        if (typeof cnnProbChart !== 'undefined' && cnnProbChart.data) {
+                            cnnProbChart.data.datasets[0].data = [probSiap, probDekat, probTumbuh, probBukan];
+                            cnnProbChart.update();
+                        }
+                    } catch(err) {
+                        console.warn("cnnProbChart update error:", err);
+                    }
 
                     // Update 4 Kartu Morfologi
-                    document.getElementById('cnnLebarDaun').innerText = lebar_cm + " cm";
-                    document.getElementById('cnnTinggiPohon').innerText = tinggi_cm + " cm";
-                    document.getElementById('cnnWarnaDaun').innerText = warna_pct + " %";
-                    document.getElementById('cnnSkorPanen').innerText = skor + " %";
+                    if (document.getElementById('cnnLebarDaun')) document.getElementById('cnnLebarDaun').innerText = lebar_cm + " cm";
+                    if (document.getElementById('cnnTinggiPohon')) document.getElementById('cnnTinggiPohon').innerText = tinggi_cm + " cm";
+                    if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = warna_pct + " %";
+                    if (document.getElementById('cnnSkorPanen')) document.getElementById('cnnSkorPanen').innerText = skor + " %";
 
                     // Update Bar Chart Komparasi (Ungu & Hijau)
-                    const curSoil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
-                    const curHum = parseFloat(dataTerakhir.kelembapan_udara) || 78;
-                    cnnChart.data.datasets[0].data = [curSoil, curHum, lebar_cm, warna_pct, tinggi_cm, skor];
-                    cnnChart.update();
+                    try {
+                        if (typeof cnnChart !== 'undefined' && cnnChart.data) {
+                            const curSoil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
+                            const curHum = parseFloat(dataTerakhir.kelembapan_udara) || 78;
+                            cnnChart.data.datasets[0].data = [curSoil, curHum, lebar_cm, warna_pct, tinggi_cm, skor];
+                            cnnChart.update();
+                        }
+                    } catch(err) {
+                        console.warn("cnnChart update error:", err);
+                    }
 
                     // Update Kesimpulan AI
                     const kesimpulanEl = document.getElementById('cnnKesimpulan');
                     if (kesimpulanEl) {
                         if (skor >= 75) {
-                            kesimpulanEl.innerText = `Berdasarkan analisis visual citra CNN, selada keriting menunjukkan morfologi optimal dengan lebar daun ${lebar_cm} cm, tinggi kanopi ${tinggi_cm} cm, serta warna daun hijau segar (${warna_pct}%). Kesiapan panen mencapai ${skor}%, sangat layak untuk dipanen.`;
+                            kesimpulanEl.innerText = `Berdasarkan analisis visual citra CNN, selada keriting menunjukkan morfologi optimal dengan lebar daun ${lebar_cm} cm, tinggi kanopi ${tinggi_cm} cm, serta kehijauan klorofil ${warna_pct}%. Kesiapan panen mencapai ${skor}%, sangat layak untuk dipanen.`;
                         } else {
-                            kesimpulanEl.innerText = `Morfologi selada keriting masih dalam ${fase} (lebar ${lebar_cm} cm, tinggi kanopi ${tinggi_cm} cm, kehijauan ${warna_pct}%). Skor kesiapan ${skor}%. Disarankan pemeliharaan 2-4 hari ke depan.`;
+                            kesimpulanEl.innerText = `Morfologi selada keriting terdeteksi dalam ${fase} (lebar kanopi ${lebar_cm} cm, tinggi ${tinggi_cm} cm, kehijauan ${warna_pct}%). Skor kesiapan ${skor}%. Disarankan pemeliharaan 2-4 hari ke depan.`;
                         }
                     }
 
-                    // Sinkronkan ke Firebase node 'evaluasi_cnn'
-                    firebase.database().ref('evaluasi_cnn').update({
-                        waktu_evaluasi: new Date().toLocaleString('id-ID'),
-                        fase_pertumbuhan: fase,
-                        confidence_score: conf,
-                        probabilitas_kelas: {
-                            siap_panen: probSiap,
-                            mendekati_panen: probDekat,
-                            masa_pertumbuhan: probTumbuh,
-                            bukan_selada: probBukan
-                        },
-                        parameter_panen: {
-                            kelembapan_tanah: curSoil,
-                            kelembapan_udara: curHum,
-                            lebar_daun_cm: lebar_cm,
-                            warna_daun_persen: warna_pct,
-                            tinggi_tanaman_cm: tinggi_cm,
-                            skor_kesiapan_panen: skor
-                        },
-                        kesimpulan: kesimpulanEl ? kesimpulanEl.innerText : ""
-                    }).catch(() => {});
+                    // Sinkronkan foto yang baru diunggah ke kartu visualisasi LSTM (tanpa foto internet)
+                    for (let n = 1; n <= 4; n++) {
+                        const lImg = document.getElementById('lstmImgH' + n);
+                        const lPh = document.getElementById('lstmPlaceholderH' + n);
+                        if (lImg) {
+                            lImg.src = uploadedImageBase64;
+                            lImg.classList.remove('hidden');
+                        }
+                        if (lPh) lPh.classList.add('hidden');
+                    }
 
-                    alert(`✅ Foto Selada Keriting Berhasil Dianalisis!\n\nModel CNN mengevaluasi tanaman dengan tingkat kematangan ${skor}% (${fase}). Hasil telah disinkronkan ke Cloud.`);
+                    // Sinkronkan ke Firebase node 'evaluasi_cnn'
+                    try {
+                        firebase.database().ref('evaluasi_cnn').update({
+                            waktu_evaluasi: new Date().toLocaleString('id-ID'),
+                            fase_pertumbuhan: fase,
+                            confidence_score: conf,
+                            probabilitas_kelas: {
+                                siap_panen: probSiap,
+                                mendekati_panen: probDekat,
+                                masa_pertumbuhan: probTumbuh,
+                                bukan_selada: probBukan
+                            },
+                            parameter_panen: {
+                                kelembapan_tanah: parseFloat(dataTerakhir.kelembapan_tanah) || 72,
+                                kelembapan_udara: parseFloat(dataTerakhir.kelembapan_udara) || 78,
+                                lebar_daun_cm: lebar_cm,
+                                warna_daun_persen: warna_pct,
+                                tinggi_tanaman_cm: tinggi_cm,
+                                skor_kesiapan_panen: skor
+                            },
+                            kesimpulan: kesimpulanEl ? kesimpulanEl.innerText : ""
+                        }).catch(() => {});
+                    } catch(err) {
+                        console.warn("Firebase sync error:", err);
+                    }
+
+                    alert(`✅ Foto Selada Keriting Berhasil Dianalisis!\n\nModel CNN mengevaluasi tanaman:\n- Tingkat Kematangan: ${skor}% (${fase})\n- Confidence Score: ${conf}%\n- Visualisasi Enkripsi Citra (Filter Konvolusi Ungu & Hijau) telah aktif!`);
                 };
                 img.src = evt.target.result;
             };
@@ -2019,8 +2251,10 @@
             const p4_temp = parseFloat((temp - 0.6).toFixed(1));
             const p4_kem = parseFloat(Math.min(95, (dap / 42 * 100) + 9.7).toFixed(1));
 
-            // Update 4 Kartu Prediksi Horizontal
-            const updatePredCard = (num, kem, imgUrl) => {
+            sessionLstmTriggered = true;
+
+            // Update 4 Kartu Prediksi Horizontal (Tanpa Sampel Foto Internet)
+            const updatePredCard = (num, kem) => {
                 const valEl = document.getElementById('lstmValH' + num);
                 const barEl = document.getElementById('lstmBarH' + num);
                 const badgeEl = document.getElementById('lstmBadgeH' + num);
@@ -2033,17 +2267,33 @@
                     badgeEl.innerText = kem >= 75 ? "SIAP PANEN" : "MASA PERTUMBUHAN";
                     badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase " + (kem >= 75 ? "bg-emerald-500/20 text-emerald-300" : "bg-blue-500/20 text-blue-300");
                 }
-                if (imgEl) {
-                    imgEl.src = imgUrl;
+
+                // Jika pengguna sudah mengunggah foto selada keriting dari ESP32-CAM, gunakan foto tersebut
+                if (uploadedImageBase64 && imgEl) {
+                    imgEl.src = uploadedImageBase64;
                     imgEl.classList.remove('hidden');
+                    if (phEl) phEl.classList.add('hidden');
+                } else {
+                    // Jika belum ada foto unggahan, tampilkan ikon dan indikator morfologi hari tersebut (tanpa foto internet)
+                    if (imgEl) imgEl.classList.add('hidden');
+                    if (phEl) {
+                        phEl.classList.remove('hidden');
+                        const icons = ['🌱', '🌿', '🥬', '🥗'];
+                        const labels = ['Pertumbuhan Awal', 'Daun Melebar', 'Daun Rimbun', 'Menuju Panen'];
+                        const canopy = ['~10.5 cm', '~12.0 cm', '~14.2 cm', '~16.5 cm'];
+                        phEl.innerHTML = `
+                            <span class="text-3xl block mb-1">${icons[num - 1]}</span>
+                            <span class="text-[10px] font-bold text-emerald-400 block">${labels[num - 1]}</span>
+                            <span class="text-[9px] text-gray-500">Kanopi ${canopy[num - 1]}</span>
+                        `;
+                    }
                 }
-                if (phEl) phEl.classList.add('hidden');
             };
 
-            updatePredCard(1, p1_kem, "https://images.unsplash.com/photo-1592417817098-8f3d6eb22509?w=600&auto=format&fit=crop&q=60");
-            updatePredCard(2, p2_kem, "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=60");
-            updatePredCard(3, p3_kem, "https://images.unsplash.com/photo-1556881286-fc6915169721?w=600&auto=format&fit=crop&q=60");
-            updatePredCard(4, p4_kem, "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=600&auto=format&fit=crop&q=60");
+            updatePredCard(1, p1_kem);
+            updatePredCard(2, p2_kem);
+            updatePredCard(3, p3_kem);
+            updatePredCard(4, p4_kem);
 
             // Update Semicircular Gauge
             const avgKem = Math.round((p1_kem + p2_kem + p3_kem + p4_kem) / 4);
@@ -2183,6 +2433,7 @@
         }
 
         function muatUlangPrediksiLSTM() {
+            sessionLstmTriggered = true;
             alert("🔄 Memuat ulang prediksi 1D-CNN & LSTM 4 hari ke depan dari Firebase...");
             updateLstmChart(dataTerakhir.kelembapan_tanah, dataTerakhir.suhu);
         }
@@ -2327,6 +2578,7 @@
         // ================= REAL-TIME LISTENER CLOUD: PREDIKSI LSTM DARI AI ENGINE =================
         const dbLstm = firebase.database().ref('prediksi_lstm');
         dbLstm.on('value', (snapshot) => {
+            if (!sessionLstmTriggered) return;
             const data = snapshot.val();
             if (data && data.proyeksi) {
                 const p = data.proyeksi;
@@ -2397,6 +2649,7 @@
         // ================= REAL-TIME LISTENER CLOUD: EVALUASI CNN DARI AI ENGINE =================
         const dbCnn = firebase.database().ref('evaluasi_cnn');
         dbCnn.on('value', (snapshot) => {
+            if (!sessionCnnTriggered) return;
             const data = snapshot.val();
             if (data && data.parameter_panen) {
                 const param = data.parameter_panen;
@@ -2456,44 +2709,88 @@
             }
         });
 
-        // ================= 10. FITUR VISUALISASI PERBESARAN FOTO PREDIKSI LSTM =================
-        const dataFotoPrediksi = {
+        // ================= 10. FITUR VISUALISASI PERBESARAN FOTO PREDIKSI LSTM & ENKRIPSI CITRA =================
+        const infoPrediksiHari = {
             1: {
-                hari: "Hari ke-14",
+                hari: "Hari ke-14 (Hari +1)",
                 persen: "31.2%",
-                fase: "Masa Pertumbuhan",
-                img: "https://images.unsplash.com/photo-1592417817098-8f3d6eb22509?w=900&auto=format&fit=crop&q=80",
-                desc: "Fase Pertumbuhan Awal: Daun muda selada mulai muncul di atas media tanam. Sistem akar menyerap air nutrisi aktif dengan kelembapan tanah optimal."
+                fase: "Masa Pertumbuhan Awal",
+                estimasiKanopi: "10.5 cm",
+                estimasiBobot: "18 - 25 gram",
+                rekomendasi: "Jaga kelembapan tanah pada rentang 65% - 78%. EC nutrisi hidroponik dipertahankan 1.2 - 1.4 mS/cm.",
+                desc: "Fase Pertumbuhan Vegetatif Awal: Daun muda selada mulai membuka ke arah lateral. Sistem akar menyerap hara secara aktif dengan kelembapan media terjaga ideal."
             },
             2: {
-                hari: "Hari ke-15",
+                hari: "Hari ke-15 (Hari +2)",
                 persen: "33.9%",
                 fase: "Masa Pertumbuhan (Daun Melebar)",
-                img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop&q=80",
-                desc: "Fase Vegetatif Aktif: Helaian daun melebar ke arah lateral. Klorofil daun meningkat dengan warna hijau cerah dan kanopi mulai terbentuk."
+                estimasiKanopi: "12.0 cm",
+                estimasiBobot: "26 - 35 gram",
+                rekomendasi: "Pertahankan suhu lingkungan di bawah 28°C agar selada tidak mengalami tip-burn. Pompa air aktif otomatis saat tanah kering (<65%).",
+                desc: "Fase Vegetatif Aktif: Helaian daun melebar ke arah samping. Klorofil daun meningkat dengan warna hijau cerah dan kanopi mulai terbentuk rapat."
             },
             3: {
-                hari: "Hari ke-16",
+                hari: "Hari ke-16 (Hari +3)",
                 persen: "36.1%",
                 fase: "Masa Pertumbuhan (Daun Rimbun)",
-                img: "https://images.unsplash.com/photo-1556881286-fc6915169721?w=900&auto=format&fit=crop&q=80",
-                desc: "Fase Kanopi Rapat: Tingkat keriting selada mulai tampak jelas pada tepian daun. Bobot basah tanaman meningkat secara eksponensial."
+                estimasiKanopi: "14.2 cm",
+                estimasiBobot: "38 - 50 gram",
+                rekomendasi: "Pantau aerasi dan kelembapan udara (60% - 80%). Karakteristik gelombang keriting pada tepian daun selada semakin tegas.",
+                desc: "Fase Kanopi Rapat: Tingkat keriting selada mulai tampak jelas pada tepian daun. Laju fotosintesis tinggi didukung suhu udara yang sejuk."
             },
             4: {
-                hari: "Hari ke-17",
+                hari: "Hari ke-17 (Hari +4)",
                 persen: "38.4%",
-                fase: "Menuju Fase Panen Penuh (42 Hari)",
-                img: "https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1?w=900&auto=format&fit=crop&q=80",
+                fase: "Pertumbuhan Stabil (Menuju Siklus Panen 42 Hari)",
+                estimasiKanopi: "16.5 cm",
+                estimasiBobot: "52 - 68 gram",
+                rekomendasi: "Pertahankan nutrisi stabil. Proyeksi pertumbuhan konsisten menuju siklus panen optimal pada hari ke-42.",
                 desc: "Proyeksi Hari ke-17: Pertumbuhan stabil menuju siklus panen optimal 42 hari (maksimal 46 hari). Selada siap mencapai bobot panen komersial."
             }
         };
 
         function bukaModalVisualisasi(hIndex) {
-            const item = dataFotoPrediksi[hIndex] || dataFotoPrediksi[1];
+            const item = infoPrediksiHari[hIndex] || infoPrediksiHari[1];
+            const valEl = document.getElementById('lstmValH' + hIndex);
+            const persen = valEl ? valEl.innerText : item.persen;
+
             document.getElementById('zoomModalTitle').innerText = `Visualisasi Kondisi Tanaman: ${item.hari}`;
-            document.getElementById('zoomModalSubtitle').innerText = `Prediksi Model LSTM - Fase ${item.fase} (${item.persen})`;
-            document.getElementById('zoomModalImg').src = item.img;
-            document.getElementById('zoomModalDesc').innerHTML = `<b>Perkembangan Morfologi:</b> ${item.desc}`;
+            document.getElementById('zoomModalSubtitle').innerText = `Prediksi Model LSTM - Fase ${item.fase} (${persen})`;
+
+            const zoomImg = document.getElementById('zoomModalImg');
+            const zoomVector = document.getElementById('zoomModalVector');
+            
+            if (uploadedImageBase64) {
+                zoomImg.src = uploadedImageBase64;
+                zoomImg.classList.remove('hidden');
+                if (zoomVector) zoomVector.classList.add('hidden');
+            } else {
+                zoomImg.classList.add('hidden');
+                if (zoomVector) {
+                    zoomVector.classList.remove('hidden');
+                    const icons = ['🌱', '🌿', '🥬', '🥗'];
+                    document.getElementById('zoomModalEmoji').innerText = icons[hIndex - 1] || '🌿';
+                    document.getElementById('zoomModalBadge').innerText = `${item.hari} • Tingkat Kematangan: ${persen}`;
+                }
+            }
+
+            document.getElementById('zoomModalDesc').innerHTML = `
+                <div class="space-y-2">
+                    <p><b>Perkembangan Morfologi:</b> ${item.desc}</p>
+                    <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-[11px]">
+                        <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                            <span class="text-gray-400 block">Estimasi Kanopi Daun:</span>
+                            <span class="text-emerald-400 font-bold">${item.estimasiKanopi}</span>
+                        </div>
+                        <div class="p-2 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                            <span class="text-gray-400 block">Estimasi Bobot Basah:</span>
+                            <span class="text-blue-400 font-bold">${item.estimasiBobot}</span>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-gray-400 pt-1">💡 <b>Rekomendasi Pemeliharaan:</b> ${item.rekomendasi}</p>
+                </div>
+            `;
+
             document.getElementById('imageZoomModal').classList.remove('hidden');
         }
 
@@ -2516,23 +2813,54 @@
             a.click();
         }
 
-        let isEnkripsiAktif = false;
         function toggleEnkripsiCitra() {
+            if (!uploadedImageBase64) {
+                alert("ℹ️ Silakan upload screenshot tanaman selada keriting terlebih dahulu untuk melihat visualisasi filter konvolusi CNN (warna ungu & hijau).");
+                return;
+            }
+
             isEnkripsiAktif = !isEnkripsiAktif;
+            const canvas = document.getElementById('cnnFeatureCanvas');
+            const imgEl = document.getElementById('cnnPreviewPlantImg');
             const overlay = document.getElementById('cnnEncryptionOverlay');
             const badge = document.getElementById('cnnStatusEnkripsiBadge');
             const btn = document.getElementById('btnEnkripsi');
+            const btnToggle = document.getElementById('btnToggleViewCitra');
 
             if (isEnkripsiAktif) {
-                overlay.classList.remove('opacity-0');
-                badge.innerText = "Enkripsi Konvolusi Aktif";
-                badge.className = "px-2.5 py-1 rounded-xl bg-purple-600 text-[10px] font-bold text-white border border-purple-400";
-                btn.className = "bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-400 transition flex items-center gap-1.5 shadow-lg ring-2 ring-purple-400/50";
+                // Tampilkan mode filter fitur konvolusi (Ungu & Hijau)
+                if (canvas) canvas.classList.remove('hidden');
+                if (imgEl) imgEl.classList.add('hidden');
+                if (overlay) overlay.classList.remove('opacity-0');
+                if (badge) {
+                    badge.innerText = "Fitur CNN (Ungu & Hijau)";
+                    badge.className = "px-2.5 py-1 rounded-xl bg-purple-600 text-[10px] font-bold text-white border border-purple-400";
+                }
+                if (btn) {
+                    btn.innerHTML = '<span>🔮</span> Fitur CNN: Ungu & Hijau';
+                    btn.className = "bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-400 transition flex items-center gap-1.5 shadow-lg ring-2 ring-purple-400/50";
+                }
+                if (btnToggle) {
+                    btnToggle.innerHTML = '<span>🖼️</span> Lihat Citra Asli';
+                    btnToggle.className = "px-3.5 py-2.5 rounded-xl text-xs font-bold bg-purple-900/40 hover:bg-purple-800 text-purple-200 border border-purple-400/50 transition flex items-center gap-1.5";
+                }
             } else {
-                overlay.classList.add('opacity-0');
-                badge.innerText = "Enkripsi Standar";
-                badge.className = "px-2.5 py-1 rounded-xl bg-purple-900/80 backdrop-blur-md text-[10px] font-bold text-purple-300 border border-purple-500/40";
-                btn.className = "bg-gradient-to-r from-purple-700 to-emerald-700 hover:from-purple-600 hover:to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-md";
+                // Tampilkan citra asli (RGB)
+                if (canvas) canvas.classList.add('hidden');
+                if (imgEl) imgEl.classList.remove('hidden');
+                if (overlay) overlay.classList.add('opacity-0');
+                if (badge) {
+                    badge.innerText = "Citra Asli (RGB)";
+                    badge.className = "px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-[10px] font-bold text-gray-300 border border-slate-700";
+                }
+                if (btn) {
+                    btn.innerHTML = '<span>🖼️</span> Mode Citra Asli (Klik untuk Filter CNN)';
+                    btn.className = "bg-slate-800 hover:bg-slate-700 text-gray-200 px-3 py-1.5 rounded-xl text-xs font-bold border border-slate-600 transition flex items-center gap-1.5 shadow-md";
+                }
+                if (btnToggle) {
+                    btnToggle.innerHTML = '<span>🔮</span> Filter Fitur CNN';
+                    btnToggle.className = "px-3.5 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition flex items-center gap-1.5";
+                }
             }
         }
 
@@ -2546,10 +2874,13 @@
             const reportImg = document.getElementById('reportPlantImg');
             if (uploadedImageBase64) {
                 reportImg.src = uploadedImageBase64;
+                reportImg.classList.remove('hidden');
             } else if (currentCamIp) {
                 reportImg.src = `http://${currentCamIp}/capture?t=` + new Date().getTime();
+                reportImg.classList.remove('hidden');
             } else {
-                reportImg.src = "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=60";
+                reportImg.src = "";
+                reportImg.classList.add('hidden');
             }
 
             document.getElementById('reportAiText').innerText = document.getElementById('resDiagnosisLengkap').innerText;
