@@ -476,16 +476,23 @@
                     <small class="text-xs text-gray-400 mt-1 block">Masukkan IP ESP32-CAM pada kolom di atas, lalu klik <b>Konek Kamera</b>.</small>
                 </div>
 
-                <!-- Tombol Fullscreen di Pojok Kiri Bawah -->
-                <button onclick="toggleFullscreenKamera()" 
-                        class="absolute bottom-4 left-4 bg-slate-900/80 hover:bg-slate-900 text-white text-xs font-bold px-4 py-2 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-2 shadow-xl">
-                    <span>⛶</span>
-                    <span>Layar Penuh (Fullscreen)</span>
-                </button>
+                <!-- Tombol Kontrol Kamera di Pojok Kiri Bawah: Fullscreen & Download Snapshot -->
+                <div class="absolute bottom-4 left-4 flex flex-wrap items-center gap-2 z-20">
+                    <button onclick="toggleFullscreenKamera()" 
+                            class="bg-slate-900/85 hover:bg-slate-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl backdrop-blur-md border border-slate-700/80 transition flex items-center gap-1.5 shadow-xl">
+                        <span>⛶</span>
+                        <span>Layar Penuh</span>
+                    </button>
+                    <button onclick="simpanSnapshotKamera()" id="btnSnapshotCam"
+                            class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-3.5 py-2 rounded-xl backdrop-blur-md border border-emerald-400/40 transition flex items-center gap-1.5 shadow-xl shadow-emerald-950/40">
+                        <span>📸</span>
+                        <span>Download Snapshot (.JPG)</span>
+                    </button>
+                </div>
             </div>
 
             <p class="text-xs text-gray-400 bg-slate-900/60 p-4 rounded-2xl border border-slate-800">
-                💡 <b>Petunjuk Monitoring:</b> Klik tombol <i>Layar Penuh</i> di kiri bawah kamera untuk membesarkan tampilan live video. Anda dapat mengambil screenshot (SS) tanaman untuk diunggah pada menu <b>Model CNN</b> guna mendeteksi kesehatan daun dan probabilitas panen.
+                💡 <b>Petunjuk Monitoring:</b> Klik tombol <i>Layar Penuh</i> untuk membesarkan tampilan video stream, atau klik <b>Download Snapshot (.JPG)</b> untuk langsung mengunduh foto tanaman selada keriting ke folder Download laptop Anda. Hasil foto dapat langsung diunggah pada menu <b>Model CNN</b> untuk evaluasi kesehatan dan kematangan daun!
             </p>
         </div>
 
@@ -1691,6 +1698,62 @@
                     document.exitFullscreen();
                 }
             }
+
+        // FUNGSI SHORTCUT: DOWNLOAD SNAPSHOT LANGSUNG DARI LIVE STREAM ESP32-CAM
+        let lastCapturedSnapshotUrl = "";
+        function simpanSnapshotKamera() {
+            const streamImg = document.getElementById('kameraStream');
+            if (!currentCamIp && (!streamImg || !streamImg.src || streamImg.classList.contains('hidden'))) {
+                alert("⚠️ Kamera ESP32-CAM belum terhubung! Silakan masukkan IP kamera dan klik 'Konek Kamera' terlebih dahulu.");
+                return;
+            }
+
+            try {
+                // Buat canvas sementara untuk menangkap frame kamera terkini
+                const canvas = document.createElement('canvas');
+                canvas.width = streamImg.naturalWidth || 640;
+                canvas.height = streamImg.naturalHeight || 480;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(streamImg, 0, 0, canvas.width, canvas.height);
+
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        unduhDirectCapture();
+                        return;
+                    }
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                    a.href = url;
+                    a.download = `Selada_ESP32CAM_${ts}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    lastCapturedSnapshotUrl = canvas.toDataURL('image/jpeg', 0.95);
+
+                    alert("📸 Snapshot berhasil diunduh ke folder Download laptop Anda!\n\nNama file: Selada_ESP32CAM_" + ts + ".jpg\n\nSilakan buka menu 'Model CNN' lalu klik 'Upload Screenshot Selada' untuk memilih file tersebut.");
+                }, 'image/jpeg', 0.95);
+            } catch(e) {
+                unduhDirectCapture();
+            }
+        }
+
+        function unduhDirectCapture() {
+            if (!currentCamIp) {
+                alert("⚠️ IP ESP32-CAM belum aktif!");
+                return;
+            }
+            const captureUrl = `http://${currentCamIp}/capture?t=` + new Date().getTime();
+            const a = document.createElement('a');
+            a.href = captureUrl;
+            a.target = '_blank';
+            a.download = `Selada_ESP32CAM_${Date.now()}.jpg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            alert("📸 Snapshot diunduh dari ESP32-CAM! Silakan cek folder Download laptop Anda untuk diunggah ke menu Model CNN.");
+        }
         }
 
         // ================= 6. TABEL RIWAYAT PERMANEN (CLOUD DATABASE FIREBASE) =================
