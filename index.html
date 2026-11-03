@@ -1847,69 +1847,101 @@
                     document.exitFullscreen();
                 }
             }
+        }
 
         // FUNGSI SHORTCUT: DOWNLOAD SNAPSHOT LANGSUNG DARI LIVE STREAM ESP32-CAM
         let lastCapturedSnapshotUrl = "";
         function simpanSnapshotKamera() {
             try {
                 const streamImg = document.getElementById('kameraStream');
-                const isConnected = currentCamIp && streamImg && streamImg.src && !streamImg.classList.contains('hidden');
+                const isConnected = currentCamIp && streamImg && streamImg.src && !streamImg.classList.contains('hidden') && (streamImg.naturalWidth > 0);
 
                 const canvas = document.createElement('canvas');
-                canvas.width = 640;
-                canvas.height = 480;
-                const ctx = canvas.getContext('2d');
-
                 const now = new Date();
                 const ts = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
 
                 if (!isConnected) {
-                    // ESP32-CAM tidak tersambung -> unduh gambar full hitam kosong (Sesuai Permintaan)
-                    ctx.fillStyle = '#000000';
+                    // ESP32-CAM tidak tersambung -> unduh gambar full hitam pekat dengan teks status informatif
+                    canvas.width = 640;
+                    canvas.height = 480;
+                    const ctx = canvas.getContext('2d');
+
+                    // Latar belakang hitam pekat
+                    ctx.fillStyle = '#05070f';
                     ctx.fillRect(0, 0, 640, 480);
 
-                    // Berikan teks status agar informatif saat dibuka
-                    ctx.fillStyle = '#475569';
-                    ctx.font = 'bold 22px monospace';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('ESP32-CAM OFFLINE - SELADA KERITING', 320, 220);
-                    ctx.fillStyle = '#64748b';
-                    ctx.font = '14px sans-serif';
-                    ctx.fillText(now.toLocaleString('id-ID'), 320, 255);
-                    ctx.fillText('Placeholder Snapshot (Kamera Belum Terhubung)', 320, 280);
+                    // Bingkai elegan
+                    ctx.strokeStyle = '#1e293b';
+                    ctx.lineWidth = 4;
+                    ctx.strokeRect(10, 10, 620, 460);
 
-                    // toDataURL secara SINKRON langsung dipicu klik pengguna tanpa diblokir browser
+                    // Ikon Kamera
+                    ctx.fillStyle = '#64748b';
+                    ctx.font = 'bold 44px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('📷', 320, 160);
+
+                    // Judul Status
+                    ctx.fillStyle = '#f87171';
+                    ctx.font = 'bold 20px "Segoe UI", sans-serif';
+                    ctx.fillText('ESP32-CAM OFFLINE - BELUM TERHUBUNG', 320, 220);
+
+                    // Subjudul Project
+                    ctx.fillStyle = '#94a3b8';
+                    ctx.font = '14px "Segoe UI", sans-serif';
+                    ctx.fillText('Sistem Monitoring Smart Farming Selada Keriting (Kelompok 8)', 320, 255);
+
+                    // Tanggal & Waktu WIB
+                    ctx.fillStyle = '#38bdf8';
+                    ctx.font = '13px monospace';
+                    ctx.fillText(now.toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' }) + ' WIB', 320, 290);
+
+                    // Petunjuk
+                    ctx.fillStyle = '#64748b';
+                    ctx.font = 'italic 12px sans-serif';
+                    ctx.fillText('* Hubungkan ESP32-CAM untuk mengunduh snapshot tanaman asli *', 320, 335);
+
+                    // Unduh secara sinkron tanpa terblokir popup blocker browser
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
                     const a = document.createElement('a');
+                    a.style.display = 'none';
                     a.href = dataUrl;
                     a.download = `Selada_Snapshot_Offline_Hitam_${ts}.jpg`;
                     document.body.appendChild(a);
                     a.click();
-                    document.body.removeChild(a);
+                    setTimeout(() => { if (document.body.contains(a)) document.body.removeChild(a); }, 800);
 
-                    alert(`⚠️ ESP32-CAM belum tersambung.
-File gambar kosong (hitam) telah berhasil diunduh ke laptop Anda sebagai placeholder.`);
+                    alert(`📸 ESP32-CAM Belum Terhubung!\n\nFile foto placeholder hitam dengan status kamera offline telah berhasil diunduh ke folder Download laptop Anda.`);
                     return;
                 }
 
-                // Jika ESP32-CAM sudah terhubung -> unduh frame aktif
+                // Jika ESP32-CAM sudah terhubung -> unduh frame aktif yang tampil di layar
                 try {
                     canvas.width = streamImg.naturalWidth || 640;
                     canvas.height = streamImg.naturalHeight || 480;
+                    const ctx = canvas.getContext('2d');
                     ctx.drawImage(streamImg, 0, 0, canvas.width, canvas.height);
+
+                    // Watermark tanggal & jam di pojok kiri bawah
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+                    ctx.fillRect(10, canvas.height - 35, 340, 26);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 12px monospace';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('SELADA KELOMPOK 8 | ' + now.toLocaleString('id-ID'), 20, canvas.height - 18);
 
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
                     const a = document.createElement('a');
+                    a.style.display = 'none';
                     a.href = dataUrl;
                     a.download = `Selada_ESP32CAM_${ts}.jpg`;
                     document.body.appendChild(a);
                     a.click();
-                    document.body.removeChild(a);
+                    setTimeout(() => { if (document.body.contains(a)) document.body.removeChild(a); }, 800);
 
                     lastCapturedSnapshotUrl = dataUrl;
-                    alert(`✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!
-
-Nama file: Selada_ESP32CAM_${ts}.jpg`);
+                    alert(`✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!\n\nNama file: Selada_ESP32CAM_${ts}.jpg`);
                 } catch(e) {
                     console.warn("Canvas tainted by CORS, direct capture download fallback:", e);
                     unduhDirectCapture();
@@ -1927,15 +1959,19 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
             }
             const captureUrl = `http://${currentCamIp}/capture?t=` + new Date().getTime();
             const a = document.createElement('a');
+            a.style.display = 'none';
             a.href = captureUrl;
             a.target = '_blank';
             a.download = `Selada_ESP32CAM_${Date.now()}.jpg`;
             document.body.appendChild(a);
             a.click();
-            document.body.removeChild(a);
+            setTimeout(() => { if (document.body.contains(a)) document.body.removeChild(a); }, 800);
             alert("📸 Snapshot diunduh dari ESP32-CAM! Silakan cek folder Download laptop Anda untuk diunggah ke menu Model CNN.");
         }
-        }
+
+        window.toggleFullscreenKamera = toggleFullscreenKamera;
+        window.simpanSnapshotKamera = simpanSnapshotKamera;
+        window.unduhDirectCapture = unduhDirectCapture;
 
         // ================= 6. TABEL RIWAYAT PERMANEN (CLOUD DATABASE FIREBASE) =================
         let riwayatTabel = [];
