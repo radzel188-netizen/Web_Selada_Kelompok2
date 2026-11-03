@@ -1405,6 +1405,8 @@
         // ================= 1. AUTENTIKASI LOGIN =================
         const USERNAME_VALID = "seladakeriting123_";
         const PASSWORD_VALID = "akumanis123";
+        let currentDap = 1;
+        let sessionLstmTriggered = false;
 
         function checkAuth() {
             const isAuth = sessionStorage.getItem("selada_auth");
@@ -1436,6 +1438,25 @@
             sessionStorage.removeItem("selada_auth");
             checkAuth();
         }
+
+        // ================= JAM & TANGGAL REALTIME BERJALAN =================
+        function updateLiveClock() {
+            try {
+                const now = new Date();
+                const optionsDate = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+                const dateStr = now.toLocaleDateString('id-ID', optionsDate);
+                const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + " WIB";
+                
+                const timeEl = document.getElementById('liveClockTime');
+                const dateEl = document.getElementById('liveClockDate');
+                if (timeEl) timeEl.innerText = timeStr;
+                if (dateEl) dateEl.innerText = dateStr;
+            } catch(e) {
+                console.error("Clock error:", e);
+            }
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
 
         // ================= 2. SIDEBAR DRAWER & SISTEM SWITCH DASHBOARD FULL =================
         let isDrawerOpen = false;
@@ -1825,58 +1846,72 @@
         // FUNGSI SHORTCUT: DOWNLOAD SNAPSHOT LANGSUNG DARI LIVE STREAM ESP32-CAM
         let lastCapturedSnapshotUrl = "";
         function simpanSnapshotKamera() {
-            const streamImg = document.getElementById('kameraStream');
-            const isConnected = currentCamIp && streamImg && streamImg.src && !streamImg.classList.contains('hidden');
+            try {
+                const streamImg = document.getElementById('kameraStream');
+                const isConnected = currentCamIp && streamImg && streamImg.src && !streamImg.classList.contains('hidden');
 
-            const canvas = document.createElement('canvas');
-            canvas.width = 640;
-            canvas.height = 480;
-            const ctx = canvas.getContext('2d');
+                const canvas = document.createElement('canvas');
+                canvas.width = 640;
+                canvas.height = 480;
+                const ctx = canvas.getContext('2d');
 
-            if (!isConnected) {
-                // ESP32-CAM tidak tersambung -> unduh gambar full hitam dan kosong saja (Sesuai Permintaan 5)
-                ctx.fillStyle = '#000000';
-                ctx.fillRect(0, 0, 640, 480);
+                const now = new Date();
+                const ts = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
 
-                canvas.toBlob((blob) => {
-                    const url = URL.createObjectURL(blob);
+                if (!isConnected) {
+                    // ESP32-CAM tidak tersambung -> unduh gambar full hitam kosong (Sesuai Permintaan)
+                    ctx.fillStyle = '#000000';
+                    ctx.fillRect(0, 0, 640, 480);
+
+                    // Berikan teks status agar informatif saat dibuka
+                    ctx.fillStyle = '#475569';
+                    ctx.font = 'bold 22px monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('ESP32-CAM OFFLINE - SELADA KERITING', 320, 220);
+                    ctx.fillStyle = '#64748b';
+                    ctx.font = '14px sans-serif';
+                    ctx.fillText(now.toLocaleString('id-ID'), 320, 255);
+                    ctx.fillText('Placeholder Snapshot (Kamera Belum Terhubung)', 320, 280);
+
+                    // toDataURL secara SINKRON langsung dipicu klik pengguna tanpa diblokir browser
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
                     const a = document.createElement('a');
-                    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-                    a.href = url;
+                    a.href = dataUrl;
                     a.download = `Selada_Snapshot_Offline_Hitam_${ts}.jpg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    alert("⚠️ ESP32-CAM belum tersambung.\nFile gambar kosong (hitam) telah berhasil diunduh sebagai placeholder.");
-                }, 'image/jpeg', 0.95);
-                return;
-            }
 
-            // Jika ESP32-CAM sudah terhubung -> unduh frame yang ditampilkan
-            try {
-                canvas.width = streamImg.naturalWidth || 640;
-                canvas.height = streamImg.naturalHeight || 480;
-                ctx.drawImage(streamImg, 0, 0, canvas.width, canvas.height);
+                    alert(`⚠️ ESP32-CAM belum tersambung.
+File gambar kosong (hitam) telah berhasil diunduh ke laptop Anda sebagai placeholder.`);
+                    return;
+                }
 
-                canvas.toBlob((blob) => {
-                    if (!blob) {
-                        unduhDirectCapture();
-                        return;
-                    }
-                    const url = URL.createObjectURL(blob);
+                // Jika ESP32-CAM sudah terhubung -> unduh frame aktif
+                try {
+                    canvas.width = streamImg.naturalWidth || 640;
+                    canvas.height = streamImg.naturalHeight || 480;
+                    ctx.drawImage(streamImg, 0, 0, canvas.width, canvas.height);
+
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
                     const a = document.createElement('a');
-                    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
-                    a.href = url;
+                    a.href = dataUrl;
                     a.download = `Selada_ESP32CAM_${ts}.jpg`;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
 
-                    lastCapturedSnapshotUrl = canvas.toDataURL('image/jpeg', 0.95);
-                    alert("✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!\n\nNama file: Selada_ESP32CAM_" + ts + ".jpg");
-                }, 'image/jpeg', 0.95);
-            } catch(e) {
-                unduhDirectCapture();
+                    lastCapturedSnapshotUrl = dataUrl;
+                    alert(`✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!
+
+Nama file: Selada_ESP32CAM_${ts}.jpg`);
+                } catch(e) {
+                    console.warn("Canvas tainted by CORS, direct capture download fallback:", e);
+                    unduhDirectCapture();
+                }
+            } catch(err) {
+                console.error("Error snapshot:", err);
+                alert("Gagal mengunduh snapshot: " + err.message);
             }
         }
 
@@ -2926,133 +2961,148 @@
 
         // ================= 11. EKSPOR LAPORAN CERDAS (GMAIL, WHATSAPP, & EDITOR TEXTAREA SESUAI A3) =================
         function generateReportText() {
-            const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
-            const sTanah = dataTerakhir.statusTanah || "Normal";
-            const sPompa = dataTerakhir.statusPompa || "OFF";
-            const soil = dataTerakhir.kelembapan_tanah || 0;
-            const temp = dataTerakhir.suhu || 0;
-            const hum = dataTerakhir.kelembapan_udara || 0;
+            try {
+                const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+                const sTanah = (typeof dataTerakhir !== 'undefined' && dataTerakhir.statusTanah) ? dataTerakhir.statusTanah : "Normal";
+                const sPompa = (typeof dataTerakhir !== 'undefined' && dataTerakhir.statusPompa) ? dataTerakhir.statusPompa : "OFF";
+                const soil = (typeof dataTerakhir !== 'undefined' && dataTerakhir.kelembapan_tanah) ? dataTerakhir.kelembapan_tanah : 0;
+                const temp = (typeof dataTerakhir !== 'undefined' && dataTerakhir.suhu) ? dataTerakhir.suhu : 0;
+                const hum = (typeof dataTerakhir !== 'undefined' && dataTerakhir.kelembapan_udara) ? dataTerakhir.kelembapan_udara : 0;
 
-            const cnnFase = lastCnnAnalysis.fase || "Standby";
-            const cnnLebar = lastCnnAnalysis.lebar_cm || 0;
-            const cnnSkor = lastCnnAnalysis.skor || 0;
-            const cnnKlorosis = lastCnnAnalysis.klorosis_pct || 0;
-            const cnnBercak = lastCnnAnalysis.bercak_pct || 0;
+                const cnnFase = (typeof lastCnnAnalysis !== 'undefined' && lastCnnAnalysis.fase) ? lastCnnAnalysis.fase : "Standby";
+                const cnnLebar = (typeof lastCnnAnalysis !== 'undefined' && lastCnnAnalysis.lebar_cm) ? lastCnnAnalysis.lebar_cm : 0;
+                const cnnSkor = (typeof lastCnnAnalysis !== 'undefined' && lastCnnAnalysis.skor) ? lastCnnAnalysis.skor : 0;
+                const cnnKlorosis = (typeof lastCnnAnalysis !== 'undefined' && lastCnnAnalysis.klorosis_pct) ? lastCnnAnalysis.klorosis_pct : 0;
+                const cnnBercak = (typeof lastCnnAnalysis !== 'undefined' && lastCnnAnalysis.bercak_pct) ? lastCnnAnalysis.bercak_pct : 0;
 
-            const dap = currentDap || 1;
+                const dap = (typeof currentDap !== 'undefined' && currentDap) ? currentDap : 1;
 
-            let text = `========================================
+                let text = `========================================
 `;
-            text += `LAPORAN RESMI MONITORING SMART FARMING
+                text += `LAPORAN RESMI MONITORING SMART FARMING
 `;
-            text += `TANAMAN SELADA KERITING - KELOMPOK 8
+                text += `TANAMAN SELADA KERITING - KELOMPOK 8
 `;
-            text += `========================================
-
-`;
-            text += `📅 WAKTU PENGAMBILAN DATA:
-`;
-            text += `• Tanggal & Waktu: ${now}
-`;
-            text += `• Siklus Tanam Berjalan: Hari ke-${dap} dari 42 Hari
+                text += `========================================
 
 `;
-
-            text += `🌱 1. DATA TELEMETRI SENSOR ESP32 UTAMA:
+                text += `📅 WAKTU PENGAMBILAN DATA:
 `;
-            text += `• Suhu Udara: ${temp} °C (Ideal: 24-28 °C)
+                text += `• Tanggal & Waktu: ${now}
 `;
-            text += `• Kelembapan Udara: ${hum} % (Ideal: 60-80 %)
-`;
-            text += `• Kelembapan Tanah: ${soil} % (Ideal: 65-78 %)
-`;
-            text += `• Status Kondisi Tanah: ${sTanah}
-`;
-            text += `• Status Pompa Siram: ${sPompa}
+                text += `• Siklus Tanam Berjalan: Hari ke-${dap} dari 42 Hari
 
 `;
 
-            text += `🥬 2. HASIL ANALISIS VISI KOMPUTER (CNN):
+                text += `🌱 1. DATA TELEMETRI SENSOR ESP32 UTAMA:
 `;
-            text += `• Fase Pertumbuhan: ${cnnFase}
+                text += `• Suhu Udara: ${temp} °C (Ideal: 24-28 °C)
 `;
-            text += `• Lebar Daun Terukur: ${cnnLebar} cm
+                text += `• Kelembapan Udara: ${hum} % (Ideal: 60-80 %)
 `;
-            text += `• Skor Kesiapan Panen: ${cnnSkor} %
+                text += `• Kelembapan Tanah: ${soil} % (Ideal: 65-78 %)
 `;
-            text += `• Klorosis (Daun Menguning): ${cnnKlorosis} %
+                text += `• Status Kondisi Tanah: ${sTanah}
 `;
-            text += `• Bercak Gelap (Jamur/Bakteri): ${cnnBercak} %
-`;
-            if (cnnKlorosis > 8) {
-                text += `• Rekomendasi Nutrisi: Cek pH (5.5-6.5) dan EC nutrisi, sesuaikan dosis nutrisi A/B.
-`;
-            }
-            if (cnnBercak > 6) {
-                text += `• Rekomendasi Proteksi: Kurangi percikan air ke daun, isolasi daun bergejala.
-`;
-            }
-            text += `
+                text += `• Status Pompa Siram: ${sPompa}
+
 `;
 
-            text += `🔮 3. PROYEKSI PERTUMBUHAN 4 HARI KE DEPAN (LSTM):
+                text += `🥬 2. HASIL ANALISIS VISI KOMPUTER (CNN):
 `;
-            for (let h = 1; h <= 4; h++) {
-                const targetDay = dap + h;
-                const kemPct = parseFloat(Math.min(99.9, Math.max(8.0, (targetDay / 42) * 100)).toFixed(1));
-                const pSoil = Math.min(95, Math.round(soil * Math.pow(0.96, h)));
-                const pTemp = parseFloat((temp + (h * 0.2)).toFixed(1));
-                const stage = (targetDay >= 38 || kemPct >= 85) ? "Siap Panen" : ((targetDay >= 25 || kemPct >= 50) ? "Mendekati Panen" : "Masa Pertumbuhan");
-                text += `• Hari +${h} (Hari ke-${targetDay}): Kesiapan ${kemPct}% | Tanah ${pSoil}% | Suhu ${pTemp}°C | Fase: ${stage}
+                text += `• Fase Pertumbuhan: ${cnnFase}
 `;
-            }
+                text += `• Lebar Daun Terukur: ${cnnLebar} cm
+`;
+                text += `• Skor Kesiapan Panen: ${cnnSkor} %
+`;
+                text += `• Klorosis (Daun Menguning): ${cnnKlorosis} %
+`;
+                text += `• Bercak Gelap (Jamur/Bakteri): ${cnnBercak} %
+`;
+                if (cnnKlorosis > 8) {
+                    text += `• Rekomendasi Nutrisi: Cek pH (5.5-6.5) dan EC nutrisi, sesuaikan dosis nutrisi A/B.
+`;
+                }
+                if (cnnBercak > 6) {
+                    text += `• Rekomendasi Proteksi: Kurangi percikan air ke daun, isolasi daun bergejala.
+`;
+                }
+                text += `
+`;
 
-            text += `
+                text += `🔮 3. PROYEKSI PERTUMBUHAN 4 HARI KE DEPAN (LSTM):
+`;
+                for (let h = 1; h <= 4; h++) {
+                    const targetDay = dap + h;
+                    const kemPct = parseFloat(Math.min(99.9, Math.max(8.0, (targetDay / 42) * 100)).toFixed(1));
+                    const pSoil = Math.min(95, Math.round(soil * Math.pow(0.96, h)));
+                    const pTemp = parseFloat((temp + (h * 0.2)).toFixed(1));
+                    const stage = (targetDay >= 38 || kemPct >= 85) ? "Siap Panen" : ((targetDay >= 25 || kemPct >= 50) ? "Mendekati Panen" : "Masa Pertumbuhan");
+                    text += `• Hari +${h} (Hari ke-${targetDay}): Kesiapan ${kemPct}% | Tanah ${pSoil}% | Suhu ${pTemp}°C | Fase: ${stage}
+`;
+                }
+
+                text += `
 ========================================
 `;
-            text += `Catatan Tambahan Pengamat:
+                text += `Catatan Tambahan Pengamat:
 `;
-            text += `Tanaman dalam pengawasan sistem IoT Smart Farming Kelompok 8. Data tersinkronisasi otomatis ke cloud Firebase.`;
-            return text;
+                text += `Tanaman dalam pengawasan sistem IoT Smart Farming Kelompok 8. Data tersinkronisasi otomatis ke cloud Firebase.`;
+                return text;
+            } catch(err) {
+                console.error("Error generating report text:", err);
+                return `LAPORAN MONITORING SMART FARMING SELADA - KELOMPOK 8
+Waktu: ${new Date().toLocaleString('id-ID')}
+Status: Sistem Aktif Online.`;
+            }
         }
 
         function bukaModalLaporanEmail() {
-            const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
-            if (document.getElementById('reportTimestamp')) document.getElementById('reportTimestamp').innerText = now;
+            try {
+                const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+                if (document.getElementById('reportTimestamp')) document.getElementById('reportTimestamp').innerText = now;
 
-            // Isi foto potret tanaman
-            const reportImg = document.getElementById('reportPlantImg');
-            if (reportImg) {
-                if (uploadedImageBase64) {
-                    reportImg.src = uploadedImageBase64;
-                    reportImg.classList.remove('hidden');
-                } else if (currentCamIp) {
-                    reportImg.src = `http://${currentCamIp}/capture?t=` + new Date().getTime();
-                    reportImg.classList.remove('hidden');
-                } else {
-                    reportImg.src = "";
-                    reportImg.classList.add('hidden');
+                // Isi foto potret tanaman
+                const reportImg = document.getElementById('reportPlantImg');
+                if (reportImg) {
+                    if (typeof uploadedImageBase64 !== 'undefined' && uploadedImageBase64) {
+                        reportImg.src = uploadedImageBase64;
+                        reportImg.classList.remove('hidden');
+                    } else if (typeof currentCamIp !== 'undefined' && currentCamIp) {
+                        reportImg.src = `http://${currentCamIp}/capture?t=` + new Date().getTime();
+                        reportImg.classList.remove('hidden');
+                    } else {
+                        reportImg.src = "";
+                        reportImg.classList.add('hidden');
+                    }
                 }
-            }
 
-            // Isi metrik ringkasan sensor
-            if (document.getElementById('reportSensorMetrics')) {
-                document.getElementById('reportSensorMetrics').innerHTML = `
-                    <li>🌡️ Suhu Udara: <b>${dataTerakhir.suhu} °C</b></li>
-                    <li>💧 Kelembapan Udara: <b>${dataTerakhir.kelembapan_udara} %</b></li>
-                    <li>🌱 Kelembapan Tanah: <b>${dataTerakhir.kelembapan_tanah} %</b></li>
-                    <li>📊 Kondisi Tanah: <b class="text-emerald-400">${dataTerakhir.statusTanah}</b></li>
-                    <li>🚿 Status Pompa: <b class="text-blue-400">${dataTerakhir.statusPompa}</b></li>
-                `;
-            }
+                // Isi metrik ringkasan sensor
+                if (document.getElementById('reportSensorMetrics') && typeof dataTerakhir !== 'undefined') {
+                    document.getElementById('reportSensorMetrics').innerHTML = `
+                        <li>🌡️ Suhu Udara: <b>${dataTerakhir.suhu || 0} °C</b></li>
+                        <li>💧 Kelembapan Udara: <b>${dataTerakhir.kelembapan_udara || 0} %</b></li>
+                        <li>🌱 Kelembapan Tanah: <b>${dataTerakhir.kelembapan_tanah || 0} %</b></li>
+                        <li>📊 Kondisi Tanah: <b class="text-emerald-400">${dataTerakhir.statusTanah || "Normal"}</b></li>
+                        <li>🚿 Status Pompa: <b class="text-blue-400">${dataTerakhir.statusPompa || "OFF"}</b></li>
+                    `;
+                }
 
-            // Isi textarea editor laporan (Bisa diedit sebelum dikirim sesuai A3!)
-            const editableEl = document.getElementById('reportEditableText');
-            if (editableEl) {
-                editableEl.value = generateReportText();
-            }
+                // Isi textarea editor laporan (Bisa diedit sebelum dikirim sesuai A3!)
+                const editableEl = document.getElementById('reportEditableText');
+                if (editableEl) {
+                    editableEl.value = generateReportText();
+                }
 
-            document.getElementById('modalLaporan').classList.remove('hidden');
+                const modal = document.getElementById('modalLaporan');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                }
+            } catch(e) {
+                console.error("Error membuka modal laporan:", e);
+                alert("Gagal membuka laporan: " + e.message);
+            }
         }
 
         function bukaModalLaporanWA() {
@@ -3060,48 +3110,81 @@
         }
 
         function tutupModalLaporan() {
-            document.getElementById('modalLaporan').classList.add('hidden');
+            const modal = document.getElementById('modalLaporan');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
         }
 
         function kirimEmailGmail() {
-            const emailInput = document.getElementById('settingEmailTujuan');
-            const emailTujuan = emailInput ? emailInput.value.trim() : "gojotoji188@gmail.com";
-            const subjek = encodeURIComponent(`Laporan Monitoring Selada Keriting - Kelompok 8 (${new Date().toLocaleDateString('id-ID')})`);
-            
-            // Ambil teks yang sudah diedit pengguna di textarea
-            const editableEl = document.getElementById('reportEditableText');
-            const reportContent = editableEl ? editableEl.value : generateReportText();
-            const body = encodeURIComponent(reportContent);
+            try {
+                const emailInput = document.getElementById('settingEmailTujuan');
+                const emailTujuan = emailInput ? emailInput.value.trim() : "gojotoji188@gmail.com";
+                const subjek = encodeURIComponent(`Laporan Monitoring Selada Keriting - Kelompok 8 (${new Date().toLocaleDateString('id-ID')})`);
+                
+                // Ambil teks yang sudah diedit pengguna di textarea
+                const editableEl = document.getElementById('reportEditableText');
+                const reportContent = editableEl && editableEl.value ? editableEl.value : generateReportText();
+                const body = encodeURIComponent(reportContent);
 
-            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${emailTujuan}&su=${subjek}&body=${body}`, '_blank');
+                const mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailTujuan}&su=${subjek}&body=${body}`;
+                const win = window.open(mailUrl, '_blank');
+                if (!win) {
+                    window.location.href = `mailto:${emailTujuan}?subject=${subjek}&body=${body}`;
+                }
+            } catch(e) {
+                alert("Gagal membuka Gmail: " + e.message);
+            }
         }
 
         function kirimWhatsApp() {
-            const waInput = document.getElementById('settingWaTujuan');
-            let phone = waInput ? waInput.value.trim().replace(/[^0-9]/g, '') : "6281234567890";
-            if (!phone) phone = "6281234567890";
+            try {
+                const waInput = document.getElementById('settingWaTujuan');
+                let phone = waInput ? waInput.value.trim().replace(/[^0-9]/g, '') : "6281234567890";
+                if (!phone) phone = "6281234567890";
 
-            // Ambil teks yang sudah diedit pengguna di textarea
-            const editableEl = document.getElementById('reportEditableText');
-            const reportContent = editableEl ? editableEl.value : generateReportText();
-            const textEncoded = encodeURIComponent(reportContent);
+                // Ambil teks yang sudah diedit pengguna di textarea
+                const editableEl = document.getElementById('reportEditableText');
+                const reportContent = editableEl && editableEl.value ? editableEl.value : generateReportText();
+                const textEncoded = encodeURIComponent(reportContent);
 
-            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${textEncoded}`, '_blank');
+                const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${textEncoded}`;
+                const win = window.open(waUrl, '_blank');
+                if (!win) {
+                    window.location.href = waUrl;
+                }
+            } catch(e) {
+                alert("Gagal membuka WhatsApp: " + e.message);
+            }
         }
 
         function salinTeksLaporan() {
-            const editableEl = document.getElementById('reportEditableText');
-            const reportContent = editableEl ? editableEl.value : generateReportText();
-            navigator.clipboard.writeText(reportContent).then(() => {
-                alert("✅ Seluruh catatan laporan berhasil disalin ke clipboard!\nAnda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.");
-            }).catch(err => {
-                alert("Gagal menyalin otomatis: " + err.message);
-            });
+            try {
+                const editableEl = document.getElementById('reportEditableText');
+                const reportContent = editableEl && editableEl.value ? editableEl.value : generateReportText();
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(reportContent).then(() => {
+                        alert(`✅ Seluruh catatan laporan berhasil disalin ke clipboard!
+Anda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.`);
+                    }).catch(err => {
+                        alert("Gagal menyalin otomatis: " + err.message);
+                    });
+                } else {
+                    if (editableEl) {
+                        editableEl.select();
+                        document.execCommand('copy');
+                        alert("✅ Seluruh catatan laporan berhasil disalin ke clipboard!");
+                    }
+                }
+            } catch(e) {
+                alert("Gagal menyalin teks: " + e.message);
+            }
         }
 
         function simpanPengaturanEmail() {
             const el = document.getElementById('settingEmailTujuan');
             if (el) {
+                localStorage.setItem('selada_email_tujuan', el.value);
                 alert(`✅ Alamat email tujuan laporan '${el.value}' berhasil disimpan!`);
             }
         }
@@ -3109,6 +3192,7 @@
         function simpanPengaturanWa() {
             const el = document.getElementById('settingWaTujuan');
             if (el) {
+                localStorage.setItem('selada_wa_tujuan', el.value);
                 alert(`✅ Nomor WhatsApp tujuan '${el.value}' berhasil disimpan!`);
             }
         }
@@ -3116,6 +3200,17 @@
         // ================= INISIALISASI AWAL =================
         window.onload = function() {
             checkAuth();
+            updateLiveClock();
+
+            // Pulihkan konfigurasi kontak laporan tersimpan
+            const savedEmail = localStorage.getItem('selada_email_tujuan');
+            if (savedEmail && document.getElementById('settingEmailTujuan')) {
+                document.getElementById('settingEmailTujuan').value = savedEmail;
+            }
+            const savedWa = localStorage.getItem('selada_wa_tujuan');
+            if (savedWa && document.getElementById('settingWaTujuan')) {
+                document.getElementById('settingWaTujuan').value = savedWa;
+            }
 
             const savedSensorIp = localStorage.getItem('selada_ip_sensor');
             if (savedSensorIp) {
