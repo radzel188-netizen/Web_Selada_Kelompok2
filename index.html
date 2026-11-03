@@ -148,8 +148,8 @@
                 <p id="loginError" class="text-xs text-red-400 font-semibold hidden text-center pt-1">
                     ❌ Username atau password salah!
                 </p>
-                <button type="submit" 
-                        class="w-full mt-2 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition duration-200">
+                <button type="submit" onclick="handleLogin(event)" 
+                        class="w-full mt-2 bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-500 hover:to-emerald-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition duration-200 cursor-pointer">
                     Masuk ke Dashboard
                 </button>
             </form>
@@ -1177,7 +1177,7 @@
                 </span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <!-- 1. Konfigurasi Email Laporan Gmail -->
                 <div class="glass p-5 rounded-2xl border border-slate-700/80 flex flex-col justify-between">
                     <div>
@@ -1197,29 +1197,6 @@
                         </button>
                         <button onclick="bukaModalLaporanEmail()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-gray-200 py-2 rounded-xl font-bold text-xs border border-slate-700 transition">
                             Buka Template
-                        </button>
-                    </div>
-                </div>
-
-                <!-- 2. Konfigurasi Kirim via WhatsApp (Permintaan Poin 2 & A3) -->
-                <div class="glass p-5 rounded-2xl border border-emerald-500/40 flex flex-col justify-between shadow-lg shadow-emerald-950/20">
-                    <div>
-                        <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2 mb-1.5">
-                            <span>💬</span> Kirim via WA (Cadangan / Cepat)
-                        </h3>
-                        <p class="text-xs text-gray-400 mb-2.5">
-                            Gunakan jalur WA jika Gmail macet/ada bug. Bisa diedit sebelum dikirim!
-                        </p>
-                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Nomor WhatsApp Tujuan</label>
-                        <input type="text" id="settingWaTujuan" value="6281234567890" placeholder="Contoh: 6281234567890" 
-                               class="w-full bg-slate-950 text-white rounded-xl px-3.5 py-2 border border-slate-700 focus:outline-none focus:border-emerald-500 text-xs font-mono">
-                    </div>
-                    <div class="flex gap-2 mt-3.5">
-                        <button onclick="simpanPengaturanWa()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-xl font-bold text-xs transition">
-                            Simpan WA
-                        </button>
-                        <button onclick="bukaModalLaporanWA()" class="flex-1 bg-emerald-900/40 hover:bg-emerald-800/60 text-emerald-300 py-2 rounded-xl font-bold text-xs border border-emerald-500/40 transition">
-                            Kirim via WA
                         </button>
                     </div>
                 </div>
@@ -1303,7 +1280,7 @@
                     <h3 class="font-bold text-base text-emerald-400 flex items-center gap-2">
                         <span>📑</span> Template Laporan Monitoring & AI Selada - Kelompok 8
                     </h3>
-                    <p class="text-[11px] text-gray-400">Pratinjau dan edit catatan laporan sebelum dikirim ke Gmail atau WhatsApp</p>
+                    <p class="text-[11px] text-gray-400">Pratinjau dan edit catatan laporan sebelum dikirim ke Gmail</p>
                 </div>
                 <button onclick="tutupModalLaporan()" class="text-gray-400 hover:text-white text-lg font-bold px-2 py-1">✕</button>
             </div>
@@ -1350,9 +1327,7 @@
                     <span>📋</span> Salin Teks
                 </button>
                 <div class="flex gap-2">
-                    <button onclick="kirimWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-emerald-700/30">
-                        <span>💬</span> Kirim ke WhatsApp
-                    </button>
+
                     <button onclick="kirimEmailGmail()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-blue-700/30">
                         <span>📨</span> Buka di Gmail & Kirim
                     </button>
@@ -1410,28 +1385,58 @@
 
         function checkAuth() {
             const isAuth = sessionStorage.getItem("selada_auth");
+            const modal = document.getElementById('loginModal');
+            const dash = document.getElementById('mainDashboard');
+
             if (isAuth === "true") {
-                document.getElementById('loginModal').classList.add('hidden');
-                document.getElementById('mainDashboard').classList.remove('hidden');
+                if (modal) {
+                    modal.style.setProperty('display', 'none', 'important');
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+                if (dash) {
+                    dash.style.setProperty('display', 'flex', 'important');
+                    dash.classList.remove('hidden');
+                    dash.classList.add('flex');
+                }
             } else {
-                document.getElementById('loginModal').classList.remove('hidden');
-                document.getElementById('mainDashboard').classList.add('hidden');
+                if (modal) {
+                    modal.style.setProperty('display', 'flex', 'important');
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+                if (dash) {
+                    dash.style.setProperty('display', 'none', 'important');
+                    dash.classList.add('hidden');
+                    dash.classList.remove('flex');
+                }
             }
         }
 
         function handleLogin(e) {
-            e.preventDefault();
-            const u = document.getElementById('loginUsername').value.trim();
-            const p = document.getElementById('loginPassword').value.trim();
+            if (e && e.preventDefault) e.preventDefault();
+            const uEl = document.getElementById('loginUsername');
+            const pEl = document.getElementById('loginPassword');
             const err = document.getElementById('loginError');
 
-            if (u === USERNAME_VALID && p === PASSWORD_VALID) {
+            const u = uEl ? uEl.value.trim() : "";
+            const p = pEl ? pEl.value.trim() : "";
+
+            if (u.toLowerCase() === USERNAME_VALID.toLowerCase() && p === PASSWORD_VALID) {
                 sessionStorage.setItem("selada_auth", "true");
-                err.classList.add('hidden');
+                if (err) {
+                    err.classList.add('hidden');
+                    err.style.display = 'none';
+                }
                 checkAuth();
             } else {
-                err.classList.remove('hidden');
+                if (err) {
+                    err.classList.remove('hidden');
+                    err.style.display = 'block';
+                    err.innerText = "❌ Username atau password salah!";
+                }
             }
+            return false;
         }
 
         function handleLogout() {
@@ -3105,10 +3110,6 @@ Status: Sistem Aktif Online.`;
             }
         }
 
-        function bukaModalLaporanWA() {
-            bukaModalLaporanEmail();
-        }
-
         function tutupModalLaporan() {
             const modal = document.getElementById('modalLaporan');
             if (modal) {
@@ -3134,27 +3135,6 @@ Status: Sistem Aktif Online.`;
                 }
             } catch(e) {
                 alert("Gagal membuka Gmail: " + e.message);
-            }
-        }
-
-        function kirimWhatsApp() {
-            try {
-                const waInput = document.getElementById('settingWaTujuan');
-                let phone = waInput ? waInput.value.trim().replace(/[^0-9]/g, '') : "6281234567890";
-                if (!phone) phone = "6281234567890";
-
-                // Ambil teks yang sudah diedit pengguna di textarea
-                const editableEl = document.getElementById('reportEditableText');
-                const reportContent = editableEl && editableEl.value ? editableEl.value : generateReportText();
-                const textEncoded = encodeURIComponent(reportContent);
-
-                const waUrl = `https://api.whatsapp.com/send?phone=${phone}&text=${textEncoded}`;
-                const win = window.open(waUrl, '_blank');
-                if (!win) {
-                    window.location.href = waUrl;
-                }
-            } catch(e) {
-                alert("Gagal membuka WhatsApp: " + e.message);
             }
         }
 
@@ -3189,14 +3169,6 @@ Anda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.`);
             }
         }
 
-        function simpanPengaturanWa() {
-            const el = document.getElementById('settingWaTujuan');
-            if (el) {
-                localStorage.setItem('selada_wa_tujuan', el.value);
-                alert(`✅ Nomor WhatsApp tujuan '${el.value}' berhasil disimpan!`);
-            }
-        }
-
         // ================= INISIALISASI AWAL =================
         window.onload = function() {
             checkAuth();
@@ -3207,11 +3179,6 @@ Anda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.`);
             if (savedEmail && document.getElementById('settingEmailTujuan')) {
                 document.getElementById('settingEmailTujuan').value = savedEmail;
             }
-            const savedWa = localStorage.getItem('selada_wa_tujuan');
-            if (savedWa && document.getElementById('settingWaTujuan')) {
-                document.getElementById('settingWaTujuan').value = savedWa;
-            }
-
             const savedSensorIp = localStorage.getItem('selada_ip_sensor');
             if (savedSensorIp) {
                 document.getElementById('ipSensor').value = savedSensorIp;
