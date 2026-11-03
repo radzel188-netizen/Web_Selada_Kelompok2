@@ -134,7 +134,7 @@
             </h2>
             <p class="text-xs text-gray-400 mb-6">Silakan login untuk mengakses dashboard monitoring</p>
 
-            <form onsubmit="handleLogin(event)" class="space-y-4 text-left">
+            <form onsubmit="event.preventDefault(); handleLogin(event); return false;" class="space-y-4 text-left">
                 <div>
                     <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-1">Username</label>
                     <input type="text" id="loginUsername" placeholder="Masukkan username..." required 
@@ -1847,8 +1847,7 @@
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    alert("⚠️ ESP32-CAM belum tersambung.
-File gambar kosong (hitam) telah berhasil diunduh sebagai placeholder.");
+                    alert("⚠️ ESP32-CAM belum tersambung.\nFile gambar kosong (hitam) telah berhasil diunduh sebagai placeholder.");
                 }, 'image/jpeg', 0.95);
                 return;
             }
@@ -1874,9 +1873,7 @@ File gambar kosong (hitam) telah berhasil diunduh sebagai placeholder.");
                     document.body.removeChild(a);
 
                     lastCapturedSnapshotUrl = canvas.toDataURL('image/jpeg', 0.95);
-                    alert("✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!
-
-Nama file: Selada_ESP32CAM_" + ts + ".jpg");
+                    alert("✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!\n\nNama file: Selada_ESP32CAM_" + ts + ".jpg");
                 }, 'image/jpeg', 0.95);
             } catch(e) {
                 unduhDirectCapture();
@@ -3096,8 +3093,7 @@ Nama file: Selada_ESP32CAM_" + ts + ".jpg");
             const editableEl = document.getElementById('reportEditableText');
             const reportContent = editableEl ? editableEl.value : generateReportText();
             navigator.clipboard.writeText(reportContent).then(() => {
-                alert("✅ Seluruh catatan laporan berhasil disalin ke clipboard!
-Anda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.");
+                alert("✅ Seluruh catatan laporan berhasil disalin ke clipboard!\nAnda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.");
             }).catch(err => {
                 alert("Gagal menyalin otomatis: " + err.message);
             });
