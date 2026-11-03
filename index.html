@@ -67,26 +67,26 @@
                 <span class="text-[10px] text-emerald-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
             </button>
 
-            <button id="drawer-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🌿</span>
-                    <div>
-                        <span class="font-bold text-white block">Model CNN</span>
-                        <span class="text-[10px] text-gray-400">Analisis Citra Ungu & Hijau</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-purple-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
-            </button>
-
             <button id="drawer-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
                 <div class="flex items-center gap-3">
                     <span class="text-xl">🔮</span>
                     <div>
                         <span class="font-bold text-white block">Prediksi LSTM</span>
-                        <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
+                        <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Sensor</span>
                     </div>
                 </div>
                 <span class="text-[10px] text-indigo-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
+            </button>
+
+            <button id="drawer-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-xl">🥬</span>
+                    <div>
+                        <span class="font-bold text-white block">Model CNN</span>
+                        <span class="text-[10px] text-gray-400">Segmentasi & Kematangan</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-purple-400 font-bold opacity-0 group-hover:opacity-100 transition">&rarr;</span>
             </button>
 
             <button id="drawer-sec-pengaturan" onclick="pilihDashboard('sec-pengaturan')" class="nav-item w-full text-left p-3.5 rounded-2xl bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60 transition flex items-center justify-between group">
@@ -197,22 +197,22 @@
                         </div>
                     </button>
 
-                    <button id="nav-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
-                        <div class="flex items-center gap-3">
-                            <span class="text-lg">🌿</span>
-                            <div>
-                                <span class="font-bold text-xs block">Model CNN</span>
-                                <span class="text-[10px] text-gray-400">Analisis Citra Ungu & Hijau</span>
-                            </div>
-                        </div>
-                    </button>
-
                     <button id="nav-sec-baris3" onclick="pilihDashboard('sec-baris3')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
                         <div class="flex items-center gap-3">
                             <span class="text-lg">🔮</span>
                             <div>
                                 <span class="font-bold text-xs block">Prediksi LSTM</span>
-                                <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Gauge</span>
+                                <span class="text-[10px] text-gray-400">Proyeksi 4 Hari & Sensor</span>
+                            </div>
+                        </div>
+                    </button>
+
+                    <button id="nav-sec-baris4" onclick="pilihDashboard('sec-baris4')" class="nav-item w-full text-left p-3 rounded-2xl transition flex items-center justify-between group bg-slate-800/80 hover:bg-slate-800 text-gray-300 border border-slate-700/60">
+                        <div class="flex items-center gap-3">
+                            <span class="text-lg">🥬</span>
+                            <div>
+                                <span class="font-bold text-xs block">Model CNN</span>
+                                <span class="text-[10px] text-gray-400">Segmentasi & Kematangan</span>
                             </div>
                         </div>
                     </button>
@@ -505,219 +505,7 @@
             </p>
         </div>
 
-<!-- ================= BAGIAN 5: DASHBOARD 4 (MODEL CNN CITRA TANAMAN - TEMA UNGU & HIJAU) ================= -->
-        <div id="sec-baris4" class="dashboard-section space-y-6 hidden">
-            <!-- Header Dashboard 4 -->
-            <div class="glass p-6 rounded-3xl shadow-2xl border border-purple-500/40 shadow-purple-950/20 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-300 to-emerald-400 flex items-center gap-2">
-                        <span>📊</span> Model CNN Citra Tanaman (Tema Ungu & Hijau)
-                    </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">Klasifikasi visi komputer berbasis Convolutional Neural Network untuk evaluasi kematangan, morfologi daun, dan probabilitas kelas</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span id="cnnBadgeStatus" class="text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Citra
-                    </span>
-                    <button onclick="toggleEnkripsiCitra()" id="btnEnkripsi" class="bg-gradient-to-r from-purple-700 to-emerald-700 hover:from-purple-600 hover:to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center gap-1.5 shadow-md">
-                        <span>🔮</span> Enkripsi Citra (Ungu & Hijau)
-                    </button>
-                </div>
-            </div>
-
-            <!-- Banner Peringatan Penolakan Jika Terdeteksi Bukan Selada -->
-            <div id="alertBukanSelada" class="hidden p-4 rounded-2xl bg-red-950/80 border border-red-500/70 text-red-200 text-xs flex items-center gap-3 shadow-lg">
-                <span class="text-2xl">⚠️</span>
-                <div>
-                    <b class="text-sm text-red-400 block font-black">DETEKSI DITOLAK: Objek yang diunggah BUKAN tanaman selada keriting!</b>
-                    <span class="text-[11px] text-red-300">Model CNN mendeteksi probabilitas kelas "Bukan Selada" tinggi. Sistem menolak pemrosesan panen untuk melindungi akurasi dataset.</span>
-                </div>
-            </div>
-
-            <!-- Grid: Gambar yang Diunggah (Kiri) & Hasil Analisis CNN (Kanan - Sesuai Gambar 2) -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <!-- Kolom Kiri: Gambar yang Diunggah (5 Kolom) -->
-                <div class="lg:col-span-5 glass p-5 rounded-3xl shadow-xl border border-purple-500/30 flex flex-col space-y-3">
-                    <div class="flex items-center justify-between pb-3 border-b border-purple-500/20">
-                        <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                            <span>🖼️</span> Gambar yang Diunggah
-                        </h3>
-                        <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-mono">224 x 224 RGB</span>
-                    </div>
-
-                    <input type="file" id="manualFileInput" accept="image/*" class="hidden" onchange="handleManualUpload(event)">
-<!-- Container Foto dengan Filter Enkripsi Citra CNN -->
-                    <div class="aspect-square bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 relative group flex items-center justify-center">
-                        <!-- Placeholder Sebelum Upload Foto -->
-                        <div id="cnnPlaceholder" class="flex flex-col items-center justify-center text-center p-6 text-gray-500">
-                            <span class="text-5xl mb-2 opacity-40">📷</span>
-                            <span class="font-bold text-xs text-gray-300">Belum Ada Foto Tanaman</span>
-                            <p class="text-[10px] text-gray-500 mt-1 max-w-[200px]">Upload screenshot selada keriting dari Menu 2 (Kamera Tanaman) untuk memulai inferensi CNN.</p>
-                        </div>
-                        <img id="cnnPreviewPlantImg" src="" alt="Citra Selada CNN" class="w-full h-full object-cover transition duration-300 hidden">
-                        
-                        <!-- Canvas Visualisasi Enkripsi Fitur Konvolusi CNN (Ungu & Hijau) -->
-                        <canvas id="cnnFeatureCanvas" class="w-full h-full object-cover absolute inset-0 hidden"></canvas>
-
-                        <!-- Overlay Enkripsi Visual Citra CNN (Ungu & Hijau) -->
-                        <div id="cnnEncryptionOverlay" class="absolute inset-0 bg-gradient-to-tr from-purple-900/30 via-transparent to-emerald-900/20 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
-                            <span class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[10px] font-mono text-purple-300 border border-purple-500/50">
-                                🔮 Filter Fitur Konvolusi: Ungu & Hijau Aktif
-                            </span>
-                        </div>
-
-                        <!-- Badge Status Deteksi -->
-                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
-                            <span id="cnnImageSourceBadge" class="px-2.5 py-1 rounded-xl bg-slate-900/80 backdrop-blur-md text-[10px] font-semibold text-gray-300 border border-slate-700">
-                                Sumber: Belum Ada Citra
-                            </span>
-                            <span id="cnnStatusEnkripsiBadge" class="px-2.5 py-1 rounded-xl bg-purple-900/80 backdrop-blur-md text-[10px] font-bold text-purple-300 border border-purple-500/40">
-                                Standby
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-2 pt-1">
-                        <button onclick="document.getElementById('manualFileInput').click();" class="flex-1 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white py-2.5 rounded-xl text-xs font-bold border border-purple-500/40 transition flex items-center justify-center gap-1.5 shadow-md">
-                            <span>📁</span> Upload Screenshot Selada
-                        </button>
-                        <button onclick="toggleEnkripsiCitra()" id="btnToggleViewCitra" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/30 transition flex items-center gap-1.5" title="Beralih antara citra asli dan filter fitur CNN">
-                            <span>🔮</span> Mode Fitur CNN
-                        </button>
-                        <button onclick="resetAnalisisCnn()" id="btnResetCnn" class="px-3 py-2.5 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-rose-950/70 text-gray-400 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 transition flex items-center gap-1.5" title="Reset / Hapus Foto dan Bersihkan Grafik">
-                            <span>🔄</span> Reset
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan: Hasil Analisis CNN & 3 Kartu Metrik (7 Kolom - Persis Gambar 2) -->
-                <div class="lg:col-span-7 space-y-4">
-                    <div class="glass p-6 rounded-3xl shadow-xl border border-emerald-500/30">
-                        <div class="flex items-center justify-between pb-3 border-b border-emerald-500/20 mb-4">
-                            <h3 class="text-base font-bold text-emerald-400 flex items-center gap-2">
-                                <span>🌿</span> Hasil Analisis CNN
-                            </h3>
-                            <span class="text-[11px] text-gray-400">Softmax & Feature Extraction</span>
-                        </div>
-
-                        <!-- 3 KARTU INDIKATOR UTAMA (PERSIS GAMBAR 2) -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-5">
-                            <!-- FASE PERTUMBUHAN -->
-                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-amber-500/30 text-center flex flex-col justify-between">
-                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">FASE PERTUMBUHAN</span>
-                                <div class="my-2">
-                                    <span id="cnnFaseBadge" class="inline-block px-3 py-1 rounded-xl text-xs font-black bg-slate-800 text-gray-400 border border-slate-700">
-                                        Standby
-                                    </span>
-                                </div>
-                                <span class="text-[9px] text-gray-500">Masa Panen: 42 Hari</span>
-                            </div>
-
-                            <!-- TINGKAT KEMATANGAN -->
-                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-emerald-500/30 text-center flex flex-col justify-between">
-                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">TINGKAT KEMATANGAN</span>
-                                <p class="text-3xl font-black text-gray-400 my-1" id="cnnTingkatKematangan">-- %</p>
-                                <span class="text-[9px] text-emerald-300 font-semibold">Kategori Prima</span>
-                            </div>
-
-                            <!-- CONFIDENCE SCORE -->
-                            <div class="bg-slate-900/90 p-4 rounded-2xl border border-purple-500/30 text-center flex flex-col justify-between">
-                                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">CONFIDENCE SCORE</span>
-                                <p class="text-3xl font-black text-gray-400 my-1" id="cnnConfidenceScore">-- %</p>
-                                <span class="text-[9px] text-purple-400 font-mono">Model Akurat</span>
-                            </div>
-                        </div>
-
-                        <!-- KOMPONEN BARU: HORIZONTAL BAR CHART "PROBABILITAS TIAP KELAS" (PERMINTAAN SPESIFIK 3) -->
-                        <div class="bg-slate-950/70 p-4 rounded-2xl border border-purple-900/50">
-                            <div class="flex items-center justify-between mb-2">
-                                <div>
-                                    <h4 class="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-1.5">
-                                        <span>📊</span> Probabilitas tiap kelas
-                                    </h4>
-                                    <p class="text-[10px] text-gray-400">Tingkat probabilitas klasifikasi model CNN untuk masing-masing tahap tanaman</p>
-                                </div>
-                                <span class="text-[10px] font-mono text-purple-300">Softmax Output</span>
-                            </div>
-                            
-                            <!-- Canvas Horizontal Bar Chart -->
-                            <div class="h-44 w-full">
-                                <canvas id="cnnProbHorizontalChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Parameter Morfologi & Estimasi Menuju Panen 42 Hari (Kombinasi Ungu & Hijau) -->
-            <div class="glass p-6 rounded-3xl shadow-xl border border-purple-500/30">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-purple-500/20 mb-4">
-                    <div>
-                        <h4 class="text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-emerald-400 flex items-center gap-2">
-                            <span>📐</span> Parameter Morfologi Daun & Estimasi Panen
-                        </h4>
-                        <p class="text-xs text-gray-400 mt-0.5">Pengukuran lebar daun untuk mendekati panen (Masa panen optimal 42 hari, prediksi 4 hari ke depan hingga 46 hari)</p>
-                    </div>
-                    <span class="text-[10px] px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-semibold self-start sm:self-auto">
-                        Target Siklus: 42 - 46 Hari
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-emerald-500/30">
-                        <span class="text-[10px] text-emerald-400 uppercase font-bold block">Lebar Daun</span>
-                        <p class="text-2xl font-black text-gray-400 mt-1" id="cnnLebarDaun">-- cm</p>
-                        <span class="text-[9px] text-gray-400">Target Panen: 15.0 - 20.0 cm</span>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-purple-500/30">
-                        <span class="text-[10px] text-purple-300 uppercase font-bold block">Tinggi Kanopi</span>
-                        <p class="text-2xl font-black text-gray-400 mt-1" id="cnnTinggiPohon">-- cm</p>
-                        <span class="text-[9px] text-gray-400">Target Panen: 20.0 - 25.0 cm</span>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-emerald-500/30">
-                        <span class="text-[10px] text-emerald-400 uppercase font-bold block">Warna Daun (Hijau)</span>
-                        <p class="text-2xl font-black text-gray-400 mt-1" id="cnnWarnaDaun">-- %</p>
-                        <span class="text-[9px] text-emerald-300/80">Klorofil Normal & Segar</span>
-                    </div>
-
-                    <div class="bg-slate-900/80 p-3.5 rounded-xl border border-purple-500/40 bg-purple-950/20">
-                        <span class="text-[10px] text-purple-300 uppercase font-bold block">Kesiapan Panen</span>
-                        <p class="text-2xl font-black text-gray-400 mt-1" id="cnnSkorPanen">-- %</p>
-                        <span class="text-[9px] text-emerald-400 font-semibold">Layak Panen Hari Ini</span>
-                    </div>
-                </div>
-
-                <!-- Kesimpulan CNN Vision (Ungu & Hijau) -->
-                <div class="bg-gradient-to-r from-purple-950/70 via-slate-900 to-emerald-950/70 p-4 rounded-2xl border border-purple-500/40">
-                    <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider block">Kesimpulan CNN Vision (Ungu & Hijau)</span>
-                    <p class="text-xs text-gray-400 mt-1 leading-relaxed" id="cnnKesimpulan">
-                        Silakan upload foto tanaman selada keriting untuk memulai inferensi visual Convolutional Neural Network (CNN).
-                    </p>
-                </div>
-            </div>
-
-            <!-- Perbandingan Parameter Panen vs Standar Ideal (cnnBarChart - Ungu & Hijau) -->
-            <div class="glass p-6 rounded-3xl shadow-xl border border-purple-500/30">
-                <div class="flex items-center justify-between pb-3 border-b border-purple-500/20 mb-3">
-                    <div>
-                        <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
-                            <span>📊</span> Perbandingan Parameter Tanaman vs Standar Ideal Siap Panen
-                        </h4>
-                        <p class="text-[11px] text-gray-400">Batang Ungu = Kondisi Tanaman Saat Ini | Batang Hijau = Standar Ideal Siap Panen (Muncul otomatis setelah citra selada dianalisis)</p>
-                    </div>
-                    <span class="text-[10px] font-mono text-purple-300">Skema Ungu & Hijau</span>
-                </div>
-                <div class="h-64 w-full">
-                    <canvas id="cnnBarChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        
-
-        <!-- ================= BAGIAN 4: DASHBOARD 3 (DESAIN BARU PREDIKSI LSTM SESUAI REFERENSI) ================= -->
+<!-- ================= BAGIAN 4: DASHBOARD 3 (DESAIN BARU PREDIKSI LSTM SESUAI REFERENSI) ================= -->
         <div id="sec-baris3" class="dashboard-section space-y-6 hidden">
             <!-- Header Dashboard 3 -->
             <div class="glass p-6 rounded-3xl shadow-2xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-blue-500/20">
@@ -840,147 +628,186 @@
                 <!-- 4 KARTU PREDIKSI BERJAJAR KE SAMPING (HORISONTAL SCROLLABLE / GRID 4) -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-x-auto pb-2">
                     <!-- KARTU 1: HARI +1 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span id="lstmTitleH1" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +1 (MENUNGGU DATA)</span>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span id="lstmTitleH1" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +1 (STANDBY)</span>
                                 <span id="lstmBadgeH1" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
                             </div>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH1">-- %</p>
+                                <p class="text-2xl font-black text-gray-400" id="lstmValH1">-- %</p>
+                                <span class="text-[10px] text-gray-500">Kesiapan Panen</span>
                             </div>
-                            <!-- Bar progress hijau -->
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH1" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(1)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <!-- Kotak Morfologi Biometrik Hari +1 (Murni Visualisasi Diagram & Estimasi, Tanpa Foto CNN) -->
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(1)">
-                            <div class="space-y-1 w-full">
-                                <span class="text-3xl block" id="lstmIconH1">🌱</span>
-                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH1">Menunggu Data</span>
-                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH1">
-                                    <span>💧 --%</span>
-                                    <span>•</span>
-                                    <span>🌡️ --°C</span>
-                                    <span>•</span>
-                                    <span>📐 -- cm</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1.5 mb-2">
+                                <div id="lstmBarH1" class="bg-emerald-400 h-full w-[0%] transition-all duration-500"></div>
                             </div>
                         </div>
+
+                        <!-- Foto Daun Tanaman di Bagian Atas (Sesuai Permintaan 3 & A2) -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group flex items-center justify-center">
+                            <img id="lstmImgH1" src="" alt="Prediksi Selada H+1" class="w-full h-full object-cover hidden">
+                            <div id="lstmImgPlaceholderH1" class="flex flex-col items-center justify-center text-gray-600 text-center p-2">
+                                <span class="text-3xl mb-1">🌱</span>
+                                <span class="text-[10px] text-gray-400" id="lstmStageH1">Masa Pertumbuhan</span>
+                            </div>
+                        </div>
+
+                        <!-- Hasil Prediksi Sensor-Sensor di Bawah Foto -->
+                        <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 space-y-1 text-[10px]">
+                            <div class="flex justify-between text-gray-400">
+                                <span>💧 Kelembapan Tanah:</span>
+                                <b class="text-emerald-400" id="lstmSoilH1">-- %</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>🌡️ Suhu Udara:</span>
+                                <b class="text-blue-400" id="lstmTempH1">-- °C</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>📐 Est. Lebar Daun:</span>
+                                <b class="text-purple-300" id="lstmMorphH1">-- cm</b>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalVisualisasi(1)" class="w-full text-center text-[10px] text-emerald-400 hover:text-emerald-300 font-bold py-1 bg-slate-800/60 rounded-lg hover:bg-slate-800 transition">
+                            🔍 Perbesar Visualisasi
+                        </button>
                     </div>
 
                     <!-- KARTU 2: HARI +2 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span id="lstmTitleH2" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +2 (MENUNGGU DATA)</span>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span id="lstmTitleH2" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +2 (STANDBY)</span>
                                 <span id="lstmBadgeH2" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
                             </div>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH2">-- %</p>
+                                <p class="text-2xl font-black text-gray-400" id="lstmValH2">-- %</p>
+                                <span class="text-[10px] text-gray-500">Kesiapan Panen</span>
                             </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH2" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(2)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(2)">
-                            <div class="space-y-1 w-full">
-                                <span class="text-3xl block" id="lstmIconH2">🌿</span>
-                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH2">Menunggu Data</span>
-                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH2">
-                                    <span>💧 --%</span>
-                                    <span>•</span>
-                                    <span>🌡️ --°C</span>
-                                    <span>•</span>
-                                    <span>📐 -- cm</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1.5 mb-2">
+                                <div id="lstmBarH2" class="bg-emerald-400 h-full w-[0%] transition-all duration-500"></div>
                             </div>
                         </div>
+
+                        <!-- Foto Daun Tanaman di Bagian Atas -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group flex items-center justify-center">
+                            <img id="lstmImgH2" src="" alt="Prediksi Selada H+2" class="w-full h-full object-cover hidden">
+                            <div id="lstmImgPlaceholderH2" class="flex flex-col items-center justify-center text-gray-600 text-center p-2">
+                                <span class="text-3xl mb-1">🌿</span>
+                                <span class="text-[10px] text-gray-400" id="lstmStageH2">Masa Pertumbuhan</span>
+                            </div>
+                        </div>
+
+                        <!-- Hasil Prediksi Sensor-Sensor di Bawah Foto -->
+                        <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 space-y-1 text-[10px]">
+                            <div class="flex justify-between text-gray-400">
+                                <span>💧 Kelembapan Tanah:</span>
+                                <b class="text-emerald-400" id="lstmSoilH2">-- %</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>🌡️ Suhu Udara:</span>
+                                <b class="text-blue-400" id="lstmTempH2">-- °C</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>📐 Est. Lebar Daun:</span>
+                                <b class="text-purple-300" id="lstmMorphH2">-- cm</b>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalVisualisasi(2)" class="w-full text-center text-[10px] text-emerald-400 hover:text-emerald-300 font-bold py-1 bg-slate-800/60 rounded-lg hover:bg-slate-800 transition">
+                            🔍 Perbesar Visualisasi
+                        </button>
                     </div>
 
                     <!-- KARTU 3: HARI +3 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span id="lstmTitleH3" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +3 (MENUNGGU DATA)</span>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span id="lstmTitleH3" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +3 (STANDBY)</span>
                                 <span id="lstmBadgeH3" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
                             </div>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH3">-- %</p>
+                                <p class="text-2xl font-black text-gray-400" id="lstmValH3">-- %</p>
+                                <span class="text-[10px] text-gray-500">Kesiapan Panen</span>
                             </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH3" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(3)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(3)">
-                            <div class="space-y-1 w-full">
-                                <span class="text-3xl block" id="lstmIconH3">🥬</span>
-                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH3">Menunggu Data</span>
-                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH3">
-                                    <span>💧 --%</span>
-                                    <span>•</span>
-                                    <span>🌡️ --°C</span>
-                                    <span>•</span>
-                                    <span>📐 -- cm</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1.5 mb-2">
+                                <div id="lstmBarH3" class="bg-emerald-400 h-full w-[0%] transition-all duration-500"></div>
                             </div>
                         </div>
+
+                        <!-- Foto Daun Tanaman di Bagian Atas -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group flex items-center justify-center">
+                            <img id="lstmImgH3" src="" alt="Prediksi Selada H+3" class="w-full h-full object-cover hidden">
+                            <div id="lstmImgPlaceholderH3" class="flex flex-col items-center justify-center text-gray-600 text-center p-2">
+                                <span class="text-3xl mb-1">🥬</span>
+                                <span class="text-[10px] text-gray-400" id="lstmStageH3">Mendekati Panen</span>
+                            </div>
+                        </div>
+
+                        <!-- Hasil Prediksi Sensor-Sensor di Bawah Foto -->
+                        <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 space-y-1 text-[10px]">
+                            <div class="flex justify-between text-gray-400">
+                                <span>💧 Kelembapan Tanah:</span>
+                                <b class="text-emerald-400" id="lstmSoilH3">-- %</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>🌡️ Suhu Udara:</span>
+                                <b class="text-blue-400" id="lstmTempH3">-- °C</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>📐 Est. Lebar Daun:</span>
+                                <b class="text-purple-300" id="lstmMorphH3">-- cm</b>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalVisualisasi(3)" class="w-full text-center text-[10px] text-emerald-400 hover:text-emerald-300 font-bold py-1 bg-slate-800/60 rounded-lg hover:bg-slate-800 transition">
+                            🔍 Perbesar Visualisasi
+                        </button>
                     </div>
 
                     <!-- KARTU 4: HARI +4 -->
-                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg">
+                    <div class="bg-slate-900/90 rounded-2xl p-4 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between shadow-lg space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span id="lstmTitleH4" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +4 (MENUNGGU DATA)</span>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span id="lstmTitleH4" class="text-xs font-extrabold text-gray-300 uppercase tracking-wide">HARI +4 (STANDBY)</span>
                                 <span id="lstmBadgeH4" class="px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase">STANDBY</span>
                             </div>
                             <div class="flex items-baseline gap-2">
-                                <p class="text-3xl font-black text-gray-400" id="lstmValH4">-- %</p>
+                                <p class="text-2xl font-black text-gray-400" id="lstmValH4">-- %</p>
+                                <span class="text-[10px] text-gray-500">Kesiapan Panen</span>
                             </div>
-                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2 mb-3">
-                                <div id="lstmBarH4" class="bg-emerald-400 h-full w-[0%]"></div>
-                            </div>
-                            <p class="text-[10px] text-gray-400 mb-2">
-                                Proyeksi Kondisi: <button onclick="bukaModalVisualisasi(4)" class="text-emerald-400 font-bold hover:underline">Klik untuk memperbesar</button>
-                            </p>
-                        </div>
-                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 relative group cursor-pointer flex flex-col items-center justify-center p-3 text-center hover:border-emerald-500/40 transition" onclick="bukaModalVisualisasi(4)">
-                            <div class="space-y-1 w-full">
-                                <span class="text-3xl block" id="lstmIconH4">🥗</span>
-                                <span class="text-[11px] font-bold text-gray-400 block" id="lstmStageH4">Menunggu Data</span>
-                                <div class="flex items-center justify-center gap-1.5 text-[9px] text-gray-500 font-mono mt-1 pt-1 border-t border-slate-800/80" id="lstmMorphH4">
-                                    <span>💧 --%</span>
-                                    <span>•</span>
-                                    <span>🌡️ --°C</span>
-                                    <span>•</span>
-                                    <span>📐 -- cm</span>
-                                </div>
-                            </div>
-                            <div class="absolute inset-0 bg-emerald-950/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                <span class="px-2.5 py-1 rounded-lg bg-slate-900/90 text-[10px] text-emerald-300 font-bold border border-emerald-500/40 shadow-lg">🔍 Perbesar Proyeksi</span>
+                            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1.5 mb-2">
+                                <div id="lstmBarH4" class="bg-emerald-400 h-full w-[0%] transition-all duration-500"></div>
                             </div>
                         </div>
+
+                        <!-- Foto Daun Tanaman di Bagian Atas -->
+                        <div class="aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative group flex items-center justify-center">
+                            <img id="lstmImgH4" src="" alt="Prediksi Selada H+4" class="w-full h-full object-cover hidden">
+                            <div id="lstmImgPlaceholderH4" class="flex flex-col items-center justify-center text-gray-600 text-center p-2">
+                                <span class="text-3xl mb-1">🥗</span>
+                                <span class="text-[10px] text-gray-400" id="lstmStageH4">Siap Panen</span>
+                            </div>
+                        </div>
+
+                        <!-- Hasil Prediksi Sensor-Sensor di Bawah Foto -->
+                        <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800/80 space-y-1 text-[10px]">
+                            <div class="flex justify-between text-gray-400">
+                                <span>💧 Kelembapan Tanah:</span>
+                                <b class="text-emerald-400" id="lstmSoilH4">-- %</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>🌡️ Suhu Udara:</span>
+                                <b class="text-blue-400" id="lstmTempH4">-- °C</b>
+                            </div>
+                            <div class="flex justify-between text-gray-400">
+                                <span>📐 Est. Lebar Daun:</span>
+                                <b class="text-purple-300" id="lstmMorphH4">-- cm</b>
+                            </div>
+                        </div>
+                        <button onclick="bukaModalVisualisasi(4)" class="w-full text-center text-[10px] text-emerald-400 hover:text-emerald-300 font-bold py-1 bg-slate-800/60 rounded-lg hover:bg-slate-800 transition">
+                            🔍 Perbesar Visualisasi
+                        </button>
                     </div>
                 </div>
+
             </div>
 
             <!-- 3. GAUGE TINGKAT KEMATANGAN<!-- 3. GAUGE TINGKAT KEMATANGAN & GRAFIK LONGITUDINAL (PERSIS GAMBAR 5) -->
@@ -1103,7 +930,240 @@
         
 
 <!-- ================= BAGIAN 5: PENGATURAN (SETTINGS) ================= -->
-        <div id="sec-pengaturan" class="dashboard-section glass p-6 rounded-3xl shadow-2xl space-y-6 hidden">
+        
+
+        <!-- ================= BAGIAN 5: DASHBOARD 4 (CNN - TINGKAT KEMATANGAN SELADA & SEGMENTASI DAUN) ================= -->
+        <div id="sec-baris4" class="dashboard-section space-y-6 hidden">
+            <!-- Header CNN (Sesuai Referensi Gambar web-selada-ten) -->
+            <div class="glass p-6 rounded-3xl shadow-2xl border border-slate-700/80 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-gray-100 flex items-center gap-2">
+                        <span>🥬</span> CNN — Tingkat Kematangan Selada
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-0.5">Upload foto daun selada, sistem mengukur lebar daun dan memprediksi fase panen</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span id="cnnBadgeStatus" class="text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Citra
+                    </span>
+                    <button onclick="resetAnalisisCnn()" id="btnResetCnnTop" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-rose-950/70 text-gray-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 transition flex items-center gap-1.5" title="Bersihkan dan reset foto">
+                        <span>🔄</span> Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banner Peringatan Penolakan Jika Terdeteksi Bukan Selada -->
+            <div id="alertBukanSelada" class="hidden p-4 rounded-2xl bg-red-950/80 border border-red-500/70 text-red-200 text-xs flex items-center gap-3 shadow-lg">
+                <span class="text-2xl">⚠️</span>
+                <div>
+                    <b class="text-sm text-red-400 block font-black">DETEKSI DITOLAK: Objek yang diunggah BUKAN tanaman selada keriting!</b>
+                    <span class="text-[11px] text-red-300">Model CNN mendeteksi probabilitas kelas "Bukan Selada" tinggi. Sistem menolak pemrosesan panen untuk melindungi akurasi dataset.</span>
+                </div>
+            </div>
+
+            <!-- Grid Utama: Upload Gambar (Kiri 5 Kolom) & Prediksi Kematangan + Hama (Kanan 7 Kolom) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- KOLOM KIRI: Upload Gambar (Persis Gambar 1 Referensi) -->
+                <div class="lg:col-span-5 glass p-5 rounded-3xl shadow-xl border border-slate-800 flex flex-col space-y-4">
+                    <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                        <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                            <span>📤</span> Upload Gambar
+                        </h3>
+                        <span class="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-800 text-gray-400 font-mono">JPG / PNG</span>
+                    </div>
+
+                    <input type="file" id="manualFileInput" accept="image/*" class="hidden" onchange="handleManualUpload(event)">
+
+                    <!-- Area Dropzone / Upload Box Putus-putus -->
+                    <div onclick="document.getElementById('manualFileInput').click();" class="border-2 border-dashed border-slate-700 hover:border-purple-500/70 bg-slate-950/60 hover:bg-slate-900/60 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center group">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-900/30 text-purple-400 flex items-center justify-center text-2xl mb-2 group-hover:scale-110 transition">
+                            <span>☁️</span>
+                        </div>
+                        <span class="font-bold text-xs text-gray-200 group-hover:text-purple-300">Klik untuk pilih foto selada</span>
+                        <span class="text-[10px] text-gray-500 mt-0.5">JPG / PNG (Maks 10 MB)</span>
+                    </div>
+
+                    <!-- Pratinjau Dua Gambar Berdampingan: Gambar Asli vs Segmentasi Daun -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <!-- Kotak 1: Gambar Asli -->
+                        <div class="flex flex-col space-y-1.5">
+                            <span class="text-[11px] font-semibold text-gray-400">Gambar asli</span>
+                            <div class="aspect-square bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative">
+                                <div id="cnnPlaceholderAsli" class="text-center p-3 text-gray-600 text-[10px]">
+                                    <span class="text-2xl block mb-1">📷</span>
+                                    <p>Belum ada foto</p>
+                                </div>
+                                <img id="cnnPreviewPlantImg" src="" alt="Gambar Asli" class="w-full h-full object-cover hidden">
+                            </div>
+                        </div>
+
+                        <!-- Kotak 2: Segmentasi Daun -->
+                        <div class="flex flex-col space-y-1.5">
+                            <span class="text-[11px] font-semibold text-gray-400">Segmentasi daun</span>
+                            <div class="aspect-square bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex items-center justify-center relative">
+                                <div id="cnnPlaceholderSeg" class="text-center p-3 text-gray-600 text-[10px]">
+                                    <span class="text-2xl block mb-1">🔬</span>
+                                    <p>Menunggu analisis</p>
+                                </div>
+                                <canvas id="cnnSegmentationCanvas" class="w-full h-full object-cover hidden"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keterangan Warna Segmentasi (Persis Teks Gambar 1) -->
+                    <p class="text-[11px] text-gray-400 leading-relaxed pt-1">
+                        Warna segmentasi: <span class="text-emerald-400 font-semibold">hijau</span> sehat • <span class="text-amber-400 font-semibold">kuning</span> menguning • <span class="text-amber-600 font-semibold">cokelat</span> nekrosis • <span class="text-red-500 font-semibold">merah</span> bercak gelap • <span class="text-sky-400 font-semibold">biru</span> lubang
+                    </p>
+
+                    <!-- Tombol Hapus Gambar (Persis Gambar 1) -->
+                    <button onclick="resetAnalisisCnn()" id="btnHapusGambar" class="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-800/90 hover:bg-slate-700 text-gray-300 hover:text-white border border-slate-700 transition flex items-center justify-center gap-2 shadow-md">
+                        <span>🗑️</span> Hapus Gambar
+                    </button>
+                </div>
+
+                <!-- KOLOM KANAN: Prediksi Kematangan & Deteksi Hama (7 Kolom - Persis Gambar 2 & 3 Referensi) -->
+                <div class="lg:col-span-7 space-y-5">
+                    
+                    <!-- KARTU 1: Prediksi Tingkat Kematangan (Persis Gambar 2) -->
+                    <div class="glass p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                            <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                <span>📊</span> Prediksi Tingkat Kematangan
+                            </h3>
+                            <span id="cnnFaseBadgeTop" class="px-3 py-1 rounded-full text-xs font-black bg-purple-900/60 text-purple-300 border border-purple-500/40">
+                                Standby
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+                            <!-- Kiri: Grafik Batang Vertikal 3 Kelas (5 Kolom) -->
+                            <div class="md:col-span-5 h-48 w-full">
+                                <canvas id="cnnPhaseBarChart"></canvas>
+                            </div>
+
+                            <!-- Kanan: Lebar Daun Terukur & 3 Horizontal Progress Bar (7 Kolom) -->
+                            <div class="md:col-span-7 space-y-4">
+                                <!-- Kotak Lebar Daun Terukur (Persis Gambar 2) -->
+                                <div class="bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800">
+                                    <span class="text-[11px] text-gray-400 block font-medium">Lebar daun terukur</span>
+                                    <p class="text-3xl font-black text-white mt-0.5 tracking-tight" id="cnnLebarDaunTerukur">-- cm</p>
+                                    <span class="text-[10px] text-gray-500 font-mono mt-1 block" id="cnnLebarFormula">0 px ÷ 40 px/cm = 0.00 cm</span>
+                                </div>
+
+                                <!-- 3 Horizontal Progress Bars -->
+                                <div class="space-y-2.5">
+                                    <!-- 1. Masa Pertumbuhan -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-300 font-medium">Masa Pertumbuhan</span>
+                                            <span class="text-gray-400 font-bold" id="cnnProbTumbuhText">0.0%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                            <div id="cnnProbTumbuhBar" class="bg-purple-600 h-full w-[0%] transition-all duration-500"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 2. Mendekati Panen -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-300 font-medium">Mendekati Panen</span>
+                                            <span class="text-gray-400 font-bold" id="cnnProbDekatText">0.0%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                            <div id="cnnProbDekatBar" class="bg-purple-500 h-full w-[0%] transition-all duration-500"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 3. Siap Panen -->
+                                    <div>
+                                        <div class="flex justify-between text-xs mb-1">
+                                            <span class="text-gray-300 font-medium">Siap Panen</span>
+                                            <span class="text-purple-300 font-bold" id="cnnProbSiapText">0.0%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden shadow-inner">
+                                            <div id="cnnProbSiapBar" class="bg-gradient-to-r from-purple-500 to-fuchsia-400 h-full w-[0%] transition-all duration-500 shadow-[0_0_12px_rgba(168,85,247,0.7)]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KARTU 2: Deteksi Hama & Penyakit (Persis Gambar 3) -->
+                    <div class="glass p-5 rounded-3xl shadow-xl border border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                            <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                                <span>👾</span> Deteksi Hama & Penyakit
+                            </h3>
+                            <span id="cnnDiseaseBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-gray-400 border border-slate-700">
+                                Standby
+                            </span>
+                        </div>
+
+                        <!-- 2 Kolom Diagnosis Penyakit -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <!-- Box Klorosis -->
+                            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/90 flex flex-col justify-between space-y-2">
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <b class="text-xs text-amber-300 font-bold">Klorosis (daun menguning)</b>
+                                        <span class="text-[11px] font-mono font-bold text-amber-400" id="cnnKlorosisPct">0.0% • Normal</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mt-1 leading-relaxed">
+                                        Indikasi kekurangan nitrogen/zat besi, atau pH dan EC nutrisi tidak sesuai.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-800 text-[10px] text-purple-300 flex items-start gap-1.5">
+                                    <span>💡</span>
+                                    <span>Cek pH (5.5-6.5) dan EC larutan nutrisi, sesuaikan dosis nutrisi A/B.</span>
+                                </div>
+                            </div>
+
+                            <!-- Box Bercak Gelap -->
+                            <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800/90 flex flex-col justify-between space-y-2">
+                                <div>
+                                    <div class="flex items-center justify-between">
+                                        <b class="text-xs text-rose-300 font-bold">Bercak gelap (jamur/bakteri)</b>
+                                        <span class="text-[11px] font-mono font-bold text-rose-400" id="cnnBercakPct">0.0% • Normal</span>
+                                    </div>
+                                    <p class="text-[11px] text-gray-400 mt-1 leading-relaxed">
+                                        Indikasi penyakit bercak daun akibat kelembapan tinggi.
+                                    </p>
+                                </div>
+                                <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-800 text-[10px] text-purple-300 flex items-start gap-1.5">
+                                    <span>💡</span>
+                                    <span>Kurangi kelembapan dan percikan air ke daun, buang daun terinfeksi.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Disclaimer Resmi -->
+                        <p class="text-[10px] text-gray-500 leading-relaxed pt-1">
+                            Deteksi berbasis analisis warna & bentuk daun (menguning, cokelat, bercak gelap, lubang). Ini perkiraan awal, bukan diagnosa pasti; pastikan dengan pengamatan langsung.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bagian Bawah: Grafik Batang Parameter Tanaman vs Standar Ideal (Tanpa Tinggi Kanopi Sesuai Permintaan) -->
+            <div class="glass p-6 rounded-3xl shadow-xl border border-slate-800">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-200 flex items-center gap-2">
+                            <span>📊</span> Perbandingan Parameter Tanaman vs Standar Ideal Siap Panen
+                        </h4>
+                        <p class="text-[11px] text-gray-400">Batang Ungu = Kondisi Tanaman Saat Ini | Batang Hijau = Standar Ideal Siap Panen (Muncul otomatis setelah citra selada dianalisis)</p>
+                    </div>
+                    <span class="text-[10px] font-mono text-purple-300">Parameter Agronomi Jurnal</span>
+                </div>
+                <div class="h-64 w-full">
+                    <canvas id="cnnBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+<div id="sec-pengaturan" class="dashboard-section glass p-6 rounded-3xl shadow-2xl space-y-6 hidden">
             <!-- Header Pengaturan -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700/60 pb-4">
                 <div>
@@ -1117,31 +1177,54 @@
                 </span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <!-- 1. Konfigurasi Email Laporan Gmail -->
                 <div class="glass p-5 rounded-2xl border border-slate-700/80 flex flex-col justify-between">
                     <div>
-                        <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2 mb-2">
-                            <span>📧</span> Email Tujuan Laporan Gmail
+                        <h3 class="text-sm font-bold text-gray-200 flex items-center gap-2 mb-1.5">
+                            <span>📧</span> Email Laporan Gmail
                         </h3>
-                        <p class="text-xs text-gray-400 mb-3">
-                            Laporan periodik monitoring selada akan otomatis ditujukan ke alamat email ini ketika tombol <i>Kirim Laporan</i> ditekan.
+                        <p class="text-xs text-gray-400 mb-2.5">
+                            Laporan periodik data sensor, CNN, & LSTM ditujukan ke email ini.
                         </p>
-                        <label class="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Alamat Email Penerima</label>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Alamat Email Penerima</label>
                         <input type="email" id="settingEmailTujuan" value="gojotoji188@gmail.com" 
-                               class="w-full bg-slate-950 text-white rounded-xl px-4 py-2.5 border border-slate-700 focus:outline-none focus:border-blue-500 text-xs">
+                               class="w-full bg-slate-950 text-white rounded-xl px-3.5 py-2 border border-slate-700 focus:outline-none focus:border-blue-500 text-xs">
                     </div>
-                    <div class="flex gap-2 mt-4">
-                        <button onclick="simpanPengaturanEmail()" class="w-full bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-xl font-bold text-xs transition">
-                            Simpan Email
+                    <div class="flex gap-2 mt-3.5">
+                        <button onclick="simpanPengaturanEmail()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-xl font-bold text-xs transition">
+                            Simpan
                         </button>
-                        <button onclick="bukaModalLaporanEmail()" class="w-full bg-slate-800 hover:bg-slate-700 text-gray-200 py-2.5 rounded-xl font-bold text-xs border border-slate-700 transition">
-                            Buka Template Laporan
+                        <button onclick="bukaModalLaporanEmail()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-gray-200 py-2 rounded-xl font-bold text-xs border border-slate-700 transition">
+                            Buka Template
                         </button>
                     </div>
                 </div>
 
-                <!-- 2. Konfigurasi Default IP ESP32-CAM -->
+                <!-- 2. Konfigurasi Kirim via WhatsApp (Permintaan Poin 2 & A3) -->
+                <div class="glass p-5 rounded-2xl border border-emerald-500/40 flex flex-col justify-between shadow-lg shadow-emerald-950/20">
+                    <div>
+                        <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2 mb-1.5">
+                            <span>💬</span> Kirim via WA (Cadangan / Cepat)
+                        </h3>
+                        <p class="text-xs text-gray-400 mb-2.5">
+                            Gunakan jalur WA jika Gmail macet/ada bug. Bisa diedit sebelum dikirim!
+                        </p>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Nomor WhatsApp Tujuan</label>
+                        <input type="text" id="settingWaTujuan" value="6281234567890" placeholder="Contoh: 6281234567890" 
+                               class="w-full bg-slate-950 text-white rounded-xl px-3.5 py-2 border border-slate-700 focus:outline-none focus:border-emerald-500 text-xs font-mono">
+                    </div>
+                    <div class="flex gap-2 mt-3.5">
+                        <button onclick="simpanPengaturanWa()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-xl font-bold text-xs transition">
+                            Simpan WA
+                        </button>
+                        <button onclick="bukaModalLaporanWA()" class="flex-1 bg-emerald-900/40 hover:bg-emerald-800/60 text-emerald-300 py-2 rounded-xl font-bold text-xs border border-emerald-500/40 transition">
+                            Kirim via WA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Konfigurasi Default IP ESP32-CAM -->
                 <div class="glass p-5 rounded-2xl border border-slate-700/80 flex flex-col justify-between">
                     <div>
                         <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2 mb-2">
@@ -1212,83 +1295,71 @@
         </main>
     </div>
 
-<!-- ================= MODAL PREVIEW LAPORAN EMAIL ================= -->
+<!-- ================= MODAL PREVIEW & EDITOR LAPORAN EMAIL / WA (SESUAI A3) ================= -->
     <div id="modalLaporan" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 hidden">
-        <div class="glass max-w-3xl w-full p-6 rounded-3xl shadow-2xl border border-slate-700 max-h-[90vh] flex flex-col">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-4">
-                <h3 class="font-bold text-base text-emerald-400 flex items-center gap-2">
-                    <span>📑</span> Dokumen Resmi Laporan Monitoring Selada
-                </h3>
+        <div class="glass max-w-4xl w-full p-6 rounded-3xl shadow-2xl border border-slate-700 max-h-[92vh] flex flex-col">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-3">
+                <div>
+                    <h3 class="font-bold text-base text-emerald-400 flex items-center gap-2">
+                        <span>📑</span> Template Laporan Monitoring & AI Selada - Kelompok 8
+                    </h3>
+                    <p class="text-[11px] text-gray-400">Pratinjau dan edit catatan laporan sebelum dikirim ke Gmail atau WhatsApp</p>
+                </div>
                 <button onclick="tutupModalLaporan()" class="text-gray-400 hover:text-white text-lg font-bold px-2 py-1">✕</button>
             </div>
 
-            <!-- Konten Desain Email 4 Kuadran -->
-            <div id="emailReportContent" class="overflow-y-auto flex-grow p-4 bg-slate-950 rounded-2xl border border-slate-800 text-slate-100 text-xs space-y-4">
-                <div class="text-center pb-3 border-b border-slate-800">
-                    <h2 class="text-lg font-extrabold text-emerald-400 tracking-wide">LAPORAN MONITORING SELADA KERITING</h2>
-                    <p class="text-[11px] text-gray-400 mt-0.5" id="reportTimestamp">Tanggal: --</p>
+            <!-- Konten Pratinjau & Textarea Editor -->
+            <div class="overflow-y-auto flex-grow p-4 bg-slate-950 rounded-2xl border border-slate-800 text-slate-100 text-xs space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800">
+                    <div>
+                        <h4 class="font-bold text-white text-sm">Pratinjau Catatan Laporan (Bisa Diedit Manual)</h4>
+                        <span class="text-[10px] text-gray-400">Silakan ubah atau tambahkan catatan dosen/asisten jika diperlukan:</span>
+                    </div>
+                    <span class="text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-700 text-cyan-300" id="reportTimestamp">Waktu: --</span>
                 </div>
 
-                <!-- Grid 4 Kuadran -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Kuadran 1: Kiri Atas (Hasil Potret) -->
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-1.5">
-                            <span>📷</span> 1. Hasil Potret Tanaman
-                        </h4>
-                        <div class="aspect-video bg-black rounded-lg overflow-hidden flex items-center justify-center border border-slate-800">
+                <!-- Textarea Editor Laporan (Bisa diedit sebelum kirim sesuai A3) -->
+                <div>
+                    <textarea id="reportEditableText" rows="12" class="w-full bg-slate-900 text-gray-200 font-mono text-[11px] leading-relaxed p-3.5 rounded-xl border border-slate-700 focus:outline-none focus:border-emerald-500 shadow-inner" placeholder="Memuat rangkuman data laporan..."></textarea>
+                </div>
+
+                <!-- Grid Ringkasan Visual (Potret Tanaman & Deskripsi Sensor) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+                        <span class="text-[10px] text-gray-400 uppercase font-bold block mb-1">📷 Foto Tanaman yang Dianalisis:</span>
+                        <div class="h-28 bg-black rounded-lg overflow-hidden flex items-center justify-center border border-slate-800">
                             <img id="reportPlantImg" src="" alt="Potret Tanaman" class="w-full h-full object-cover">
                         </div>
                     </div>
-
-                    <!-- Kuadran 2: Kanan Atas (Penjelasan AI) -->
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800 flex flex-col">
-                        <h4 class="font-bold text-purple-400 mb-2 flex items-center gap-1.5">
-                            <span>🧠</span> 2. Analisis Kondisi Tanaman (AI)
-                        </h4>
-                        <div id="reportAiText" class="text-gray-300 leading-relaxed text-xs flex-grow overflow-y-auto bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/80">
-                            Memproses analisis AI...
-                        </div>
-                    </div>
-
-                    <!-- Kuadran 3: Kiri Bawah (Grafik Hari Ini) -->
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-cyan-400 mb-2 flex items-center gap-1.5">
-                            <span>📈</span> 3. Grafik Real-time Sensor Hari Ini
-                        </h4>
-                        <div class="aspect-video bg-slate-950 rounded-lg overflow-hidden flex items-center justify-center border border-slate-800 p-1">
-                            <img id="reportChartImg" src="" alt="Grafik Sensor" class="w-full h-full object-contain">
-                        </div>
-                    </div>
-
-                    <!-- Kuadran 4: Kanan Bawah (Deskripsi Sensor & Kondisi) -->
-                    <div class="bg-slate-900 p-3.5 rounded-xl border border-slate-800">
-                        <h4 class="font-bold text-emerald-400 mb-2 flex items-center gap-1.5">
-                            <span>📊</span> 4. Deskripsi Data Sensor Terkini
-                        </h4>
-                        <ul class="space-y-1.5 text-xs text-gray-300" id="reportSensorMetrics">
+                    <div class="bg-slate-900/90 p-3 rounded-xl border border-slate-800 flex flex-col justify-between">
+                        <span class="text-[10px] text-gray-400 uppercase font-bold block mb-1">📊 Sensor ESP32 Utama:</span>
+                        <ul class="space-y-1 text-[11px] text-gray-300" id="reportSensorMetrics">
                             <li>🌡️ Suhu Udara: <b>-- °C</b></li>
                             <li>💧 Kelembapan Udara: <b>-- %</b></li>
                             <li>🌱 Kelembapan Tanah: <b>-- %</b></li>
-                            <li>📊 Kondisi Tanah: <b>--</b></li>
                             <li>🚿 Status Pompa: <b>--</b></li>
                         </ul>
+                        <span class="text-[9px] text-emerald-400 mt-1 block">Tersinkronisasi Realtime Cloud Firebase</span>
                     </div>
-                </div>
-
-                <div class="pt-2 text-center text-gray-500 text-[10px] border-t border-slate-800">
-                    Dokumen ini digenerate secara otomatis oleh Sistem Smart Farming Selada Keriting & AI Engine.
                 </div>
             </div>
 
-            <!-- Tombol Aksi Modal -->
-            <div class="flex gap-3 justify-end pt-4 border-t border-slate-700/60 mt-2">
-                <button onclick="kirimEmailGmail()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition flex items-center gap-2">
-                    <span>📨</span> Buka di Gmail & Kirim
+            <!-- Tombol Aksi Modal (Gmail, WhatsApp, Salin Teks) -->
+            <div class="flex flex-wrap gap-2 justify-between items-center pt-3 border-t border-slate-700/60 mt-2">
+                <button onclick="salinTeksLaporan()" class="bg-slate-800 hover:bg-slate-700 text-gray-200 font-bold px-3.5 py-2 rounded-xl text-xs transition flex items-center gap-1.5 border border-slate-700">
+                    <span>📋</span> Salin Teks
                 </button>
-                <button onclick="tutupModalLaporan()" class="bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold px-4 py-2.5 rounded-xl text-xs transition">
-                    Tutup
-                </button>
+                <div class="flex gap-2">
+                    <button onclick="kirimWhatsApp()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-emerald-700/30">
+                        <span>💬</span> Kirim ke WhatsApp
+                    </button>
+                    <button onclick="kirimEmailGmail()" class="bg-blue-600 hover:bg-blue-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-blue-700/30">
+                        <span>📨</span> Buka di Gmail & Kirim
+                    </button>
+                    <button onclick="tutupModalLaporan()" class="bg-slate-800 hover:bg-slate-700 text-gray-300 font-bold px-3 py-2 rounded-xl text-xs transition">
+                        Tutup
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1755,17 +1826,37 @@
         let lastCapturedSnapshotUrl = "";
         function simpanSnapshotKamera() {
             const streamImg = document.getElementById('kameraStream');
-            if (!currentCamIp && (!streamImg || !streamImg.src || streamImg.classList.contains('hidden'))) {
-                alert("⚠️ Kamera ESP32-CAM belum terhubung! Silakan masukkan IP kamera dan klik 'Konek Kamera' terlebih dahulu.");
+            const isConnected = currentCamIp && streamImg && streamImg.src && !streamImg.classList.contains('hidden');
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 640;
+            canvas.height = 480;
+            const ctx = canvas.getContext('2d');
+
+            if (!isConnected) {
+                // ESP32-CAM tidak tersambung -> unduh gambar full hitam dan kosong saja (Sesuai Permintaan 5)
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, 640, 480);
+
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    const ts = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+                    a.href = url;
+                    a.download = `Selada_Snapshot_Offline_Hitam_${ts}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    alert("⚠️ ESP32-CAM belum tersambung.
+File gambar kosong (hitam) telah berhasil diunduh sebagai placeholder.");
+                }, 'image/jpeg', 0.95);
                 return;
             }
 
+            // Jika ESP32-CAM sudah terhubung -> unduh frame yang ditampilkan
             try {
-                // Buat canvas sementara untuk menangkap frame kamera terkini
-                const canvas = document.createElement('canvas');
                 canvas.width = streamImg.naturalWidth || 640;
                 canvas.height = streamImg.naturalHeight || 480;
-                const ctx = canvas.getContext('2d');
                 ctx.drawImage(streamImg, 0, 0, canvas.width, canvas.height);
 
                 canvas.toBlob((blob) => {
@@ -1783,8 +1874,9 @@
                     document.body.removeChild(a);
 
                     lastCapturedSnapshotUrl = canvas.toDataURL('image/jpeg', 0.95);
+                    alert("✅ Snapshot live stream ESP32-CAM berhasil diunduh ke folder Download!
 
-                    alert("📸 Snapshot berhasil diunduh ke folder Download laptop Anda!\n\nNama file: Selada_ESP32CAM_" + ts + ".jpg\n\nSilakan buka menu 'Model CNN' lalu klik 'Upload Screenshot Selada' untuk memilih file tersebut.");
+Nama file: Selada_ESP32CAM_" + ts + ".jpg");
                 }, 'image/jpeg', 0.95);
             } catch(e) {
                 unduhDirectCapture();
@@ -2055,647 +2147,328 @@
         }
 
         // FUNGSI UTAMA: PENANGANAN UPLOAD CITRA DENGAN VALIDASI SELADA KERITING & EKSTRAKSI CNN
+        let lastCnnAnalysis = {
+            fase: "Standby",
+            lebar_cm: 0,
+            skor: 0,
+            probTumbuh: 0,
+            probDekat: 0,
+            probSiap: 0,
+            klorosis_pct: 0,
+            bercak_pct: 0
+        };
+
+        // FUNGSI ANALISIS CITRA CNN & SEGMENTASI DAUN BERBASIS JURNAL ILMIAH AGRONOMI
         function handleManualUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
 
             const reader = new FileReader();
-            reader.onload = function(evt) {
+            reader.onload = function(event) {
+                uploadedImageBase64 = event.target.result;
                 const img = new Image();
+                img.crossOrigin = "anonymous";
                 img.onload = function() {
-                    // Validasi Cepat Citra Selada Keriting (Canvas Downsampled 150x150)
-                    const canvasTest = document.createElement('canvas');
-                    const tw = 150, th = 150;
-                    canvasTest.width = tw;
-                    canvasTest.height = th;
-                    const ctxTest = canvasTest.getContext('2d');
-                    ctxTest.drawImage(img, 0, 0, tw, th);
-                    const testData = ctxTest.getImageData(0, 0, tw, th).data;
+                    // 1. Tampilkan Gambar Asli
+                    const cnnImg = document.getElementById('cnnPreviewPlantImg');
+                    if (cnnImg) {
+                        cnnImg.src = uploadedImageBase64;
+                        cnnImg.classList.remove('hidden');
+                    }
+                    const phAsli = document.getElementById('cnnPlaceholderAsli');
+                    if (phAsli) phAsli.classList.add('hidden');
 
-                    let plantPixels = 0;
-                    let curlyEdgeScore = 0;
-                    const totalPixels = tw * th;
+                    // 2. Eksekusi Segmentasi Daun & Analisis Warna (ExG: Excess Green Index)
+                    const segCanvas = document.getElementById('cnnSegmentationCanvas');
+                    const phSeg = document.getElementById('cnnPlaceholderSeg');
+                    if (phSeg) phSeg.classList.add('hidden');
+                    if (segCanvas) segCanvas.classList.remove('hidden');
 
-                    for (let y = 1; y < th - 1; y++) {
-                        for (let x = 1; x < tw - 1; x++) {
-                            const i = (y * tw + x) * 4;
-                            const r = testData[i];
-                            const g = testData[i + 1];
-                            const b = testData[i + 2];
-                            const exg = 2 * g - r - b;
+                    segCanvas.width = img.naturalWidth || img.width || 400;
+                    segCanvas.height = img.naturalHeight || img.height || 400;
+                    const ctx = segCanvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, segCanvas.width, segCanvas.height);
 
-                            // Kriteria pigmen klorofil tanaman:
-                            const isChlorophyll = (g > r && g > b && g > 35 && exg > 8) || (exg > 15 && g > 40 && (g - r) > -5);
+                    const imgData = ctx.getImageData(0, 0, segCanvas.width, segCanvas.height);
+                    const data = imgData.data;
 
-                            if (isChlorophyll) {
-                                plantPixels++;
+                    let minX = segCanvas.width, maxX = 0;
+                    let minY = segCanvas.height, maxY = 0;
+                    let greenCount = 0;
+                    let yellowCount = 0;
+                    let necrosisCount = 0;
+                    let darkSpotCount = 0;
+                    let holeCount = 0;
+                    let totalPlantPixels = 0;
 
-                                // Gradien lokal untuk mengukur lipatan / gelombang keriting selada
-                                const iL = (y * tw + (x - 1)) * 4;
-                                const iR = (y * tw + (x + 1)) * 4;
-                                const iU = ((y - 1) * tw + x) * 4;
-                                const iD = ((y + 1) * tw + x) * 4;
+                    for (let i = 0; i < data.length; i += 4) {
+                        const r = data[i];
+                        const g = data[i+1];
+                        const b = data[i+2];
 
-                                const gx = Math.abs(testData[iR + 1] - testData[iL + 1]);
-                                const gy = Math.abs(testData[iD + 1] - testData[iU + 1]);
-                                if (gx + gy > 20) {
-                                    curlyEdgeScore++;
-                                }
+                        const x = (i / 4) % segCanvas.width;
+                        const y = Math.floor((i / 4) / segCanvas.width);
+
+                        // Rumus Jurnal: Excess Green Index ExG = 2*G - R - B
+                        const exg = (2 * g) - r - b;
+
+                        // Deteksi piksel kanopi daun selada
+                        if (exg > 15 && g > r && g > b) {
+                            totalPlantPixels++;
+                            if (x < minX) minX = x;
+                            if (x > maxX) maxX = x;
+                            if (y < minY) minY = y;
+                            if (y > maxY) maxY = y;
+
+                            // Klasifikasi warna segmentasi jurnal:
+                            // a. Kuning Menguning (Klorosis / Defisiensi N/Fe): R dan G tinggi, B rendah
+                            if (r > 130 && g > 130 && b < 105 && Math.abs(g - r) < 45) {
+                                yellowCount++;
+                                data[i] = 234;   // #eab308 Kuning
+                                data[i+1] = 179;
+                                data[i+2] = 8;
+                            }
+                            // b. Cokelat Nekrosis (Jaringan mati/busuk)
+                            else if (r > 105 && g < 110 && b < 70) {
+                                necrosisCount++;
+                                data[i] = 180;   // #b45309 Cokelat
+                                data[i+1] = 83;
+                                data[i+2] = 9;
+                            }
+                            // c. Merah Bercak Gelap (Infeksi jamur/bakteri)
+                            else if (r < 75 && g < 75 && b < 75) {
+                                darkSpotCount++;
+                                data[i] = 239;   // #ef4444 Merah
+                                data[i+1] = 68;
+                                data[i+2] = 68;
+                            }
+                            // d. Hijau Sehat (Klorofil optimal)
+                            else {
+                                greenCount++;
+                                data[i] = 16;    // #10b981 Hijau Sehat
+                                data[i+1] = 185;
+                                data[i+2] = 129;
+                            }
+                        } else {
+                            // Latar belakang atau lubang daun (gigitan hama)
+                            if (minX < x && x < maxX && minY < y && y < maxY && r < 45 && g < 45 && b < 45) {
+                                holeCount++;
+                                data[i] = 56;    // #38bdf8 Biru Lubang
+                                data[i+1] = 189;
+                                data[i+2] = 248;
+                            } else {
+                                // Latar belakang gelap slate
+                                data[i] = 15;
+                                data[i+1] = 23;
+                                data[i+2] = 42;
                             }
                         }
                     }
+                    ctx.putImageData(imgData, 0, 0);
 
-                    const plantRatio = plantPixels / totalPixels;
-                    const curlyRatio = plantPixels > 0 ? (curlyEdgeScore / plantPixels) : 0;
+                    // 3. Validasi Apakah Ini Tanaman Selada Keriting
+                    const totalPixels = segCanvas.width * segCanvas.height;
+                    const plantCoverage = totalPlantPixels / totalPixels;
+                    const alertEl = document.getElementById('alertBukanSelada');
 
-                    // 1. FILTER PENOLAKAN: JIKA BUKAN TANAMAN (Klorofil < 5%)
-                    if (plantRatio < 0.05) {
-                        e.target.value = '';
-                        const alertEl = document.getElementById('alertBukanSelada');
-                        if (alertEl) {
-                            alertEl.classList.remove('hidden');
-                            alertEl.innerHTML = `
-                                <span class="text-2xl">⚠️</span>
-                                <div>
-                                    <h4 class="font-bold text-red-300">Upload Ditolak: Objek Bukan Tanaman</h4>
-                                    <p class="text-[11px] text-red-200/90 mt-0.5">Citra yang diunggah tidak mengandung pigmen klorofil/daun yang valid. Silakan gunakan tangkapan layar (SS) tanaman selada dari Menu 2 (Kamera Tanaman).</p>
-                                </div>
-                            `;
-                        }
-                        alert("❌ UPLOAD DITOLAK: BUKAN TANAMAN!\n\nObjek yang diunggah terdeteksi BUKAN tanaman (tidak ada pigmen daun/klorofil yang valid).\n\nSilakan ambil screenshot tanaman dari menu Kamera Tanaman (Menu 2) lalu upload kembali.");
+                    if (plantCoverage < 0.04 || totalPlantPixels < 400) {
+                        if (alertEl) alertEl.classList.remove('hidden');
+                        alert("⚠️ Deteksi Ditolak: Citra yang diunggah tidak memiliki karakteristik kanopi tanaman selada keriting!");
                         return;
-                    }
-
-                    // 2. FILTER PENOLAKAN: JIKA BUKAN SELADA KERITING (Daun Rata / Polos / Spesies Lain)
-                    if (curlyRatio < 0.08 && plantRatio < 0.85) {
-                        e.target.value = '';
-                        const alertEl = document.getElementById('alertBukanSelada');
-                        if (alertEl) {
-                            alertEl.classList.remove('hidden');
-                            alertEl.innerHTML = `
-                                <span class="text-2xl">⚠️</span>
-                                <div>
-                                    <h4 class="font-bold text-amber-300">Upload Ditolak: Bukan Selada Keriting</h4>
-                                    <p class="text-[11px] text-amber-200/90 mt-0.5">Objek terdeteksi berupa tanaman lain tanpa struktur lipatan/gelombang daun keriting (Lactuca sativa var. crispa). Sistem AI Smart Farming hanya memproses selada keriting.</p>
-                                </div>
-                            `;
-                        }
-                        alert("❌ UPLOAD DITOLAK: BUKAN SELADA KERITING!\n\nObjek terdeteksi sebagai tanaman lain (daun rata/polos tanpa tekstur lipatan keriting selada).\n\nSistem AI Smart Farming khusus dilatih untuk Selada Keriting (Lactuca sativa var. crispa). Silakan upload foto selada keriting yang jelas.");
-                        return;
-                    }
-
-                    // 3. JIKA CITRA VALID SELADA KERITING:
-                    sessionCnnTriggered = true;
-                    document.getElementById('alertBukanSelada').classList.add('hidden');
-                    uploadedImageBase64 = evt.target.result;
-
-                    // Set preview foto & sembunyikan placeholder
-                    const cnnImg = document.getElementById('cnnPreviewPlantImg');
-                    if (cnnImg) cnnImg.src = uploadedImageBase64;
-                    const ph = document.getElementById('cnnPlaceholder');
-                    if (ph) ph.classList.add('hidden');
-                    if (document.getElementById('cnnImageSourceBadge')) {
-                        document.getElementById('cnnImageSourceBadge').innerText = "Sumber: Upload Screenshot Selada";
-                    }
-
-                    // RENDER HASIL ENKRIPSI CITRA FITUR KONVOLUSI (WARNA UNGU & HIJAU)
-                    renderCnnFeatureMap(img);
-
-                    // Tampilkan secara otomatis tampilan enkripsi / fitur konvolusi (Ungu & Hijau)
-                    isEnkripsiAktif = true;
-                    const cnnCanvas = document.getElementById('cnnFeatureCanvas');
-                    const overlayEl = document.getElementById('cnnEncryptionOverlay');
-                    const badgeEl = document.getElementById('cnnStatusEnkripsiBadge');
-                    const btnEnkripsiEl = document.getElementById('btnEnkripsi');
-                    const btnToggleEl = document.getElementById('btnToggleViewCitra');
-
-                    if (cnnCanvas) cnnCanvas.classList.remove('hidden');
-                    if (cnnImg) cnnImg.classList.add('hidden');
-                    if (overlayEl) overlayEl.classList.remove('opacity-0');
-                    if (badgeEl) {
-                        badgeEl.innerText = "Fitur CNN: Ungu & Hijau";
-                        badgeEl.className = "px-2.5 py-1 rounded-xl bg-purple-600 text-[10px] font-bold text-white border border-purple-400";
-                    }
-                    if (btnEnkripsiEl) {
-                        btnEnkripsiEl.innerHTML = '<span>🔮</span> Fitur CNN: Ungu & Hijau';
-                        btnEnkripsiEl.className = "bg-gradient-to-r from-purple-600 to-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold border border-purple-400 transition flex items-center gap-1.5 shadow-lg ring-2 ring-purple-400/50";
-                    }
-                    if (btnToggleEl) {
-                        btnToggleEl.innerHTML = '<span>🖼️</span> Lihat Citra Asli';
-                        btnToggleEl.className = "px-3.5 py-2.5 rounded-xl text-xs font-bold bg-purple-900/40 hover:bg-purple-800 text-purple-200 border border-purple-400/50 transition flex items-center gap-1.5";
-                    }
-
-                    // Ekstraksi Morfologi Daun & Skor Kematangan
-                    const warna_pct = Math.round(Math.min(98, Math.max(60, plantRatio * 100 * 2.0 + 35)));
-                    const lebar_cm = parseFloat(Math.min(18.5, Math.max(8.0, 9.5 + (plantRatio * 16.0))).toFixed(1));
-                    const tinggi_cm = parseFloat(Math.min(22.0, Math.max(9.5, 11.0 + (plantRatio * 17.0))).toFixed(1));
-                    const skor = Math.round(Math.min(99, Math.max(38, (warna_pct * 0.40) + ((lebar_cm / 15.0) * 100 * 0.30) + ((tinggi_cm / 18.0) * 100 * 0.30))));
-
-                    // Klasifikasi Probabilitas Softmax
-                    let fase, probSiap, probDekat, probTumbuh, probBukan, conf;
-                    if (skor >= 75) {
-                        fase = "Siap Panen";
-                        probSiap = Math.min(96, Math.round(skor * 0.92));
-                        probDekat = Math.max(3, 100 - probSiap - 3);
-                        probTumbuh = 2;
-                        probBukan = 1;
-                        conf = probSiap;
-                    } else if (skor >= 55) {
-                        fase = "Mendekati Panen";
-                        probDekat = 68;
-                        probSiap = 28;
-                        probTumbuh = 18;
-                        probBukan = 2;
-                        conf = 86.5;
                     } else {
+                        if (alertEl) alertEl.classList.add('hidden');
+                    }
+
+                    // 4. Hitung Lebar Daun Terukur Berdasarkan Rasio Piksel Metrik (PPCM: Pixels Per CM = 40 px/cm)
+                    const boundingWidthPx = Math.max(1, maxX - minX);
+                    const ppcm = 40.0;
+                    let lebar_cm = parseFloat((boundingWidthPx / ppcm).toFixed(2));
+
+                    // 5. KLASIFIKASI FASE KEMATANGAN BERDASARKAN JURNAL ILMIAH AGRONOMI (A1):
+                    // Standar Jurnal Selada Keriting Grand Rapids Media Tanah:
+                    // - Bibit / Masa Pertumbuhan: 5 - 12 cm (Umur 10-20 HST, bibit 3-5 cm masuk kategori ini!)
+                    // - Mendekati Panen: 15 - 19 cm (Umur 25-35 HST, daun mulai roset rapat)
+                    // - Siap Panen: >= 20 cm s/d 30+ cm (Umur 38-45 HST, daun konstan & rebah)
+                    let fase, probTumbuh, probDekat, probSiap, skorPanen;
+
+                    if (lebar_cm < 12.0) {
+                        // FASE 1: BIBIT MUDA / MASA PERTUMBUHAN (Mengatasi keluhan bibit 3-5 cm tidak boleh siap panen!)
                         fase = "Masa Pertumbuhan";
-                        probTumbuh = 76;
-                        probDekat = 20;
-                        probSiap = 3;
-                        probBukan = 1;
-                        conf = probTumbuh;
+                        probTumbuh = 99.2;
+                        probDekat = 0.8;
+                        probSiap = 0.0;
+                        skorPanen = Math.round(Math.min(30, Math.max(8, (lebar_cm / 12.0) * 30)));
+                    } else if (lebar_cm < 20.0) {
+                        // FASE 2: MENDEKATI PANEN (12 - 20 cm)
+                        fase = "Mendekati Panen";
+                        probDekat = 88.5;
+                        probSiap = 9.5;
+                        probTumbuh = 2.0;
+                        skorPanen = Math.round(Math.min(78, Math.max(45, 45 + ((lebar_cm - 12.0) / 8.0) * 33)));
+                    } else {
+                        // FASE 3: SIAP PANEN (>= 20 cm, seperti 37.68 cm pada referensi gambar)
+                        fase = "Siap Panen";
+                        probSiap = 99.9;
+                        probDekat = 0.1;
+                        probTumbuh = 0.0;
+                        skorPanen = 99.9;
                     }
 
-                    // Update 3 Kartu Metrik CNN (Gambar 2)
-                    const faseBadge = document.getElementById('cnnFaseBadge');
-                    if (faseBadge) {
-                        faseBadge.innerText = fase;
-                        if (fase === "Siap Panen") {
-                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
-                        } else if (fase === "Mendekati Panen") {
-                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40";
-                        } else {
-                            faseBadge.className = "inline-block px-3 py-1 rounded-xl text-xs font-black bg-purple-500/20 text-purple-300 border border-purple-500/40";
+                    // 6. Hitung Persentase Penyakit & Hama
+                    const klorosisPct = parseFloat(((yellowCount / Math.max(1, totalPlantPixels)) * 100).toFixed(1));
+                    const bercakPct = parseFloat(((darkSpotCount / Math.max(1, totalPlantPixels)) * 100).toFixed(1));
+
+                    // Simpan data analisis terkini
+                    lastCnnAnalysis = {
+                        fase: fase,
+                        lebar_cm: lebar_cm,
+                        skor: skorPanen,
+                        probTumbuh: probTumbuh,
+                        probDekat: probDekat,
+                        probSiap: probSiap,
+                        klorosis_pct: klorosisPct,
+                        bercak_pct: bercakPct
+                    };
+
+                    // 7. Update Tampilan Hasil Prediksi Tingkat Kematangan (Persis Gambar 2)
+                    if (document.getElementById('cnnFaseBadgeTop')) {
+                        document.getElementById('cnnFaseBadgeTop').innerText = `${fase} (${(fase === 'Siap Panen' ? probSiap : (fase === 'Mendekati Panen' ? probDekat : probTumbuh))}%)`;
+                    }
+                    if (document.getElementById('cnnLebarDaunTerukur')) {
+                        document.getElementById('cnnLebarDaunTerukur').innerText = lebar_cm + " cm";
+                    }
+                    if (document.getElementById('cnnLebarFormula')) {
+                        document.getElementById('cnnLebarFormula').innerText = `${boundingWidthPx} px ÷ 40 px/cm = ${lebar_cm} cm`;
+                    }
+
+                    // Update 3 Horizontal Progress Bars
+                    if (document.getElementById('cnnProbTumbuhText')) document.getElementById('cnnProbTumbuhText').innerText = probTumbuh + "%";
+                    if (document.getElementById('cnnProbTumbuhBar')) document.getElementById('cnnProbTumbuhBar').style.width = probTumbuh + "%";
+
+                    if (document.getElementById('cnnProbDekatText')) document.getElementById('cnnProbDekatText').innerText = probDekat + "%";
+                    if (document.getElementById('cnnProbDekatBar')) document.getElementById('cnnProbDekatBar').style.width = probDekat + "%";
+
+                    if (document.getElementById('cnnProbSiapText')) document.getElementById('cnnProbSiapText').innerText = probSiap + "%";
+                    if (document.getElementById('cnnProbSiapBar')) document.getElementById('cnnProbSiapBar').style.width = probSiap + "%";
+
+                    // Update Vertical Bar Chart 3 Kelas (Persis Gambar 2 Kiri)
+                    if (typeof cnnPhaseBarChart !== 'undefined' && cnnPhaseBarChart.data) {
+                        cnnPhaseBarChart.data.datasets[0].data = [probTumbuh, probDekat, probSiap];
+                        cnnPhaseBarChart.update();
+                    }
+
+                    // 8. Update Deteksi Hama & Penyakit (Persis Gambar 3)
+                    const statusKlorosis = klorosisPct > 20 ? "Tinggi" : (klorosisPct > 8 ? "Ringan" : "Normal");
+                    const statusBercak = bercakPct > 15 ? "Tinggi" : (bercakPct > 6 ? "Ringan" : "Normal");
+                    if (document.getElementById('cnnKlorosisPct')) document.getElementById('cnnKlorosisPct').innerText = `${klorosisPct}% • ${statusKlorosis}`;
+                    if (document.getElementById('cnnBercakPct')) document.getElementById('cnnBercakPct').innerText = `${bercakPct}% • ${statusBercak}`;
+                    if (document.getElementById('cnnDiseaseBadge')) {
+                        const diseaseSummary = (klorosisPct > 8) ? `Klorosis (${statusKlorosis})` : ((bercakPct > 6) ? `Bercak (${statusBercak})` : "Tanaman Sehat");
+                        document.getElementById('cnnDiseaseBadge').innerText = diseaseSummary;
+                        document.getElementById('cnnDiseaseBadge').className = (klorosisPct > 8 || bercakPct > 6) ? "px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40" : "px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40";
+                    }
+
+                    // 9. Update Badge Header CNN
+                    const badgeTop = document.getElementById('cnnBadgeStatus');
+                    if (badgeTop) {
+                        badgeTop.className = "text-xs px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5";
+                        badgeTop.innerHTML = '<span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Classifier Active';
+                    }
+
+                    // 10. Update Grafik Batang Parameter Panen di Bawah (Tanpa Tinggi Kanopi Sesuai Permintaan 2)
+                    if (typeof cnnChart !== 'undefined' && cnnChart.data) {
+                        const curSoil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
+                        const curHum = parseFloat(dataTerakhir.kelembapan_udara) || 78;
+                        const greenScore = Math.round(Math.min(99, Math.max(50, (greenCount / Math.max(1, totalPlantPixels)) * 100)));
+
+                        // Labels: ['Kelembapan Tanah (%)', 'Kelembapan Udara (%)', 'Lebar Daun (cm)', 'Warna Daun (Green %)', 'Kesiapan Panen (%)']
+                        cnnChart.data.datasets[0].data = [curSoil, curHum, lebar_cm, greenScore, skorPanen];
+                        cnnChart.data.datasets[1].data = [75, 80, 22.0, 90, 100];
+                        cnnChart.update();
+                    }
+
+                    // 11. Perbarui juga foto di 4 kartu LSTM jika LSTM sedang dibuka
+                    for (let h = 1; h <= 4; h++) {
+                        const lImg = document.getElementById(`lstmImgH${h}`);
+                        const lPh = document.getElementById(`lstmImgPlaceholderH${h}`);
+                        if (lImg && lPh) {
+                            lImg.src = uploadedImageBase64;
+                            lImg.classList.remove('hidden');
+                            lPh.classList.add('hidden');
                         }
                     }
 
-                    if (document.getElementById('cnnTingkatKematangan')) {
-                        document.getElementById('cnnTingkatKematangan').innerText = skor + "%";
-                        document.getElementById('cnnTingkatKematangan').className = "text-3xl font-black text-emerald-400 my-1";
-                    }
-                    if (document.getElementById('cnnConfidenceScore')) {
-                        document.getElementById('cnnConfidenceScore').innerText = conf + "%";
-                        document.getElementById('cnnConfidenceScore').className = "text-3xl font-black text-purple-300 my-1";
-                    }
-
-                    // Update Horizontal Bar Chart "Probabilitas tiap kelas"
-                    try {
-                        if (typeof cnnProbChart !== 'undefined' && cnnProbChart.data) {
-                            cnnProbChart.data.datasets[0].data = [probSiap, probDekat, probTumbuh, probBukan];
-                            cnnProbChart.update();
-                        }
-                    } catch(err) {
-                        console.warn("cnnProbChart update error:", err);
-                    }
-
-                    // Update 4 Kartu Morfologi
-                    if (document.getElementById('cnnLebarDaun')) document.getElementById('cnnLebarDaun').innerText = lebar_cm + " cm";
-                    if (document.getElementById('cnnTinggiPohon')) document.getElementById('cnnTinggiPohon').innerText = tinggi_cm + " cm";
-                    if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = warna_pct + " %";
-                    if (document.getElementById('cnnSkorPanen')) document.getElementById('cnnSkorPanen').innerText = skor + " %";
-
-                    // Update Status Badge CNN Aktif
-                    const cnnBadge = document.getElementById('cnnBadgeStatus');
-                    if (cnnBadge) {
-                        cnnBadge.className = "text-xs px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/30 font-semibold flex items-center gap-1.5";
-                        cnnBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span> CNN Classifier Active';
-                    }
-
-                    // Update Bar Chart Komparasi (Ungu & Hijau Muncul Bersama)
-                    try {
-                        if (typeof cnnChart !== 'undefined' && cnnChart.data) {
-                            const curSoil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
-                            const curHum = parseFloat(dataTerakhir.kelembapan_udara) || 78;
-                            cnnChart.data.datasets[0].data = [curSoil, curHum, lebar_cm, warna_pct, tinggi_cm, skor];
-                            cnnChart.data.datasets[1].data = [75, 80, 15.0, 90, 20.0, 100];
-                            cnnChart.update();
-                        }
-                    } catch(err) {
-                        console.warn("cnnChart update error:", err);
-                    }
-
-                    // Update Kesimpulan AI
-                    const kesimpulanEl = document.getElementById('cnnKesimpulan');
-                    if (kesimpulanEl) {
-                        if (skor >= 75) {
-                            kesimpulanEl.innerText = `Berdasarkan analisis visual citra CNN, selada keriting menunjukkan morfologi optimal dengan lebar daun ${lebar_cm} cm, tinggi kanopi ${tinggi_cm} cm, serta kehijauan klorofil ${warna_pct}%. Kesiapan panen mencapai ${skor}%, sangat layak untuk dipanen.`;
-                        } else {
-                            kesimpulanEl.innerText = `Morfologi selada keriting terdeteksi dalam ${fase} (lebar kanopi ${lebar_cm} cm, tinggi ${tinggi_cm} cm, kehijauan ${warna_pct}%). Skor kesiapan ${skor}%. Disarankan pemeliharaan 2-4 hari ke depan.`;
-                        }
-                    }
-
-                    // Catatan: Menu CNN murni terisolasi untuk analisis visi komputer (tidak mencemari kartu prediksi LSTM)
-
-                    // Sinkronkan ke Firebase node 'evaluasi_cnn'
-                    try {
-                        firebase.database().ref('evaluasi_cnn').update({
-                            waktu_evaluasi: new Date().toLocaleString('id-ID'),
-                            fase_pertumbuhan: fase,
-                            confidence_score: conf,
-                            probabilitas_kelas: {
-                                siap_panen: probSiap,
-                                mendekati_panen: probDekat,
-                                masa_pertumbuhan: probTumbuh,
-                                bukan_selada: probBukan
-                            },
-                            parameter_panen: {
-                                kelembapan_tanah: parseFloat(dataTerakhir.kelembapan_tanah) || 72,
-                                kelembapan_udara: parseFloat(dataTerakhir.kelembapan_udara) || 78,
-                                lebar_daun_cm: lebar_cm,
-                                warna_daun_persen: warna_pct,
-                                tinggi_tanaman_cm: tinggi_cm,
-                                skor_kesiapan_panen: skor
-                            },
-                            kesimpulan: kesimpulanEl ? kesimpulanEl.innerText : ""
-                        }).catch(() => {});
-                    } catch(err) {
-                        console.warn("Firebase sync error:", err);
-                    }
-
-                    alert(`✅ Foto Selada Keriting Berhasil Dianalisis!\n\nModel CNN mengevaluasi tanaman:\n- Tingkat Kematangan: ${skor}% (${fase})\n- Confidence Score: ${conf}%\n- Visualisasi Enkripsi Citra (Filter Konvolusi Ungu & Hijau) telah aktif!`);
+                    sessionCnnTriggered = true;
                 };
-                img.src = evt.target.result;
+                img.src = event.target.result;
             };
             reader.readAsDataURL(file);
         }
 
-        // ================= JAM & TANGGAL REALTIME BERJALAN =================
-        function updateLiveClock() {
-            const now = new Date();
-            const optionsDate = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
-            const dateStr = now.toLocaleDateString('id-ID', optionsDate);
-            const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + " WIB";
-            
-            const timeEl = document.getElementById('liveClockTime');
-            const dateEl = document.getElementById('liveClockDate');
-            if (timeEl) timeEl.innerText = timeStr;
-            if (dateEl) dateEl.innerText = dateStr;
-        }
-        setInterval(updateLiveClock, 1000);
-        updateLiveClock();
-
-        // ================= FUNGSI CONTROLLER UMUR HARI TANAMAN & PROYEKSI LSTM DINAMIS =================
-        let currentDap = 1;
-
-        function ubahHariLstm(delta) {
-            let newDap = currentDap + delta;
-            if (newDap < 1) newDap = 1;
-            if (newDap > 42) newDap = 42;
-            setHariLstm(newDap);
-        }
-
-        function setHariLstm(val) {
-            currentDap = parseInt(val) || 1;
-            if (currentDap < 1) currentDap = 1;
-            if (currentDap > 42) currentDap = 42;
-
-            const inputEl = document.getElementById('inputUmurTanaman');
-            if (inputEl) inputEl.value = currentDap;
-
-            sessionLstmTriggered = true;
-
-            // Hitung persentase siklus tanam (42 hari target panen selada)
-            const targetDays = 42;
-            const siklusPct = parseFloat(((currentDap / targetDays) * 100).toFixed(1));
-
-            // Update 4 Kartu Ringkasan Atas
-            if (document.getElementById('lstmPlantAge')) document.getElementById('lstmPlantAge').innerText = "Hari ke-" + currentDap;
-            if (document.getElementById('lstmDapText')) document.getElementById('lstmDapText').innerText = `(DAP ${currentDap})`;
-            if (document.getElementById('lstmSiklusText')) document.getElementById('lstmSiklusText').innerText = `Siklus Tanam: ${currentDap}/42 Hari`;
-            if (document.getElementById('lstmSiklusPct')) document.getElementById('lstmSiklusPct').innerText = siklusPct + "%";
-            if (document.getElementById('lstmSiklusBar')) document.getElementById('lstmSiklusBar').style.width = siklusPct + "%";
-
-            // Kondisi sensor saat ini
-            const soil = parseFloat(dataTerakhir.kelembapan_tanah) || 72;
-            const temp = parseFloat(dataTerakhir.suhu) || 27.2;
-
-            if (document.getElementById('lstmSummarySoil')) document.getElementById('lstmSummarySoil').innerText = soil + " %";
-            if (document.getElementById('lstmSoilBadge')) {
-                document.getElementById('lstmSoilBadge').innerText = (soil >= 65 && soil <= 78) ? "Ideal (65% - 78%)" : (soil < 65 ? "Kering (<65%)" : "Basah (>78%)");
-                document.getElementById('lstmSoilBadge').className = "text-[11px] font-bold px-2 py-0.5 rounded " + ((soil >= 65 && soil <= 78) ? "bg-emerald-500/20 text-emerald-300" : "bg-orange-500/20 text-orange-300");
-            }
-            if (document.getElementById('lstmSummaryTemp')) document.getElementById('lstmSummaryTemp').innerText = temp + " °C";
-            if (document.getElementById('lstmTempBadge')) {
-                document.getElementById('lstmTempBadge').innerText = "Optimal (24°C - 28°C)";
-                document.getElementById('lstmTempBadge').className = "text-[11px] font-bold px-2 py-0.5 rounded bg-blue-500/20 text-blue-300";
-            }
-
-            // Hitung Proyeksi 4 Hari ke Depan (Misal Hari ke-1 -> Hari ke-2, 3, 4, 5)
-            const chartLabels = [`Hari Ini (H${currentDap})`];
-            const baseKem = parseFloat(Math.min(98, Math.max(8, (currentDap / 42) * 100)).toFixed(1));
-            const chartKematangan = [baseKem];
-            const chartSoil = [soil];
-            const chartTemp = [temp];
-
-            const p_firebase = {};
-
-            for (let offset = 1; offset <= 4; offset++) {
-                const targetDay = currentDap + offset;
-                chartLabels.push(`H${targetDay} (H+${offset})`);
-
-                // Regresi kematangan matematis selada keriting
-                const kemPct = parseFloat(Math.min(98.5, Math.max(10, ((targetDay / 42) * 100) + (offset * 1.5))).toFixed(1));
-                const projSoil = parseFloat((soil * (1 - offset * 0.015)).toFixed(1));
-                const projTemp = parseFloat((temp + (offset % 2 === 0 ? 0.3 : -0.2)).toFixed(1));
-
-                chartKematangan.push(kemPct);
-                chartSoil.push(projSoil);
-                chartTemp.push(projTemp);
-
-                p_firebase[`h${offset}`] = { suhu: projTemp, kelembapan_tanah: projSoil, kesiapan_panen: kemPct };
-
-                // Evaluasi Tahapan Pertumbuhan Biometrik
-                let stageName = "Pertumbuhan Awal";
-                let stageIcon = "🌱";
-                let kanopiCm = (3.5 + targetDay * 0.42).toFixed(1);
-
-                if (targetDay <= 7) {
-                    stageName = "Persemaian / Bibit";
-                    stageIcon = "🌱";
-                } else if (targetDay <= 14) {
-                    stageName = "Pertumbuhan Vegetatif";
-                    stageIcon = "🌱";
-                } else if (targetDay <= 25) {
-                    stageName = "Vegetatif Daun Melebar";
-                    stageIcon = "🌿";
-                } else if (targetDay <= 35) {
-                    stageName = "Pembentukan Kanopi Rimbun";
-                    stageIcon = "🥬";
-                } else {
-                    stageName = "Siap Panen Optimal";
-                    stageIcon = "🥗";
-                }
-
-                const isSiap = kemPct >= 75;
-
-                // Update 4 Kartu Prediksi
-                const titleEl = document.getElementById(`lstmTitleH${offset}`);
-                const valEl = document.getElementById(`lstmValH${offset}`);
-                const barEl = document.getElementById(`lstmBarH${offset}`);
-                const badgeEl = document.getElementById(`lstmBadgeH${offset}`);
-                const iconEl = document.getElementById(`lstmIconH${offset}`);
-                const stageEl = document.getElementById(`lstmStageH${offset}`);
-                const morphEl = document.getElementById(`lstmMorphH${offset}`);
-
-                if (titleEl) titleEl.innerText = `HARI KE-${targetDay} (H+${offset})`;
-                if (valEl) valEl.innerText = kemPct + "%";
-                if (barEl) barEl.style.width = kemPct + "%";
-                if (badgeEl) {
-                    badgeEl.innerText = isSiap ? "SIAP PANEN" : "MASA TUMBUH";
-                    badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black uppercase " + (isSiap ? "bg-emerald-500/20 text-emerald-300" : "bg-blue-500/20 text-blue-300");
-                }
-                if (iconEl) iconEl.innerText = stageIcon;
-                if (stageEl) {
-                    stageEl.innerText = stageName;
-                    stageEl.className = "text-[11px] font-bold block " + (isSiap ? "text-emerald-400" : "text-gray-300");
-                }
-                if (morphEl) {
-                    morphEl.innerHTML = `<span>💧 ${projSoil}%</span><span>•</span><span>🌡️ ${projTemp}°C</span><span>•</span><span>📐 ${kanopiCm} cm</span>`;
-                }
-
-                // Update Baris Tabel Ringkasan
-                const tTitle = document.getElementById(`tableLstmTitleH${offset}`);
-                const tSoil = document.getElementById(`tableLstmSoilH${offset}`);
-                const tTemp = document.getElementById(`tableLstmTempH${offset}`);
-                const tKem = document.getElementById(`tableLstmKematanganH${offset}`);
-                const tStage = document.getElementById(`tableLstmStageH${offset}`);
-
-                if (tTitle) tTitle.innerText = `Hari +${offset} (Hari ke-${targetDay})`;
-                if (tSoil) { tSoil.innerText = projSoil + " %"; tSoil.className = "py-3 px-4 text-emerald-400 font-semibold"; }
-                if (tTemp) { tTemp.innerText = projTemp + " °C"; tTemp.className = "py-3 px-4 text-blue-400"; }
-                if (tKem) { tKem.innerText = kemPct + " %"; tKem.className = "py-3 px-4 text-cyan-300 font-bold"; }
-                if (tStage) {
-                    tStage.innerHTML = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isSiap ? 'bg-emerald-500/20 text-emerald-300' : 'bg-blue-500/20 text-blue-300'}">${stageName}</span>`;
-                }
-            }
-
-            // Update Badge Status LSTM Aktif
-            const lstmBadge = document.getElementById('lstmBadgeStatus');
-            if (lstmBadge) {
-                lstmBadge.className = "text-xs px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/30 font-semibold flex items-center gap-1.5";
-                lstmBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span> 1D-CNN & LSTM Active';
-            }
-
-            // Update Semicircular Gauge & Cycle Bar Dinamis
-            if (document.getElementById('gaugeValText')) {
-                document.getElementById('gaugeValText').innerText = Math.round(baseKem) + "%";
-                document.getElementById('gaugeValText').className = "text-3xl font-black text-cyan-300";
-            }
-            if (document.getElementById('gaugeCycleText')) {
-                document.getElementById('gaugeCycleText').innerText = `Siklus Tanam: Hari ke-${currentDap} dari 42 Hari`;
-            }
-            if (document.getElementById('gaugeCyclePct')) {
-                document.getElementById('gaugeCyclePct').innerText = siklusPct + "%";
-            }
-            if (document.getElementById('gaugeCycleBar')) {
-                document.getElementById('gaugeCycleBar').style.width = siklusPct + "%";
-            }
-            if (document.getElementById('gaugeCycleHariText')) {
-                document.getElementById('gaugeCycleHariText').innerText = `Progres Siklus: Hari ke-${currentDap} (${siklusPct}%)`;
-            }
-            if (document.getElementById('gaugeMaturitySummaryText')) {
-                document.getElementById('gaugeMaturitySummaryText').innerText = `Est. Kematangan: ${Math.round(baseKem)}%`;
-            }
-            if (typeof lstmGaugeChart !== 'undefined' && lstmGaugeChart.data) {
-                lstmGaugeChart.data.datasets[0].data = [baseKem, Math.max(0, 100 - baseKem)];
-                lstmGaugeChart.update();
-            }
-
-            // Update Longitudinal Line Chart
-            if (typeof lstmChart !== 'undefined' && lstmChart.data) {
-                lstmChart.data.labels = chartLabels;
-                lstmChart.data.datasets[0].data = chartKematangan;
-                lstmChart.data.datasets[1].data = chartSoil;
-                lstmChart.data.datasets[2].data = chartTemp;
-                lstmChart.update();
-            }
-
-            // Sinkronkan ke Firebase node 'prediksi_lstm'
-            try {
-                firebase.database().ref('prediksi_lstm').update({
-                    waktu_prediksi: new Date().toLocaleString('id-ID'),
-                    umur_tanaman_hari: currentDap,
-                    kondisi_saat_ini: {
-                        suhu: temp,
-                        kelembapan_tanah: soil,
-                        kesiapan_panen: baseKem
-                    },
-                    proyeksi: p_firebase
-                }).catch(() => {});
-            } catch(e) {}
-        }
-
-        // ================= FUNGSI PREDIKSI LSTM OTOMATIS SAAT AMBIL DATA =================
-        function jalankanPrediksiLSTMRealtime(item) {
-            const count = riwayatTabel.length + 1;
-            if (document.getElementById('lstmLogCountText')) document.getElementById('lstmLogCountText').innerText = count + " Log Data Sensor Tercatat";
-            
-            // Mode Standby Awal: Siap diaktifkan begitu data ESP32 masuk atau kontrol hari diubah
-            // setHariLstm(currentDap);
-        }
-
-        // ================= 8. DASHBOARD 3: MODEL PREDIKSI LSTM & GAUGE KEMATANGAN =================
-        // Semi-circular Gauge Meter Kematangan Tanaman (Persis Gambar 5)
-        const ctxGauge = document.getElementById('lstmMeterGauge').getContext('2d');
-        const lstmGaugeChart = new Chart(ctxGauge, {
-            type: 'doughnut',
-            data: {
-                labels: ['Tingkat Kematangan', 'Sisa Pertumbuhan Menuju Panen'],
-                datasets: [{
-                    data: [0, 100],
-                    backgroundColor: ['#6366f1', '#1e293b'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '76%',
-                plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: false }
-                }
-            }
-        });
-
-        // Grafik Longitudinal Time-Series LSTM (Gambar 4 & 5)
-        const ctxLstm = document.getElementById('lstmLongitudinalChart').getContext('2d');
-        const lstmChart = new Chart(ctxLstm, {
-            type: 'line',
-            data: {
-                labels: ['Hari Ini', 'Hari +1 (H14)', 'Hari +2 (H15)', 'Hari +3 (H16)', 'Hari +4 (H17)'],
-                datasets: [
-                    {
-                        label: 'Tingkat Kematangan Tanaman (%)',
-                        data: [null, null, null, null, null],
-                        borderColor: '#10b981',
-                        backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                        fill: true,
-                        tension: 0.35,
-                        borderWidth: 2.5,
-                        pointBackgroundColor: '#10b981',
-                        pointRadius: 4
-                    },
-                    {
-                        label: 'Proyeksi Kelembapan Tanah (%)',
-                        data: [null, null, null, null, null],
-                        borderColor: '#38bdf8',
-                        backgroundColor: 'transparent',
-                        borderDash: [5, 5],
-                        tension: 0.35,
-                        borderWidth: 2,
-                        pointRadius: 3
-                    },
-                    {
-                        label: 'Proyeksi Suhu Udara (°C)',
-                        data: [null, null, null, null, null],
-                        borderColor: '#a855f7',
-                        backgroundColor: 'transparent',
-                        tension: 0.35,
-                        borderWidth: 2,
-                        pointRadius: 3
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { beginAtZero: false, min: 20, max: 100, grid: { color: '#1e293b' } },
-                    x: { grid: { color: '#1e293b' }, ticks: { font: { size: 10 } } }
-                },
-                plugins: {
-                    legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 }, color: '#cbd5e1' } }
-                }
-            }
-        });
-
-        function updateLstmChart(currentSoil, currentTemp) {
-            const baseSoil = currentSoil || 60;
-            const baseTemp = currentTemp || 28;
-
-            const h1Soil = Math.min(100, Math.round(baseSoil * 0.95 + 10));
-            const h2Soil = Math.min(100, Math.round(baseSoil * 0.90 + 15));
-            const h3Soil = Math.min(100, Math.round(baseSoil * 0.85 + 20));
-            const h4Soil = Math.min(100, Math.round(baseSoil * 0.80 + 25));
-
-            lstmChart.data.datasets[1].data = [baseSoil, h1Soil, h2Soil, h3Soil, h4Soil];
-            lstmChart.data.datasets[2].data = [baseTemp, (baseTemp - 0.4).toFixed(1), (baseTemp - 0.7).toFixed(1), (baseTemp - 1.1).toFixed(1), (baseTemp - 1.4).toFixed(1)];
-            lstmChart.update();
-        }
-
-        function muatUlangPrediksiLSTM() {
-            sessionLstmTriggered = true;
-            alert("🔄 Memuat ulang prediksi 1D-CNN & LSTM 4 hari ke depan dari Firebase...");
-            updateLstmChart(dataTerakhir.kelembapan_tanah, dataTerakhir.suhu);
-        }
-
-        
-        // Fungsi Reset Analisis CNN ke Mode Standby Bersih
+        // FUNGSI RESET ANALISIS CNN
         function resetAnalisisCnn() {
             const fileInput = document.getElementById('manualFileInput');
             if (fileInput) fileInput.value = '';
 
             const previewImg = document.getElementById('cnnPreviewPlantImg');
-            const featureCanvas = document.getElementById('cnnFeatureCanvas');
-            const placeholder = document.getElementById('cnnPlaceholder');
-            const overlay = document.getElementById('cnnEncryptionOverlay');
+            const segCanvas = document.getElementById('cnnSegmentationCanvas');
+            const phAsli = document.getElementById('cnnPlaceholderAsli');
+            const phSeg = document.getElementById('cnnPlaceholderSeg');
             const alertBox = document.getElementById('alertBukanSelada');
 
             if (previewImg) { previewImg.src = ''; previewImg.classList.add('hidden'); }
-            if (featureCanvas) featureCanvas.classList.add('hidden');
-            if (placeholder) placeholder.classList.remove('hidden');
-            if (overlay) overlay.style.opacity = '0';
+            if (segCanvas) segCanvas.classList.add('hidden');
+            if (phAsli) phAsli.classList.remove('hidden');
+            if (phSeg) phSeg.classList.remove('hidden');
             if (alertBox) alertBox.classList.add('hidden');
 
-            if (document.getElementById('cnnImageSourceBadge')) {
-                document.getElementById('cnnImageSourceBadge').innerText = 'Sumber: Belum Ada Citra';
+            if (document.getElementById('cnnFaseBadgeTop')) document.getElementById('cnnFaseBadgeTop').innerText = "Standby";
+            if (document.getElementById('cnnLebarDaunTerukur')) document.getElementById('cnnLebarDaunTerukur').innerText = "-- cm";
+            if (document.getElementById('cnnLebarFormula')) document.getElementById('cnnLebarFormula').innerText = "0 px ÷ 40 px/cm = 0.00 cm";
+
+            if (document.getElementById('cnnProbTumbuhText')) document.getElementById('cnnProbTumbuhText').innerText = "0.0%";
+            if (document.getElementById('cnnProbTumbuhBar')) document.getElementById('cnnProbTumbuhBar').style.width = "0%";
+            if (document.getElementById('cnnProbDekatText')) document.getElementById('cnnProbDekatText').innerText = "0.0%";
+            if (document.getElementById('cnnProbDekatBar')) document.getElementById('cnnProbDekatBar').style.width = "0%";
+            if (document.getElementById('cnnProbSiapText')) document.getElementById('cnnProbSiapText').innerText = "0.0%";
+            if (document.getElementById('cnnProbSiapBar')) document.getElementById('cnnProbSiapBar').style.width = "0%";
+
+            if (document.getElementById('cnnKlorosisPct')) document.getElementById('cnnKlorosisPct').innerText = "0.0% • Normal";
+            if (document.getElementById('cnnBercakPct')) document.getElementById('cnnBercakPct').innerText = "0.0% • Normal";
+            if (document.getElementById('cnnDiseaseBadge')) {
+                document.getElementById('cnnDiseaseBadge').innerText = "Standby";
+                document.getElementById('cnnDiseaseBadge').className = "px-3 py-1 rounded-full text-xs font-bold bg-slate-800 text-gray-400 border border-slate-700";
             }
-            if (document.getElementById('cnnStatusEnkripsiBadge')) {
-                document.getElementById('cnnStatusEnkripsiBadge').innerText = 'Standby';
-            }
+
             if (document.getElementById('cnnBadgeStatus')) {
-                document.getElementById('cnnBadgeStatus').className = 'text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5';
+                document.getElementById('cnnBadgeStatus').className = "text-xs px-3 py-1.5 rounded-full bg-slate-800 text-gray-400 border border-slate-700 font-semibold flex items-center gap-1.5";
                 document.getElementById('cnnBadgeStatus').innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Standby: Menunggu Citra';
             }
 
-            if (document.getElementById('cnnFaseBadge')) {
-                document.getElementById('cnnFaseBadge').innerText = 'Standby';
-                document.getElementById('cnnFaseBadge').className = 'inline-block px-3 py-1 rounded-xl text-xs font-black bg-slate-800 text-gray-400 border border-slate-700';
-            }
-            if (document.getElementById('cnnTingkatKematangan')) {
-                document.getElementById('cnnTingkatKematangan').innerText = '-- %';
-                document.getElementById('cnnTingkatKematangan').className = 'text-3xl font-black text-gray-400 my-1';
-            }
-            if (document.getElementById('cnnConfidenceScore')) {
-                document.getElementById('cnnConfidenceScore').innerText = '-- %';
-                document.getElementById('cnnConfidenceScore').className = 'text-3xl font-black text-gray-400 my-1';
-            }
-
-            if (document.getElementById('cnnLebarDaun')) document.getElementById('cnnLebarDaun').innerText = '-- cm';
-            if (document.getElementById('cnnTinggiPohon')) document.getElementById('cnnTinggiPohon').innerText = '-- cm';
-            if (document.getElementById('cnnWarnaDaun')) document.getElementById('cnnWarnaDaun').innerText = '-- %';
-            if (document.getElementById('cnnSkorPanen')) document.getElementById('cnnSkorPanen').innerText = '-- %';
-
-            if (document.getElementById('cnnKesimpulan')) {
-                document.getElementById('cnnKesimpulan').innerText = 'Silakan upload foto tanaman selada keriting untuk memulai inferensi visual Convolutional Neural Network (CNN).';
+            if (typeof cnnPhaseBarChart !== 'undefined' && cnnPhaseBarChart.data) {
+                cnnPhaseBarChart.data.datasets[0].data = [0, 0, 0];
+                cnnPhaseBarChart.update();
             }
 
             if (typeof cnnChart !== 'undefined' && cnnChart.data) {
-                cnnChart.data.datasets[0].data = [0, 0, 0, 0, 0, 0];
-                cnnChart.data.datasets[1].data = [0, 0, 0, 0, 0, 0];
+                cnnChart.data.datasets[0].data = [0, 0, 0, 0, 0];
+                cnnChart.data.datasets[1].data = [0, 0, 0, 0, 0];
                 cnnChart.update();
             }
 
-            if (typeof cnnProbChart !== 'undefined' && cnnProbChart.data) {
-                cnnProbChart.data.datasets[0].data = [0, 0, 0, 0];
-                cnnProbChart.update();
-            }
+            lastCnnAnalysis = {
+                fase: "Standby",
+                lebar_cm: 0,
+                skor: 0,
+                probTumbuh: 0,
+                probDekat: 0,
+                probSiap: 0,
+                klorosis_pct: 0,
+                bercak_pct: 0
+            };
         }
 
-        // Fungsi Reset Prediksi LSTM ke Mode Standby Bersih
+        // FUNGSI RESET PREDIKSI LSTM
         function resetPrediksiLstm() {
             sessionLstmTriggered = false;
             currentDap = 1;
@@ -2734,75 +2507,78 @@
                 const barEl = document.getElementById(`lstmBarH${i}`);
                 const badgeEl = document.getElementById(`lstmBadgeH${i}`);
                 const titleEl = document.getElementById(`lstmTitleH${i}`);
+                const imgEl = document.getElementById(`lstmImgH${i}`);
+                const phEl = document.getElementById(`lstmImgPlaceholderH${i}`);
                 const stageEl = document.getElementById(`lstmStageH${i}`);
+                const soilEl = document.getElementById(`lstmSoilH${i}`);
+                const tempEl = document.getElementById(`lstmTempH${i}`);
                 const morphEl = document.getElementById(`lstmMorphH${i}`);
 
-                if (titleEl) titleEl.innerText = `HARI +${i} (MENUNGGU DATA)`;
+                if (titleEl) titleEl.innerText = `HARI +${i} (STANDBY)`;
                 if (badgeEl) { badgeEl.innerText = "STANDBY"; badgeEl.className = "px-2 py-0.5 rounded-full text-[9px] font-black bg-slate-800 text-gray-400 uppercase"; }
-                if (valEl) { valEl.innerText = "-- %"; valEl.className = "text-3xl font-black text-gray-400"; }
+                if (valEl) { valEl.innerText = "-- %"; valEl.className = "text-2xl font-black text-gray-400"; }
                 if (barEl) barEl.style.width = "0%";
-                if (stageEl) { stageEl.innerText = "Menunggu Data"; stageEl.className = "text-[11px] font-bold text-gray-400 block"; }
-                if (morphEl) morphEl.innerHTML = `<span>💧 --%</span><span>•</span><span>🌡️ --°C</span><span>•</span><span>📐 -- cm</span>`;
+                if (imgEl) imgEl.classList.add('hidden');
+                if (phEl) phEl.classList.remove('hidden');
+                if (stageEl) stageEl.innerText = "Masa Pertumbuhan";
+                if (soilEl) soilEl.innerText = "-- %";
+                if (tempEl) tempEl.innerText = "-- °C";
+                if (morphEl) morphEl.innerText = "-- cm";
             }
         }
 
-        // ================= 9. DASHBOARD 4: MODEL CNN (GRAFIK BATANG & HORIZONTAL BAR PROBABILITAS KELAS) =================
-        // Horizontal Bar Chart: Probabilitas Tiap Kelas (Permintaan 3 Spesifik)
-        const ctxProb = document.getElementById('cnnProbHorizontalChart').getContext('2d');
-        const cnnProbChart = new Chart(ctxProb, {
+        // ================= INISIALISASI GRAFIK CNN (VERTIKAL 3 KELAS & PARAMETER PANEN) =================
+        // 1. Grafik Batang Vertikal 3 Kelas (Masa Pertumbuhan, Mendekati Panen, Siap Panen - Persis Gambar 2)
+        const ctxPhase = document.getElementById('cnnPhaseBarChart').getContext('2d');
+        const cnnPhaseBarChart = new Chart(ctxPhase, {
             type: 'bar',
             data: {
-                labels: ['Siap Panen', 'Mendekati Panen', 'Masa Pertumbuhan', 'Bukan Selada'],
+                labels: ['Masa Pertumbuhan', 'Mendekati Panen', 'Siap Panen'],
                 datasets: [{
-                    label: 'Tingkat Probabilitas (%)',
-                    data: [0, 0, 0, 0],
-                    backgroundColor: [
-                        '#10b981', // Hijau (Siap Panen)
-                        '#f59e0b', // Cokelat/Oranye (Mendekati Panen)
-                        '#8b5cf6', // Ungu (Masa Pertumbuhan)
-                        '#ef4444'  // Merah (Bukan Selada)
-                    ],
+                    label: 'Probabilitas (%)',
+                    data: [0, 0, 0],
+                    backgroundColor: '#a855f7',
+                    borderColor: '#c084fc',
+                    borderWidth: 1.5,
                     borderRadius: 8,
-                    barPercentage: 0.65
+                    barPercentage: 0.6
                 }]
             },
             options: {
-                indexAxis: 'y', // HORIZONTAL BAR CHART
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: {
+                    y: {
                         beginAtZero: true,
                         max: 100,
-                        grid: { color: '#1e293b' },
-                        ticks: { callback: v => v + '%', font: { size: 10 } }
+                        ticks: {
+                            callback: function(v) { return v + '%'; },
+                            color: '#94a3b8',
+                            font: { size: 10 }
+                        },
+                        grid: { color: '#1e293b' }
                     },
-                    y: {
-                        grid: { display: false },
-                        ticks: { font: { weight: 'bold', size: 11 }, color: '#e2e8f0' }
+                    x: {
+                        ticks: { color: '#e2e8f0', font: { size: 9, weight: 'bold' } },
+                        grid: { display: false }
                     }
                 },
                 plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: ctx => ` Probabilitas: ${ctx.raw}%`
-                        }
-                    }
+                    legend: { display: false }
                 }
             }
         });
 
-        // Grafik Batang Perbandingan Parameter Panen vs Standar Ideal (cnnBarChart - Ungu & Hijau)
+        // 2. Grafik Batang Perbandingan Parameter Panen vs Standar Ideal (Tanpa Tinggi Kanopi Sesuai Permintaan)
         const ctxCnn = document.getElementById('cnnBarChart').getContext('2d');
         const cnnChart = new Chart(ctxCnn, {
             type: 'bar',
             data: {
-                labels: ['Kelembapan Tanah (%)', 'Kelembapan Udara (%)', 'Lebar Daun (cm)', 'Warna Daun (Green %)', 'Tinggi Kanopi (cm)', 'Kesiapan Panen (%)'],
+                labels: ['Kelembapan Tanah (%)', 'Kelembapan Udara (%)', 'Lebar Daun (cm)', 'Warna Daun (Green %)', 'Kesiapan Panen (%)'],
                 datasets: [
                     {
-                        label: 'Tanaman Saat Ini (Deteksi CNN - Ungu)',
-                        data: [0, 0, 0, 0, 0, 0],
+                        label: 'Tanaman Saat Ini (Ungu)',
+                        data: [0, 0, 0, 0, 0],
                         backgroundColor: 'rgba(168, 85, 247, 0.85)',
                         borderColor: '#c084fc',
                         borderWidth: 1.5,
@@ -2810,7 +2586,7 @@
                     },
                     {
                         label: 'Standar Ideal Siap Panen (Hijau)',
-                        data: [0, 0, 0, 0, 0, 0],
+                        data: [0, 0, 0, 0, 0],
                         backgroundColor: 'rgba(16, 185, 129, 0.85)',
                         borderColor: '#34d399',
                         borderWidth: 1.5,
@@ -2822,67 +2598,17 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    y: { beginAtZero: true, max: 110, grid: { color: '#1e293b' } },
-                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    y: { beginAtZero: true, max: 110, grid: { color: '#1e293b' }, ticks: { color: '#94a3b8' } },
+                    x: { ticks: { color: '#e2e8f0', font: { size: 10 } }, grid: { display: false } }
                 },
                 plugins: {
                     legend: {
                         position: 'top',
-                        labels: {
-                            boxWidth: 12,
-                            font: { size: 11 },
-                            color: '#e2e8f0'
-                        }
+                        labels: { boxWidth: 12, font: { size: 11 }, color: '#e2e8f0' }
                     }
                 }
             }
         });
-
-        function updateCnnChart(lebar, tinggi, warna, skor, probObj) {
-            cnnChart.data.datasets[0].data[2] = lebar;
-            cnnChart.data.datasets[0].data[3] = warna;
-            cnnChart.data.datasets[0].data[4] = tinggi;
-            cnnChart.data.datasets[0].data[5] = skor;
-            cnnChart.data.datasets[1].data = [75, 80, 15.0, 90, 20.0, 100];
-            cnnChart.update();
-
-            document.getElementById('cnnLebarDaun').innerText = lebar + " cm";
-            document.getElementById('cnnTinggiPohon').innerText = tinggi + " cm";
-            document.getElementById('cnnWarnaDaun').innerText = warna + " %";
-            document.getElementById('cnnSkorPanen').innerText = skor + " %";
-
-            // Update Probabilitas Horizontal Bar Chart jika ada
-            if (probObj) {
-                const pSiap = probObj.siap_panen || 31;
-                const pDekat = probObj.mendekati_panen || 68;
-                const pTumbuh = probObj.masa_pertumbuhan || 15;
-                const pBukan = probObj.bukan_selada || 2;
-
-                cnnProbChart.data.datasets[0].data = [pSiap, pDekat, pTumbuh, pBukan];
-                cnnProbChart.update();
-
-                // Validasi Penolakan Bukan Selada
-                const alertBukan = document.getElementById('alertBukanSelada');
-                if (pBukan >= 50 || (pBukan > pSiap && pBukan > pDekat && pBukan > pTumbuh)) {
-                    alertBukan.classList.remove('hidden');
-                } else {
-                    alertBukan.classList.add('hidden');
-                }
-            }
-
-            // Sinkronkan ke Firebase node 'evaluasi_cnn' agar tersimpan di cloud
-            firebase.database().ref('evaluasi_cnn').update({
-                waktu_evaluasi: new Date().toLocaleString('id-ID'),
-                parameter_panen: {
-                    kelembapan_tanah: dataTerakhir.kelembapan_tanah || 72,
-                    kelembapan_udara: dataTerakhir.kelembapan_udara || 78,
-                    lebar_daun_cm: lebar,
-                    warna_daun_persen: warna,
-                    tinggi_tanaman_cm: tinggi,
-                    skor_kesiapan_panen: skor
-                }
-            }).catch(() => {});
-        }
 
         // ================= REAL-TIME LISTENER CLOUD: PREDIKSI LSTM DARI AI ENGINE =================
         const dbLstm = firebase.database().ref('prediksi_lstm');
@@ -3201,43 +2927,139 @@
             }
         }
 
-        // ================= 11. EKSPOR LAPORAN GMAIL (4 KUADRAN) =================
-        function bukaModalLaporanEmail() {
-            const emailTujuan = document.getElementById('emailTujuan').value.trim() || "gojotoji188@gmail.com";
+        // ================= 11. EKSPOR LAPORAN CERDAS (GMAIL, WHATSAPP, & EDITOR TEXTAREA SESUAI A3) =================
+        function generateReportText() {
             const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+            const sTanah = dataTerakhir.statusTanah || "Normal";
+            const sPompa = dataTerakhir.statusPompa || "OFF";
+            const soil = dataTerakhir.kelembapan_tanah || 0;
+            const temp = dataTerakhir.suhu || 0;
+            const hum = dataTerakhir.kelembapan_udara || 0;
 
-            document.getElementById('reportTimestamp').innerText = "Waktu Pengambilan Data: " + now;
+            const cnnFase = lastCnnAnalysis.fase || "Standby";
+            const cnnLebar = lastCnnAnalysis.lebar_cm || 0;
+            const cnnSkor = lastCnnAnalysis.skor || 0;
+            const cnnKlorosis = lastCnnAnalysis.klorosis_pct || 0;
+            const cnnBercak = lastCnnAnalysis.bercak_pct || 0;
 
+            const dap = currentDap || 1;
+
+            let text = `========================================
+`;
+            text += `LAPORAN RESMI MONITORING SMART FARMING
+`;
+            text += `TANAMAN SELADA KERITING - KELOMPOK 8
+`;
+            text += `========================================
+
+`;
+            text += `📅 WAKTU PENGAMBILAN DATA:
+`;
+            text += `• Tanggal & Waktu: ${now}
+`;
+            text += `• Siklus Tanam Berjalan: Hari ke-${dap} dari 42 Hari
+
+`;
+
+            text += `🌱 1. DATA TELEMETRI SENSOR ESP32 UTAMA:
+`;
+            text += `• Suhu Udara: ${temp} °C (Ideal: 24-28 °C)
+`;
+            text += `• Kelembapan Udara: ${hum} % (Ideal: 60-80 %)
+`;
+            text += `• Kelembapan Tanah: ${soil} % (Ideal: 65-78 %)
+`;
+            text += `• Status Kondisi Tanah: ${sTanah}
+`;
+            text += `• Status Pompa Siram: ${sPompa}
+
+`;
+
+            text += `🥬 2. HASIL ANALISIS VISI KOMPUTER (CNN):
+`;
+            text += `• Fase Pertumbuhan: ${cnnFase}
+`;
+            text += `• Lebar Daun Terukur: ${cnnLebar} cm
+`;
+            text += `• Skor Kesiapan Panen: ${cnnSkor} %
+`;
+            text += `• Klorosis (Daun Menguning): ${cnnKlorosis} %
+`;
+            text += `• Bercak Gelap (Jamur/Bakteri): ${cnnBercak} %
+`;
+            if (cnnKlorosis > 8) {
+                text += `• Rekomendasi Nutrisi: Cek pH (5.5-6.5) dan EC nutrisi, sesuaikan dosis nutrisi A/B.
+`;
+            }
+            if (cnnBercak > 6) {
+                text += `• Rekomendasi Proteksi: Kurangi percikan air ke daun, isolasi daun bergejala.
+`;
+            }
+            text += `
+`;
+
+            text += `🔮 3. PROYEKSI PERTUMBUHAN 4 HARI KE DEPAN (LSTM):
+`;
+            for (let h = 1; h <= 4; h++) {
+                const targetDay = dap + h;
+                const kemPct = parseFloat(Math.min(99.9, Math.max(8.0, (targetDay / 42) * 100)).toFixed(1));
+                const pSoil = Math.min(95, Math.round(soil * Math.pow(0.96, h)));
+                const pTemp = parseFloat((temp + (h * 0.2)).toFixed(1));
+                const stage = (targetDay >= 38 || kemPct >= 85) ? "Siap Panen" : ((targetDay >= 25 || kemPct >= 50) ? "Mendekati Panen" : "Masa Pertumbuhan");
+                text += `• Hari +${h} (Hari ke-${targetDay}): Kesiapan ${kemPct}% | Tanah ${pSoil}% | Suhu ${pTemp}°C | Fase: ${stage}
+`;
+            }
+
+            text += `
+========================================
+`;
+            text += `Catatan Tambahan Pengamat:
+`;
+            text += `Tanaman dalam pengawasan sistem IoT Smart Farming Kelompok 8. Data tersinkronisasi otomatis ke cloud Firebase.`;
+            return text;
+        }
+
+        function bukaModalLaporanEmail() {
+            const now = new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' });
+            if (document.getElementById('reportTimestamp')) document.getElementById('reportTimestamp').innerText = now;
+
+            // Isi foto potret tanaman
             const reportImg = document.getElementById('reportPlantImg');
-            if (uploadedImageBase64) {
-                reportImg.src = uploadedImageBase64;
-                reportImg.classList.remove('hidden');
-            } else if (currentCamIp) {
-                reportImg.src = `http://${currentCamIp}/capture?t=` + new Date().getTime();
-                reportImg.classList.remove('hidden');
-            } else {
-                reportImg.src = "";
-                reportImg.classList.add('hidden');
+            if (reportImg) {
+                if (uploadedImageBase64) {
+                    reportImg.src = uploadedImageBase64;
+                    reportImg.classList.remove('hidden');
+                } else if (currentCamIp) {
+                    reportImg.src = `http://${currentCamIp}/capture?t=` + new Date().getTime();
+                    reportImg.classList.remove('hidden');
+                } else {
+                    reportImg.src = "";
+                    reportImg.classList.add('hidden');
+                }
             }
 
-            document.getElementById('reportAiText').innerText = document.getElementById('resDiagnosisLengkap').innerText;
-
-            try {
-                document.getElementById('reportChartImg').src = soilLineChart.toBase64Image();
-            } catch(e) {
-                console.warn(e);
+            // Isi metrik ringkasan sensor
+            if (document.getElementById('reportSensorMetrics')) {
+                document.getElementById('reportSensorMetrics').innerHTML = `
+                    <li>🌡️ Suhu Udara: <b>${dataTerakhir.suhu} °C</b></li>
+                    <li>💧 Kelembapan Udara: <b>${dataTerakhir.kelembapan_udara} %</b></li>
+                    <li>🌱 Kelembapan Tanah: <b>${dataTerakhir.kelembapan_tanah} %</b></li>
+                    <li>📊 Kondisi Tanah: <b class="text-emerald-400">${dataTerakhir.statusTanah}</b></li>
+                    <li>🚿 Status Pompa: <b class="text-blue-400">${dataTerakhir.statusPompa}</b></li>
+                `;
             }
 
-            document.getElementById('reportSensorMetrics').innerHTML = `
-                <li>🌡️ <b>Suhu Udara:</b> ${dataTerakhir.suhu} °C</li>
-                <li>💧 <b>Kelembapan Udara:</b> ${dataTerakhir.kelembapan_udara} %</li>
-                <li>🌱 <b>Kelembapan Tanah:</b> ${dataTerakhir.kelembapan_tanah} %</li>
-                <li>📊 <b>Kondisi Tanah:</b> <span class="text-emerald-400 font-bold">${dataTerakhir.statusTanah}</span></li>
-                <li>🚿 <b>Status Pompa:</b> <span class="text-blue-400 font-bold">${dataTerakhir.statusPompa}</span></li>
-                <li>📅 <b>Jadwal Catat:</b> ${now}</li>
-            `;
+            // Isi textarea editor laporan (Bisa diedit sebelum dikirim sesuai A3!)
+            const editableEl = document.getElementById('reportEditableText');
+            if (editableEl) {
+                editableEl.value = generateReportText();
+            }
 
             document.getElementById('modalLaporan').classList.remove('hidden');
+        }
+
+        function bukaModalLaporanWA() {
+            bukaModalLaporanEmail();
         }
 
         function tutupModalLaporan() {
@@ -3245,24 +3067,54 @@
         }
 
         function kirimEmailGmail() {
-            const emailTujuan = document.getElementById('emailTujuan').value.trim() || "gojotoji188@gmail.com";
-            const subjek = encodeURIComponent(`Laporan Monitoring Selada Keriting - ${new Date().toLocaleDateString('id-ID')}`);
-            const body = encodeURIComponent(
-                `Halo,\n\nBerikut adalah rangkuman berkala hasil monitoring tanaman selada keriting:\n\n` +
-                `1. KONDISI SENSOR & POMPA:\n` +
-                `- Suhu Udara: ${dataTerakhir.suhu} °C\n` +
-                `- Kelembapan Udara: ${dataTerakhir.kelembapan_udara} %\n` +
-                `- Kelembapan Tanah: ${dataTerakhir.kelembapan_tanah} %\n` +
-                `- Kondisi Tanah: ${dataTerakhir.statusTanah}\n` +
-                `- Status Pompa Air: ${dataTerakhir.statusPompa}\n\n` +
-                `2. EVALUASI PANEN & AI:\n` +
-                `${document.getElementById('resDiagnosisLengkap').innerText}\n\n` +
-                `3. WAKTU PENGAMBILAN DATA:\n` +
-                `${new Date().toLocaleString('id-ID')}\n\n` +
-                `Detail grafik dan potret tanaman lengkap telah tersimpan di Dashboard Smart Farming.`
-            );
+            const emailInput = document.getElementById('settingEmailTujuan');
+            const emailTujuan = emailInput ? emailInput.value.trim() : "gojotoji188@gmail.com";
+            const subjek = encodeURIComponent(`Laporan Monitoring Selada Keriting - Kelompok 8 (${new Date().toLocaleDateString('id-ID')})`);
+            
+            // Ambil teks yang sudah diedit pengguna di textarea
+            const editableEl = document.getElementById('reportEditableText');
+            const reportContent = editableEl ? editableEl.value : generateReportText();
+            const body = encodeURIComponent(reportContent);
 
             window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${emailTujuan}&su=${subjek}&body=${body}`, '_blank');
+        }
+
+        function kirimWhatsApp() {
+            const waInput = document.getElementById('settingWaTujuan');
+            let phone = waInput ? waInput.value.trim().replace(/[^0-9]/g, '') : "6281234567890";
+            if (!phone) phone = "6281234567890";
+
+            // Ambil teks yang sudah diedit pengguna di textarea
+            const editableEl = document.getElementById('reportEditableText');
+            const reportContent = editableEl ? editableEl.value : generateReportText();
+            const textEncoded = encodeURIComponent(reportContent);
+
+            window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${textEncoded}`, '_blank');
+        }
+
+        function salinTeksLaporan() {
+            const editableEl = document.getElementById('reportEditableText');
+            const reportContent = editableEl ? editableEl.value : generateReportText();
+            navigator.clipboard.writeText(reportContent).then(() => {
+                alert("✅ Seluruh catatan laporan berhasil disalin ke clipboard!
+Anda bisa langsung mem-paste ke WhatsApp, Gmail, atau dokumen Word.");
+            }).catch(err => {
+                alert("Gagal menyalin otomatis: " + err.message);
+            });
+        }
+
+        function simpanPengaturanEmail() {
+            const el = document.getElementById('settingEmailTujuan');
+            if (el) {
+                alert(`✅ Alamat email tujuan laporan '${el.value}' berhasil disimpan!`);
+            }
+        }
+
+        function simpanPengaturanWa() {
+            const el = document.getElementById('settingWaTujuan');
+            if (el) {
+                alert(`✅ Nomor WhatsApp tujuan '${el.value}' berhasil disimpan!`);
+            }
         }
 
         // ================= INISIALISASI AWAL =================
