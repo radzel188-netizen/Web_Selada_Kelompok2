@@ -2201,24 +2201,15 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
 
             const reader = new FileReader();
             reader.onload = function(event) {
-                uploadedImageBase64 = event.target.result;
+                const imgDataUrl = event.target.result;
                 const img = new Image();
                 img.crossOrigin = "anonymous";
                 img.onload = function() {
-                    // 1. Tampilkan Gambar Asli
-                    const cnnImg = document.getElementById('cnnPreviewPlantImg');
-                    if (cnnImg) {
-                        cnnImg.src = uploadedImageBase64;
-                        cnnImg.classList.remove('hidden');
-                    }
-                    const phAsli = document.getElementById('cnnPlaceholderAsli');
-                    if (phAsli) phAsli.classList.add('hidden');
-
-                    // 2. Eksekusi Segmentasi Daun & Analisis Warna (ExG: Excess Green Index)
                     const segCanvas = document.getElementById('cnnSegmentationCanvas');
                     const phSeg = document.getElementById('cnnPlaceholderSeg');
-                    if (phSeg) phSeg.classList.add('hidden');
-                    if (segCanvas) segCanvas.classList.remove('hidden');
+                    const cnnImg = document.getElementById('cnnPreviewPlantImg');
+                    const phAsli = document.getElementById('cnnPlaceholderAsli');
+                    const alertEl = document.getElementById('alertBukanSelada');
 
                     segCanvas.width = img.naturalWidth || img.width || 400;
                     segCanvas.height = img.naturalHeight || img.height || 400;
@@ -2289,7 +2280,7 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
                             // Latar belakang atau lubang daun (gigitan hama)
                             if (minX < x && x < maxX && minY < y && y < maxY && r < 45 && g < 45 && b < 45) {
                                 holeCount++;
-                                data[i] = 56;    // #38bdf8 Biru Lubang
+                                data[i] = 56;    // #38bdf8 Biru Muda Lubang
                                 data[i+1] = 189;
                                 data[i+2] = 248;
                             } else {
@@ -2300,20 +2291,51 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
                             }
                         }
                     }
-                    ctx.putImageData(imgData, 0, 0);
 
-                    // 3. Validasi Apakah Ini Tanaman Selada Keriting
+                    // VALIDASI BOTANIK KANOPI DAUN: Tolak citra jika bukan tanaman selada keriting!
                     const totalPixels = segCanvas.width * segCanvas.height;
                     const plantCoverage = totalPlantPixels / totalPixels;
-                    const alertEl = document.getElementById('alertBukanSelada');
+                    const greenRatio = greenCount / Math.max(1, totalPlantPixels);
+                    const boxArea = Math.max(1, (maxX - minX) * (maxY - minY));
+                    const density = totalPlantPixels / boxArea;
 
-                    if (plantCoverage < 0.04 || totalPlantPixels < 400) {
+                    const isNotPlant = (
+                        plantCoverage < 0.08 || 
+                        totalPlantPixels < 1500 || 
+                        density < 0.10 || 
+                        (greenRatio < 0.60 && plantCoverage < 0.18)
+                    );
+
+                    if (isNotPlant) {
+                        // Tampilkan banner peringatan merah
                         if (alertEl) alertEl.classList.remove('hidden');
-                        alert("⚠️ Deteksi Ditolak: Citra yang diunggah tidak memiliki karakteristik kanopi tanaman selada keriting!");
+
+                        // Bersihkan pratinjau dan reset status CNN agar objek non-tanaman tidak dimuat
+                        resetAnalisisCnn(true);
+
+                        alert(`⚠️ Deteksi Ditolak!
+
+Citra yang diunggah terdeteksi BUKAN tanaman selada keriting (karakteristik kanopi hijau tidak dominan).
+
+Model CNN menolak memproses foto non-tanaman untuk menjaga akurasi evaluasi panen.
+
+Silakan unggah foto tanaman selada keriting yang valid.`);
                         return;
-                    } else {
-                        if (alertEl) alertEl.classList.add('hidden');
                     }
+
+                    // JIKA LOLOS VALIDASI BOTANIK TANAMAN:
+                    if (alertEl) alertEl.classList.add('hidden');
+
+                    uploadedImageBase64 = imgDataUrl;
+                    if (cnnImg) {
+                        cnnImg.src = uploadedImageBase64;
+                        cnnImg.classList.remove('hidden');
+                    }
+                    if (phAsli) phAsli.classList.add('hidden');
+
+                    ctx.putImageData(imgData, 0, 0);
+                    if (phSeg) phSeg.classList.add('hidden');
+                    if (segCanvas) segCanvas.classList.remove('hidden');
 
                     // 4. Hitung Lebar Daun Terukur Berdasarkan Rasio Piksel Metrik (PPCM: Pixels Per CM = 40 px/cm)
                     const boundingWidthPx = Math.max(1, maxX - minX);
@@ -2442,9 +2464,10 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
         }
 
         // FUNGSI RESET ANALISIS CNN
-        function resetAnalisisCnn() {
+        function resetAnalisisCnn(keepAlert = false) {
             const fileInput = document.getElementById('manualFileInput');
             if (fileInput) fileInput.value = '';
+            uploadedImageBase64 = "";
 
             const previewImg = document.getElementById('cnnPreviewPlantImg');
             const segCanvas = document.getElementById('cnnSegmentationCanvas');
@@ -2456,7 +2479,7 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
             if (segCanvas) segCanvas.classList.add('hidden');
             if (phAsli) phAsli.classList.remove('hidden');
             if (phSeg) phSeg.classList.remove('hidden');
-            if (alertBox) alertBox.classList.add('hidden');
+            if (alertBox && !keepAlert) alertBox.classList.add('hidden');
 
             if (document.getElementById('cnnFaseBadgeTop')) document.getElementById('cnnFaseBadgeTop').innerText = "Standby";
             if (document.getElementById('cnnLebarDaunTerukur')) document.getElementById('cnnLebarDaunTerukur').innerText = "-- cm";
