@@ -1714,7 +1714,7 @@
             tempLineChart.update();
 
             // Update Prediksi Model LSTM
-            updateLstmChart(soil, suhu);
+            if (typeof updateLstmChart === "function") updateLstmChart(soil, suhu);
         }
 
         // Listener Firebase RTDB (Real-time Cloud Sync)
@@ -2075,7 +2075,6 @@ Nama file: Selada_ESP32CAM_${ts}.jpg`);
         let uploadedImageBase64 = "";
         let isEnkripsiAktif = true;
         let sessionCnnTriggered = false;
-        let sessionLstmTriggered = false;
 
         // FUNGSI RENDER VISUALISASI ENKRIPSI CITRA FITUR KONVOLUSI CNN (WARNA UNGU & HIJAU)
         function renderCnnFeatureMap(imgSource) {
